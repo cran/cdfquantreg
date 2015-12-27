@@ -1,0 +1,101 @@
+---
+title: "cdfquantreg: An Introduction"
+author: "Michael Smithson, Yiyun Shou"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{cdf quantile regresson introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+The most popular two-parameter distribution for modeling random variables on the (0, 1) interval is the beta distribution (e.g., Ferrari and Cribari-Neto, 2004; Smithson and Verkuilen, 2006). Less commonly used are the Kumaraswamy (1980), Lambda, and Logit-Logistic distributions. The cdfquantreg package introduces a family of two-parameter distributions with support (0, 1) that may be especially useful for modeling quantiles, and that also sometimes out-performs the other distributions. 
+
+Tadakimalla and Johnson (1982) replace the standard normal distribution in Johnson's SB distribution  (Johnson, et al. 1995) with the standard logistic distribution, thus producing the logit-logistic distribution. A natural extension of this approach is to employ other transformations from (0, 1) to either the real line or nonnegative half of the real line, and expand the variety of standard distributions as well. The resulting family of distributions has the following useful properties: 
+
+1. Tractability, with explicit probability distribution functions (pdfs), cdfs, and quantiles. 
+2. They are amenable to both maximum likelihood and Bayesian estimation techniques. 
+3. They enable a wide variety of quantile regression models for random variables on the (0, 1) interval with predictors for both location and dispersion parameters, and simple interpretations of those parameters. 
+4. The family can model a wide variety of distribution shapes, with greater skew and kurtosis coverage than the beta or the Kumaraswamy. 
+5. Explicit quantiles render random generation of variates straightforward. 
+
+# The Distribution Family 
+Let $G(x,\mu,\sigma)$ denote a cdf with support (0, 1), a real-valued location parameter $\mu$ and positive scale parameter $\sigma$. $G$ is defined as
+
+$G(x,\mu,\sigma) = F[U(H^{-1}(x),\mu,\sigma)]$,
+
+where $F$ is a standard cdf with support $D_1$, $H$ is a standard invertible cdf with support $D_2$, and $U: D_1 \rightarrow D_2$ is an appropriate transform for imposing the location and scale parameters. $D_1$ and $D_2$ are either $[-\infty,\infty]$ or $[0,\infty]$.  If $D_1 = [-\infty,\infty]$ then
+
+$U(x,\mu,\sigma) = (x - \mu)/\sigma$,
+
+and if $D_1 = [0,\infty]$ then
+
+$U(x,\mu,\sigma) = (e^{- \mu}x)^{1/\sigma}$.
+
+The members of this family that are included in this package have $D_1 = D_2 = [-\infty,\infty]$.
+
+If $F$ is invertible, then the distribution has an explicit quantile. If $G$ is differentiable then it has an explicit pdf. All of the distributions in this package share both properties. 
+
+There is a relation between pairs of these distributions in which $F$ and $H$ exchange roles. These pairs are "quantile-duals" of one another in the sense that one's cdf is the other's quantile, with the appropriate parameterization. We name these distributions with the nomenclature F-H (e.g., Cauchit-Logistic and Logit-Cauchy). See cdfquantreg_family for a list of the distributions included in this package. 
+
+## Useful Properties
+
+1. The probability distribution functions (pdfs) $g(x,\mu,\sigma )$ are self-dual in this respect: $g\left( {x,\mu ,\sigma } \right) = g\left( {1 - x, - \mu ,\sigma } \right)$.
+2. When $H$ = $F$ the distribution includes the uniform distribution as a special case. Otherwise, all distributions are symmetrical at $x = \frac{1}{2}$. 
+3. For all distributions in this package, the median is a function solely of the location parameter $\mu$.  
+4. Simple functions of particular quantiles yield expressions solely in the scale parameter $\sigma$.
+5. Maximum likelihood estimation is feasible for all distributions in this package.
+6. Models with predictors of both location and scale (dispersion) parameters can be estimated. 
+
+Further details and more general characterizations of this distribution family are available in Smithson and Shou (2015). 
+
+## Example
+
+An example is the Logit-Cauchy
+distribution. This distribution employs the Logistic cdf $F\left( z \right) =
+\frac{1}{{1 + {{\rm{e}}^{ - z}}}}$ and the Cauchy cdf $H\left( z \right) =
+\frac{{{{\tan }^{ - 1}}(z)}}{\pi } + \frac{1}{2}$. Inverting $H$ and
+applying it and $F$ to the equation above for $G(x,\mu,\sigma)$ gives
+
+$G\left( {x,\mu ,\sigma } \right) = \frac{1}{{1 + \exp \left( {\frac{{\mu  + \cot
+(\pi x)}}{\sigma }} \right)}}$,
+
+and differentiating it gives the pdf
+
+$g\left( {x,\mu ,\sigma } \right) = \frac{{\pi {{\csc }^2}(\pi x){e^{\frac{{\mu 
++ \cot (\pi x)}}{\sigma }}}}}{{\sigma {{\left( {{e^{\frac{{\mu  + \cot (\pi
+x)}}{\sigma }}} + 1} \right)}^2}}}$.
+
+Inverting $F$ and the appropriate substitutions give us the quantile:
+
+${G^{ - 1}}\left( {\gamma ,\mu ,\sigma } \right) = \frac{{{{\tan }^{ - 1}}\left(
+{\sigma \left( {\frac{\mu }{\sigma } - \log \left( {\frac{1}{\gamma } - 1}
+\right)} \right)} \right)}}{\pi } + \frac{1}{2}$.
+
+Note that, as described in property 3 above, 
+
+${G^{ - 1}}\left( {\frac{1}{2} ,\mu ,\sigma } \right) = \frac{\tan ^{-1}(\mu )}{\pi }+\frac{1}{2}$,
+
+and therefore 
+
+$\mu = \tan \left(\pi Q\left( \frac{1}{2} \right)-\frac{1}{2}\right)$,
+
+where $Q(\gamma)$ denotes the quantile at $\gamma$. Likewise, as in property 4, 
+
+$G^{ - 1}\left(\frac{e}{e+1},\mu ,\sigma \right) = \frac{\tan ^{-1}(\mu +\sigma )}{\pi }+\frac{1}{2}$,
+
+so that
+
+$\sigma = \tan \left(\pi  \left(Q\left(\frac{e}{e+1} \right)-\frac{1}{2}\right)\right)-\tan\left[\pi  \left(Q\left(\frac{1}{2} \right)-\frac{1}{2}\right)\right]$.
+
+# References
+* Ferrari, S., & Cribari-Neto, F. (2004). Beta regression for modelling rates and proportions. Journal of Applied Statistics, 31(7), 799-815.
+
+* Johnson, N. L., Kotz, S., & Balakrishnan, N (1995). Continuous Univariate Distributions, Vol. 2 (2nd ed.), Wiley, New York, NY.
+
+* Kumaraswamy, P. (1980). A generalized probability density function for double-bounded random processes. Journal of Hydrology, 46(1), 79-88.
+
+* Smithson and Shou (2015)
+
+* Smithson, M., & Verkuilen, J. (2006). A better lemon squeezer? Maximum-likelihood regression with beta-distributed dependent variables. Psychological methods, 11(1), 54-71.
+
+* Tadikamalla, P. R., & Johnson, N. L. (1982). Systems of frequency curves generated by transformations of logistic variables. Biometrika, 69(2), 461-465.
+

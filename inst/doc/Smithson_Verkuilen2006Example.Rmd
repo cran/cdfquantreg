@@ -1,0 +1,186 @@
+---
+title: "cdfquantreg: Smithson & Verkuilen data example"
+author: "Yiyun Shou, Michael Smithson"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Juror & Stree data example}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+# library(devtools)
+# load_all()
+```
+
+# Example 1: Juror Judgment Study
+
+Deady (2004) studied naive mock-jurors' responses to two types of vertic setups. One has two options only (guilt vs. acquittal) and the other has an additional option "not proven". 
+The researcher also investigated the influence of conflicting testimonial evidence on judgments. 
+The study had 2 (two vs. three-option verdict) by 2 (conflict vs. no-conflict conditons) factorial design. The dependent variable was the juror’s degree of confidence in her or his verdict, expressed as a percentage rating (0–100). The data included the responses from 104 first-year psychology students at The Australian National University. 
+
+## About the data 
+
+The data included three variables.
+
+* `crc99`: The ratings of confidence levels with rescaling into the (0, 1) interval to avoide 1 and 0 values.
+* `vert`: was the dummy variable for coding the conditions of verdict types, whereas 
+    + `verdict = -1` indcates responses from the two-option verdict condition and 
+    + `verdict = 1` indcates responses from the three-option verdict condition.
+* `confl`: was the dummy variable for coding the conflict conditions, whereas 
+    + `confl = -1` indcates the no-conflict condition and 
+    + `confl = 1` indcates the conflict condition.
+
+
+```{r}
+library(cdfquantreg)
+data(cdfqrExampleData)
+#Quick overview of the variables
+rbind(head(JurorData,4),tail(JurorData,4))
+```
+
+
+## Model fit example
+
+The hypothesis was that **the conflicting evidence would lower juror confidence and that the three-option condition would increase it.**
+
+That is, it was expected that there would be significant interaction effect between `vert` and `confl` when predicting `crc99`. To test the hypothesis, we fit a a model in cdfquantreg by using the T2-T2 distribution as a demonstration. 
+
+```{r fit}
+# We use T2-T2 distribution
+fd <- "logit" # The parent distribution
+sd <- "logistic" # The child distribution
+
+# Fit the null model
+fit_null <- cdfquantreg(crc99 ~ 1 | 1, fd, sd, data = JurorData)
+
+# Fit a main effect model
+fit1 <- cdfquantreg(crc99 ~ vert + confl | 1, fd, sd, data = JurorData)
+
+# Fit the full model
+fit2 <- cdfquantreg(crc99 ~ vert*confl | 1, fd, sd, data = JurorData)
+
+anova(fit1,fit2)
+
+# Obtain the statistics for the null model
+summary(fit2)
+```
+
+The results were similar to the ones outlined in Smithson & Verkuilen (2006). There was no signficant interaction between `vert` and `confl` in the location submodel.
+
+Next, we replicate the steps in Smithson & Verkuilen by fitting models with the dispersion submodel, expanding the formula to `crc99 ~ vert*confl |vert + confl` and `crc99 ~ vert*confl |vert*confl`.
+
+```{r fit_dismod}
+# Fit a main effect model
+fit3 <- cdfquantreg(crc99 ~ vert*confl |vert + confl, fd, sd, data = JurorData)
+
+# Fit the full model
+fit4 <- cdfquantreg(crc99 ~ vert*confl |vert*confl, fd, sd, data = JurorData)
+
+anova(fit2, fit3, fit4)
+
+# Obtain the statistics for the null model
+summary(fit4)
+```
+
+
+As shown in the results, the number of options had signficant effect on the dispersion of the distribution. While whether the evidence is conflict or not does not influence the dispersion. There was no signficant interaction between the two predictors.
+
+The following figures shows how well the model fit the actual response distributions.
+
+```{r,fig.height=4, fig.width=4}
+# Compare the empirical distribution and the fitted values distribution
+breaks <- seq(0,1,length.out =11)
+
+plot(fit4,xlim = c(0.1,1),ylim = c(0,3), breaks = breaks)
+```
+
+#### Fit predicted values with responses in each condition
+
+```{r,fig.height= 7, fig.width= 7}
+fit4a <- cdfquantreg(crc99 ~ 1 |1, fd, sd, data = subset(JurorData, vert ==-1&confl==-1))
+fit4b <- cdfquantreg(crc99 ~ 1 |1, fd, sd, data = subset(JurorData, vert ==-1&confl==1))
+fit4c <- cdfquantreg(crc99 ~ 1 |1, fd, sd, data = subset(JurorData, vert ==1&confl==-1))
+fit4d <- cdfquantreg(crc99 ~ 1 |1, fd, sd, data = subset(JurorData, vert ==1&confl==1))
+
+par(mfrow=c(2,2),mar = c(2,3,2,2))
+plot(fit4a,xlim = c(0.1,1),ylim = c(0,3), breaks = breaks, main = "Two-Option and No Conflict")
+plot(fit4b,xlim = c(0.1,1),ylim = c(0,3), breaks = breaks, main = "Two-Option and Conflict")
+plot(fit4c,xlim = c(0.1,1),ylim = c(0,3), breaks = breaks, main = "Three-Option and No Conflict")
+plot(fit4d,xlim = c(0.1,1),ylim = c(0,3), breaks = breaks, main = "Three-Option and Conflict")
+```
+
+
+### Model diagosis
+
+We can check the fitted values as well as model residuals.
+Currently three types of residuals are avaiable: raw residuals, Pearson's residuals and deviance residuals.
+
+```{r plotfit,fig.height=9, fig.width= 9}
+par(mfrow=c(2,2),mar = c(2,3,2,2))
+# Plot the fitted values
+plot(fitted(fit4, "full"), main = "Fitted Values")
+
+# Check Residuals
+plot(residuals(fit4, "raw"), main = "Raw Residuals")
+
+plot(residuals(fit4, "pearson"), main = "Pearson Residuals")
+
+plot(residuals(fit4, "deviance"), main = "Deviance Residuals")
+```
+
+# Example 2: Stress-Anxiety data introduction
+
+A second example is a data from a study that investigates the relationship between stress and anxiety. The data includes 166 nonclinical women in Townsville, Queensland, Australia. The variables are linearly transformed scales from the Depression Anxiety Stress Scales, which normally range from 0 to 42. 
+
+## About the data 
+
+The scores of the two continuous variables `Anxiety` and `Stress` were firstly linearly transformed to the (0, 1) interval. The figure below shows kernel density estimates for the two variables. As one would expect in a nonclinical population, there is an active floor for each variable, with this being most pronounced for anxiety. It should be clear that anxiety is strongly skewed. 
+
+```{r, fig.height= 4, fig.width= 4}
+head(AnxStrData, 8)
+
+plot(density(AnxStrData$Anxiety), main = "Anxiety and Stress")
+lines(density(AnxStrData$Stress), lty = 2)
+```
+
+Heteroscedasticity is to be expected, as theoretically it is likely that someone experiencing anxiety will also experience a great deal of stress, but the converse is not true, because many people might experience stress without being anxious. That is, stress could be thought of as a necessary but not sufficient condition for anxiety. If so, the relationship between the variables is not one-to-one plus noise, as predicted by ordinary homoscedastic regression, but instead is many-to-one plus noise, which involves heteroscedasticity. 
+
+## Model fit
+
+We can fit the cdf model the same way as we did for Example data set 1. 
+
+
+```{r fit2}
+# Fit the null model
+fit_null <- cdfquantreg(Anxiety ~ 1 | 1, fd, sd, data = AnxStrData)
+
+# Fit the location model
+fit1 <- cdfquantreg(Anxiety ~ Stress | 1, fd, sd, data = AnxStrData)
+
+# Fit the full model
+fit2 <- cdfquantreg(Anxiety ~ Stress | Stress, fd, sd, data = AnxStrData)
+
+anova(fit_null,fit1, fit2)
+
+summary(fit2)
+```
+
+It is clear that `Stress` influenced both the mean and the dispersion of scores on `anxiety`. 
+
+
+### Model diagosis
+
+```{r plotfit2, fig.height= 4, fig.width= 4}
+# Compare the empirical distribution and the fitted values distribution
+plot(fit2,xlim = c(0,1),ylim = c(0,10), nbins = 5)
+
+# Plot the fitted values
+plot(fitted(fit2, "full"))
+
+# Check Residuals
+plot(residuals(fit2, "raw"))
+
+```
+
+

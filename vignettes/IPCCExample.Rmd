@@ -1,0 +1,66 @@
+---
+title: "cdfquantreg: IPCC data example"
+author: "Yiyun Shou, Michael Smithson"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{IPCC data example}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r, echo=FALSE,message=FALSE, warning=FALSE}
+#devtools::load_all()
+```
+
+# IPCC Study
+The fourth Intergovernmental Panel on Climate Change (IPCC) report utilizes verbal phrases such as "likely" and "unlikely" to describe uncertainties in climate science (e.g., "The Greenland ice sheet and other Arctic ice fields likely contributed no more than 4 m of the observed sea level rise."). The IPCC report also provided guidelines to enable readers to interpret these phrases as numerical intervals (e.g., "likely" was characterized as referring to probabilities between .66 and 1). 
+
+Budescu, Broomell, and Por (2009) conducted an experimental study of lay interpretations of these phrases, using 13 sentences from the IPCC report. They asked participants to provide lower, "best", and upper numerical estimates of the probabilities to which they believed each sentence referred. They found that participants' "best" estimates were nearer to the middle of the [0, 1] interval than the IPCC guidelines. In a reanalysis of their data using beta regression, Smithson, et al. (2012) reported that this tendency was stronger for negatively-worded phrases (e.g., "unlikely") than for positively-worded phrases. Moreover, they found greater dispersion of responses (i.e., less consensus) for negative than for positive phrases. 
+
+# About the data 
+The IPCC data-set comprises the lower, best, and upper estimates for the phrases "likely" and "unlikely" in six IPCC report sentences. There are 18 observations for each of 223 participants, consisting of lower, best, and upper estimates for 6 sentences. The "likely" sentence data are in the rows where max(`Q4`, `Q5`, `Q6`) = 1, and the "unlikely" sentence data are in the rows where max(`Q8`, `Q9`, `Q10`) = 1. A variable named `valence` takes a value of 1 for "likely" and 0 for "unlikely". Lower, best, and upper estimates are identified by the variables "mid" and "high", such that both are 0 for the lower estimates, `mid = 1` and `high = 0` for the best estimates, and `mid = 1` and `high = 1` for the upper estimates. 
+
+The raw estimates themselves are the variable named `prob`, and `probm` is a transformation that shifts prob away from the boundary values of 0 and 1. Thus, probm is the appropriate dependent variable for a cdfquantreg model. 
+
+The remaining three variables (`treat`, `narrow`, and `wide`) represent the experimental conditions in the Budescu et al. study. The "treat" variable codes two conditions: `treat = 0` if participants were given a table with the IPCC guidelines in it, and `treat = 1` if the IPCC guideline was included in the sentence itself. Budescu, et al. (2009) reported that embedding the guideline in the sentence caused respondents' estimates to be less regressive and closer to the IPCC guidelines. 
+
+# Model fit
+
+```{r fit}
+# middle
+library(cdfquantreg)
+data(cdfqrExampleData)
+ipcc_mid <- subset(IPCC, mid == 1 & high == 0)
+
+# We use T2-T2 distribution
+fd <- "t2"
+sd <- "t2"
+
+# Fit the null model
+fit_null <- cdfquantreg(probm ~ 1 | 1, fd, sd, data = ipcc_mid)
+
+# Fit the target model
+fit <- cdfquantreg(probm ~ valence | valence, fd, sd, data = ipcc_mid)
+
+# Obtain the statistics for the null model
+summary(fit)
+```
+
+### Model diagosis
+
+```{r plotfit}
+# Compare the empirical distribution and the fitted values distribution
+plot(fit)
+
+# Plot the fitted values
+plot(fitted(fit, "full"))
+
+# Check Residuals
+plot(residuals(fit, "raw"))
+```
+
+# References
+
+* Budescu, D. V., Broomell, S., & Por, H. H. (2009). Improving communication of uncertainty in the reports of the Intergovernmental Panel on Climate Change. Psychological science, 20(3), 299-308.
+
+* Smithson, M., Budescu, D. V., Broomell, S. B., & Por, H. H. (2012). Never say "not": Impact of negative wording in probability phrases on imprecise probability judgments. International journal of approximate reasoning, 53(8), 1262-1270.
