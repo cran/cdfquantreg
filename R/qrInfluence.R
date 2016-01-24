@@ -25,7 +25,7 @@
 #' @method influence cdfqr
 #' @import graphics
 #' @export
-influence.cdfqr <- function(model, method = "dfbeta",type = c("full","location", "precision"), 
+influence.cdfqr <- function(model, method = "dfbeta",type = c("full","location", "dispersion"), 
                             what = "full",plot=FALSE, ...) {
   # - dfbeta residuals (for influence check)
  
@@ -50,7 +50,7 @@ influence.cdfqr <- function(model, method = "dfbeta",type = c("full","location",
 #' @method dfbeta cdfqr
 #' @export
 #' @rdname influence.cdfqr
-dfbeta.cdfqr <- function(model, type = c("full","location", "precision"), 
+dfbeta.cdfqr <- function(model, type = c("full","location", "dispersion"), 
                           what = "full", ...) {
   dfbetas(model, type = type, what = what, ...)
   }
@@ -58,7 +58,7 @@ dfbeta.cdfqr <- function(model, type = c("full","location", "precision"),
 #' @method dfbetas cdfqr
 #' @export
 #' @rdname influence.cdfqr
-dfbetas.cdfqr <- function(model, type = c("full","location", "precision"), what = "full", ...) {
+dfbetas.cdfqr <- function(model, type = c("full","location", "dispersion"), what = "full", ...) {
   # - dfbeta residuals (for influence check)
   type <- match.arg(type)
   
@@ -93,7 +93,7 @@ dfbetas.cdfqr <- function(model, type = c("full","location", "precision"), what 
   
   colnames(betas) <- names(coef(model))
   betas_location <-betas[, 1:k_lm] 
-  betas_precision <-betas[, (k_lm+1):ncol(betas)] 
+  betas_dispersion <-betas[, (k_lm+1):ncol(betas)] 
   
   # If only a specific subset of parameters is needed, extract such subsets
   if (what != "full") {
@@ -103,26 +103,26 @@ dfbetas.cdfqr <- function(model, type = c("full","location", "precision"), what 
       betas_location<- betas_location[, what]
     }else{betas_location <- NULL}
   
-    precind <- pmatch(colnames(betas_precision), what, duplicates.ok = TRUE) 
+    precind <- pmatch(colnames(betas_dispersion), what, duplicates.ok = TRUE) 
     
     if(length(na.omit(precind))!=0) {
-      betas_precision<- betas_precision[, what]
-    }else{betas_precision <- NULL}
+      betas_dispersion<- betas_dispersion[, what]
+    }else{betas_dispersion <- NULL}
     
   }
   
   #Rename the two submodels' paraters to distinguish the two submodels
   colnames(betas_location) <- paste("lm.",colnames(betas_location),sep="")
-  colnames(betas_precision) <- paste("pm.",colnames(betas_precision),sep="")
+  colnames(betas_dispersion) <- paste("pm.",colnames(betas_dispersion),sep="")
   
-  betas<-cbind(betas_location, betas_precision)
+  betas<-cbind(betas_location, betas_dispersion)
   
   betas <- switch(type, full = {
     betas
   }, location = {
     betas_location
-  },  precision = {
-    betas_precision
+  },  dispersion = {
+    betas_dispersion
   })
   
   return(betas)

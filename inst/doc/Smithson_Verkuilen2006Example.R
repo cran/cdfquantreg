@@ -45,18 +45,6 @@ breaks <- seq(0,1,length.out =11)
 
 plot(fit4,xlim = c(0.1,1),ylim = c(0,3), breaks = breaks)
 
-## ----fig.height= 7, fig.width= 7-----------------------------------------
-fit4a <- cdfquantreg(crc99 ~ 1 |1, fd, sd, data = subset(JurorData, vert ==-1&confl==-1))
-fit4b <- cdfquantreg(crc99 ~ 1 |1, fd, sd, data = subset(JurorData, vert ==-1&confl==1))
-fit4c <- cdfquantreg(crc99 ~ 1 |1, fd, sd, data = subset(JurorData, vert ==1&confl==-1))
-fit4d <- cdfquantreg(crc99 ~ 1 |1, fd, sd, data = subset(JurorData, vert ==1&confl==1))
-
-par(mfrow=c(2,2),mar = c(2,3,2,2))
-plot(fit4a,xlim = c(0.1,1),ylim = c(0,3), breaks = breaks, main = "Two-Option and No Conflict")
-plot(fit4b,xlim = c(0.1,1),ylim = c(0,3), breaks = breaks, main = "Two-Option and Conflict")
-plot(fit4c,xlim = c(0.1,1),ylim = c(0,3), breaks = breaks, main = "Three-Option and No Conflict")
-plot(fit4d,xlim = c(0.1,1),ylim = c(0,3), breaks = breaks, main = "Three-Option and Conflict")
-
 ## ----plotfit,fig.height=9, fig.width= 9----------------------------------
 par(mfrow=c(2,2),mar = c(2,3,2,2))
 # Plot the fitted values
@@ -91,7 +79,7 @@ summary(fit2)
 
 ## ----plotfit2, fig.height= 4, fig.width= 4-------------------------------
 # Compare the empirical distribution and the fitted values distribution
-plot(fit2,xlim = c(0,1),ylim = c(0,10), nbins = 5)
+plot(fit2)
 
 # Plot the fitted values
 plot(fitted(fit2, "full"))

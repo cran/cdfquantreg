@@ -93,7 +93,7 @@ cdfquantreg <- function(formula, fd = NULL, sd = NULL, data, family = NULL, star
    
   
   data_lm <- as.matrix(model.matrix(formula, data, rhs = 1))  # datamatrix for location model
-  data_pm <- as.matrix(model.matrix(formula, data, rhs = 2))  # datamatrix for precision model
+  data_pm <- as.matrix(model.matrix(formula, data, rhs = 2))  # datamatrix for dispersion model
   
   n_lm <- ncol(data_lm)  #number of parameters in mean component
   n_pm <- ncol(data_pm)  #number of parameters in dispersion component
@@ -156,7 +156,7 @@ cdfquantreg <- function(formula, fd = NULL, sd = NULL, data, family = NULL, star
   rownames(est_pm) <- colnames(data_pm)
   colnames(est_pm) <- colnames(est)
   
-  coefficients <- list(location = est_lm, precision = est_pm)
+  coefficients <- list(location = est_lm, dispersion = est_pm)
   
   # Generall fit-------------------- Loglike
   logLiklihod <- -betaopt$value

@@ -7,12 +7,12 @@
 \title{Influence Diagnosis For Fitted Cdfqr Object}
 \usage{
 \method{influence}{cdfqr}(model, method = "dfbeta", type = c("full",
-  "location", "precision"), what = "full", plot = FALSE, ...)
+  "location", "dispersion"), what = "full", plot = FALSE, ...)
 
-\method{dfbeta}{cdfqr}(model, type = c("full", "location", "precision"),
+\method{dfbeta}{cdfqr}(model, type = c("full", "location", "dispersion"),
   what = "full", ...)
 
-\method{dfbetas}{cdfqr}(model, type = c("full", "location", "precision"),
+\method{dfbetas}{cdfqr}(model, type = c("full", "location", "dispersion"),
   what = "full", ...)
 }
 \arguments{

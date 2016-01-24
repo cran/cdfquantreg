@@ -1,0 +1,10 @@
+cdfquantreg 1.0.1 (2016-01-25)
+---------------------------
+  
+Fixed bugs and minor improvements:
+  * Fixed namespace issues relating to functions: `rq()`,`qq()` and `pq()`.
+  * Minor improvement for `print.cdfqr()` and `summary.cdfqr()`.
+  * Fixed the problem in `qrBugs` in handling data object when the provided model is a null model.
+  * Improvement for `plot.cdfqr()` with additional plot of the fitted results.
+  * Changed the naming of the _precision_ model/coefficients (model $sigma$  of a distribution) to the _dispersion_ model/coefficiets to reduce the confusion (as $sigma$ is a dispersion parameter).
+

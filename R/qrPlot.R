@@ -21,21 +21,49 @@
 #' @importFrom MASS truehist
 
 plot.cdfqr <- function(x, mu = NULL, sigma = NULL, fd = NULL, sd = NULL, n = 10000, 
-                       type = c("fitted"),...) {
+                       type = c("fitted"), ...) {
   
   # If plot based on the fitted model
   if(is.null(mu)){
     ydata <- x$y
-    fit_d <- density(x$fitted$full)
- 
+    #fit_d <- density(x$fitted$full)
+    fd <- x$family$fd
+    sd <- x$family$sd
+#     mu <- x$fitted$mu
+#     sigma <- x$fitted$sigma
+    mu <- mean(x$fitted$mu)
+    sigma <- exp(mean(log(x$fitted$sigma)))
+    fit_d <- dq(x$fitted$full, mu, sigma, fd, sd)
+    xtem <- data.frame(x = as.numeric(x$fitted$full), y =as.numeric(fit_d))
+    xtem <- xtem[order(xtem$x),]
+    
+    par(mfrow=c(1,2))
+    # plot the density
+#     if(missing(xlim)) xlim <- c(0,1)
+#     if(missing(ylim)) ylim <- c(0, max(max(c(xtem$x, xtem$y))))
+    MASS::truehist(ydata, col = "white", ymax = max(xtem$y) + 0.1,
+                   main = "Observations (histogram) \n fitted by model (density line)",
+                   ...)
+    graphics::lines(xtem$x, xtem$y, lty = 1, lwd = 2)
+
+    
+    # plot data against fitted values
+    plot(ydata,x$fitted$full, xlab = 'Observations', ylab = 'Fitted',
+         main = "Observations vs. Fitted",type ='p', pch=20)
+    graphics::abline(0, 1)
+    
   }else{
     #based on input mu and sigma, and given distribution
-   ydata <- rq(n, mu, sigma, fd, sd)
-   fit_d <- density(rq(n, mu, sigma, fd, sd))
+   ydata <- as.numeric(rq(n, mu, sigma, fd, sd))
+   fit_d <- as.numeric(dq(ydata, mu, sigma, fd, sd))
+   xtem <- data.frame(x = ydata, y =fit_d)
+   xtem <- xtem[order(xtem$x),]
+   xlim <- c(0,1)
+   ylim <- c(0, max(max(c(xtem$x, xtem$y))))
+   MASS::truehist(ydata, col = "white",lim = xlim, ylim = ylim, ...)
+   graphics::lines(xtem$x, xtem$y, lty = 1, lwd = 2)
   }
   
-  MASS::truehist(ydata, col = "white", ...)
-  graphics::lines(fit_d, lty = 1, lwd = 2)
   invisible()
 }
 

@@ -50,6 +50,22 @@ data(cdfqrExampleData)
 library(R2OpenBUGS)
 bugfit <- qrBugs(crc99 ~ vert | confl, data = JurorData, 't2', 't2',clearWD=TRUE)
 bugfit
+Inference for Bugs model at "bugmodel.txt", 
+# Current: 2 chains, each with 10000 iterations (first 5000 discarded)
+# Cumulative: n.sims = 10000 iterations saved
+# mean  sd  2.5\%   25\%   50\%   75\% 97.5\% Rhat n.eff
+# b_0        0.8 0.1   0.6   0.7   0.8   0.9   1.0    1   830
+# d_0       -0.2 0.1  -0.4  -0.3  -0.2  -0.1   0.1    1  1700
+# b_vert     0.1 0.1  -0.1   0.0   0.1   0.2   0.3    1   170
+# d_confl    0.0 0.1  -0.3  -0.1   0.0   0.0   0.2    1  4000
+# deviance -49.3 2.8 -52.8 -51.3 -49.9 -47.9 -42.1    1  7400
+# 
+# For each parameter, n.eff is a crude measure of effective sample size,
+# and Rhat is the potential scale reduction factor (at convergence, Rhat=1).
+# 
+# DIC info (using the rule, pD = Dbar-Dhat)
+# pD = 4.0 and DIC = -45.3
+# DIC is an estimate of expected predictive error (lower deviance is better).
 }
 }
 \seealso{

@@ -53,11 +53,11 @@ bugsModel <- function(formula, fd, sd, random = NULL, modelname = "bugmodel",
   lxterm <- labels(terms(formula, rhs = 1L))  #extract mean predictors
   
   if (length(attr(formula, "rhs")) > 1) {
-    # If precision model is specified and the supplied formula has the form y ~
+    # If dispersion model is specified and the supplied formula has the form y ~
     # X1+...+Xn | X1+...+Xn
-    dxterm <- labels(terms(formula, rhs = 2L))  #extract precision predictors
+    dxterm <- labels(terms(formula, rhs = 2L))  #extract dispersion predictors
   } else {
-    # else precision model is not specified and the supplied formula has the form y ~
+    # else dispersion model is not specified and the supplied formula has the form y ~
     # X1+...+Xn
     dxterm <- list()
   }

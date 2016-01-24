@@ -39,22 +39,24 @@ print.cdfqr <- function(x, digits = max(3, getOption("digits") - 3), ...) {
   
   if (length(x$coefficients$location)) {
     cat("Mu coefficients (Location submodel)\n")
-    print.default(round(x$coefficients$location, digits = digits), print.gap = 2, 
-      quote = FALSE)
+#     print.default(round(x$coefficients$location, digits = digits), print.gap = 2, 
+#       quote = FALSE)
+    printCoefmat(x$coefficients$location, digits=digits,signif.legend = FALSE)
     cat("\n")
   } else cat("No coefficients in location submodel\n\n")
-  if (length(x$coefficients$precision)) {
-    if (length(x$coefficients$precision)) {
-      cat("Phi coefficients (Precision submodel)\n")
-      print.default(round(x$coefficients$precision, digits = digits), print.gap = 2, 
-        quote = FALSE)
+  if (length(x$coefficients$dispersion)) {
+    if (length(x$coefficients$dispersion)) {
+      cat("Sigma coefficients (Dispersion submodel)\n")
+      #       print.default(round(x$coefficients$dispersion, digits = digits), print.gap = 2, 
+      #         quote = FALSE)
+      printCoefmat(x$coefficients$dispersion, digits=digits)
       cat("\n")
-    } else cat("No coefficients in precision submodel\n\n")
+    } else cat("No coefficients in Dispersion submodel\n\n")
   }
   
   cat("Converge: ", x$converged, fill = TRUE)
-  cat("Log-Likelihood: ", x$logLik, "\n", fill = TRUE)
-  cat("Gradient: ", x$grad, "\n", fill = TRUE)
+  cat("Log-Likelihood: ", round(x$logLik, digits=digits), "\n", fill = TRUE)
+  cat("Gradient: ", round(x$grad, digits=digits), "\n", fill = TRUE)
   invisible(x)
   
 }
@@ -79,7 +81,7 @@ deviance.cdfqr <- function(object, ...) {
 coef.cdfqr <- function(object, type = c("full","mean","sigma"), ...) {
   type <- match.arg(type)
   mean <- object$coefficients$location[,1]
-  sigma <- object$coefficients$precision[,1]
+  sigma <- object$coefficients$dispersion[,1]
   
   coef <- switch(type, 
                full = {c(mean,sigma)}, 
@@ -95,17 +97,17 @@ vcov.cdfqr <- function(object, type = c("full","mean","sigma"), ...) {
   
   vc <- object$vcov
   k <- nrow(object$coefficients$location)
-  m <- nrow(object$coefficients$precision)
+  m <- nrow(object$coefficients$dispersion)
   
   type = match.arg(type)
   
   mean <- vc[seq.int(length.out = k), seq.int(length.out = k), drop = FALSE]
   
-  precision <- vc[seq.int(length.out = m) + k, seq.int(length.out = m) + k, drop = FALSE]
+  dispersion <- vc[seq.int(length.out = m) + k, seq.int(length.out = m) + k, drop = FALSE]
  
   vc <- switch(type, full = {object$vcov}, 
                mean = {mean}, 
-              sigma = {precision})
+              sigma = {dispersion})
   return(vc)
 }
 

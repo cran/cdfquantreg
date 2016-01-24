@@ -17,17 +17,14 @@
 #' 
 #' @return \code{dq} gives the density, \code{rq} generates random variates, \code{qq} gives the quantile function, and \code{pq} gives the cumulative densitity of specified distribution.
 #' @examples
-#' # x <- rq(5, mu = 0.5, sigma = 1, 't2','t2'); x
-#' #[1] 0.3286175 0.7212736 0.6713717 0.2792694 0.3759161
+#' x <- rq(5, mu = 0.5, sigma = 1, 't2','t2'); x
 #'
-#' # dq(x, mu = 0.5, sigma = 1, 't2','t2')
-#' # [1]0.6461218 1.3469669 1.2059380 0.6163606 0.6846740
+#' dq(x, mu = 0.5, sigma = 1, 't2','t2')
 #' 
-#' # qtil <- pq(x, mu = 0.5, sigma = 1, 't2','t2');qtil
-#' #[1] 0.2082699 0.5692998 0.5056440 0.1771627 0.2397028
+#' qtil <- pq(x, mu = 0.5, sigma = 1, 't2','t2');qtil
 #' 
-#' # qq(qtil , mu = 0.5, sigma = 1, 't2','t2')
-#' #[1]   0.3286175 0.7212736 0.6713717 0.2792694 0.3759161
+#' qq(qtil , mu = 0.5, sigma = 1, 't2','t2')
+#' 
 
 dq <- function(x, mu, sigma, fd, sd) {
   
@@ -185,6 +182,7 @@ dq <- function(x, mu, sigma, fd, sd) {
 }
 
 #' @rdname dq
+#' @export
 rq <- function(n, mu, sigma, fd, sd) {
   nq <- runif(n)
   samp <- qq(nq, mu, sigma, fd, sd)
@@ -192,6 +190,7 @@ rq <- function(n, mu, sigma, fd, sd) {
 }
 
 #' @rdname dq
+#' @export
 qq <- function(p, mu, sigma, fd, sd) {
   
   fd <- tolower(fd)
@@ -378,6 +377,7 @@ qq <- function(p, mu, sigma, fd, sd) {
 }
 
 #' @rdname dq
+#' @export
 pq <- function(q, mu, sigma, fd, sd) {
   
   fd <- tolower(fd)
