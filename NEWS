@@ -1,3 +1,11 @@
+cdfquantreg 1.0.2 (2016-02-08)
+---------------------------
+  
+Fixed bugs:
+  * Fixed problems in calling arcsinh-X distributions.
+  * Minor improvement for ploting user defined distributions in `plot.cdfqr()`.
+
+
 cdfquantreg 1.0.1 (2016-01-25)
 ---------------------------
   

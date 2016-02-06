@@ -59,8 +59,8 @@ plot.cdfqr <- function(x, mu = NULL, sigma = NULL, fd = NULL, sd = NULL, n = 100
    xtem <- data.frame(x = ydata, y =fit_d)
    xtem <- xtem[order(xtem$x),]
    xlim <- c(0,1)
-   ylim <- c(0, max(max(c(xtem$x, xtem$y))))
-   MASS::truehist(ydata, col = "white",lim = xlim, ylim = ylim, ...)
+   # ylim <- c(0, max(max(c(xtem$x, xtem$y))))
+   MASS::truehist(ydata, col = "white", ymax = max(xtem$y) + 0.1, ...)
    graphics::lines(xtem$x, xtem$y, lty = 1, lwd = 2)
   }
   

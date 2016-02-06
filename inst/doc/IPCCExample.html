@@ -70,8 +70,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div id="model-fit" class="section level1">
 <h1>Model fit</h1>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># middle</span>
-<span class="kw">library</span>(cdfquantreg)
-<span class="kw">data</span>(cdfqrExampleData)
+<span class="kw">library</span>(cdfquantreg)</code></pre>
+<pre><code>## 
+## Attaching package: 'cdfquantreg'</code></pre>
+<pre><code>## The following object is masked _by_ '.GlobalEnv':
+## 
+##     IPCC</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(cdfqrExampleData)
 ipcc_mid &lt;-<span class="st"> </span><span class="kw">subset</span>(IPCC, mid ==<span class="st"> </span><span class="dv">1</span> &amp;<span class="st"> </span>high ==<span class="st"> </span><span class="dv">0</span>)
 
 <span class="co"># We use T2-T2 distribution</span>

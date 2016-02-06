@@ -10,8 +10,8 @@ Quantile Regression for Random Variables on the Unit Interval
 \tabular{ll}{
 Package: \tab cdfquantreg\cr
 Type: \tab Package\cr
-Version: \tab 1.0.1\cr
-Date: \tab 2015-01-25\cr
+Version: \tab 1.0.2\cr
+Date: \tab 2015-02-07\cr
 License: \tab GPL-3\cr
 }
 The cdfquantreg package includes 15 members of a two-parameter family of distributions for modelling random variables on the (0, 1) interval (see \link{cdfqrFamily}).  This family has explicit pdfs, cdfs, and quantile functions.  The two parameters include a location parameter and a dispersion parameter. The location parameter models the median and simple functions of the dispersion parameter model other quantiles (see Smithson and Shou, 2015, for details about the distribution family and the models). Separate submodels may be specified for the location and for the dispersion parameters, with different or overlapping sets of predictors in each.\cr\cr

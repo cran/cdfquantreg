@@ -1,6 +1,6 @@
-46eac859bdae18ce1dd5a7baf1f65655 *DESCRIPTION
+14c106443a5667b06028015a09da9642 *DESCRIPTION
 c19be3821b532d51227216bea565a019 *NAMESPACE
-422d8b1aca68455565e2bb8a45914c9e *NEWS
+18a68aa0a28d3fc670967746dd8b2d94 *NEWS
 76c2cf94bcae340e7d5a9c1e920a5821 *R/bugsLikelihood.R
 a491c71113c4fadb16d4c4c1b7b92dad *R/bugsModel.R
 6fd4ccf038f6ab375c9dc2388642b8d7 *R/cdfquantreg.R
@@ -17,7 +17,7 @@ f5e8963128ed996fe1d8e11e1f44dd78 *R/qrDistributions.R
 06e16c425965ef668e816a5d8fcc3438 *R/qrLogLik.R
 6b3066c05be209b43ef0a4cbc766ae08 *R/qrLogLikFun.R
 6f0914f7719d72ac8a7000749e978d9f *R/qrMethod.R
-c1aab6acaf94a54831989f0bbae491de *R/qrPlot.R
+7646b3d3265ab055b05b0b76807bb652 *R/qrPlot.R
 ba46510b452fb25f0b9f0df30e95104f *R/qrPwlm.R
 937f6c43ec3287934058b7c85edad9a0 *R/qrResiduals.R
 e9914c6ac357f40fde83b6d1bdb997c9 *R/qrStart.R
@@ -28,7 +28,7 @@ e9914c6ac357f40fde83b6d1bdb997c9 *R/qrStart.R
 5625ddf8e28a34d636f9bf894881416b *inst/doc/CDFQuantregIntroduction.html
 2d50ec8953eb6f992798920466558ca0 *inst/doc/IPCCExample.R
 a608bfa630e7d5a62c2d98b74c4dd931 *inst/doc/IPCCExample.Rmd
-ea02d06eb21d4966732296324ae4c1e9 *inst/doc/IPCCExample.html
+bea5640f0bf844a41238aba562f9e010 *inst/doc/IPCCExample.html
 c082a905e204a28ec3ef895563757e09 *inst/doc/Smithson_Verkuilen2006Example.R
 fcce2e5fcd27d57ea3bb510301a335aa *inst/doc/Smithson_Verkuilen2006Example.Rmd
 1dbd3ed59fa80a4f2b1e18afa8bcb068 *inst/doc/Smithson_Verkuilen2006Example.html
@@ -40,7 +40,7 @@ af4352d16adf40b94e950ced9ecbf6f5 *man/bugsLikelihood.Rd
 4c20dd87482604682440faae9892cebe *man/bugsModel.Rd
 f23974e5603cfe3613def8e728abd6c9 *man/cdfqr.control.Rd
 5a9f6e31514de2f6b60032db7b69c50d *man/cdfqrFamily.Rd
-bfc9306b298d12e4b9d86972394f7b20 *man/cdfquantreg-package.Rd
+0bbf99d9c6a8a946df11bb0bd76a3d63 *man/cdfquantreg-package.Rd
 3efc03044fde40a3f73b057b98a4a3be *man/cdfquantreg.Rd
 353594af75b3ef56606c4956b0ec67e5 *man/dq.Rd
 c48f4dbdd71200151351568b1ba3108c *man/influence.cdfqr.Rd
