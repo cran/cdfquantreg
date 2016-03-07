@@ -26,15 +26,14 @@ plot.cdfqr <- function(x, mu = NULL, sigma = NULL, fd = NULL, sd = NULL, n = 100
   # If plot based on the fitted model
   if(is.null(mu)){
     ydata <- x$y
-    #fit_d <- density(x$fitted$full)
     fd <- x$family$fd
     sd <- x$family$sd
-#     mu <- x$fitted$mu
-#     sigma <- x$fitted$sigma
     mu <- mean(x$fitted$mu)
     sigma <- exp(mean(log(x$fitted$sigma)))
-    fit_d <- dq(x$fitted$full, mu, sigma, fd, sd)
-    xtem <- data.frame(x = as.numeric(x$fitted$full), y =as.numeric(fit_d))
+    # smooth the boundary values
+    fitted <- scaleTR(x$fitted$full)
+    fit_d <- dq(fitted, mu, sigma, fd, sd)
+    xtem <- data.frame(x = fitted, y = as.numeric(fit_d))
     xtem <- xtem[order(xtem$x),]
     
     par(mfrow=c(1,2))
@@ -42,7 +41,7 @@ plot.cdfqr <- function(x, mu = NULL, sigma = NULL, fd = NULL, sd = NULL, n = 100
 #     if(missing(xlim)) xlim <- c(0,1)
 #     if(missing(ylim)) ylim <- c(0, max(max(c(xtem$x, xtem$y))))
     MASS::truehist(ydata, col = "white", ymax = max(xtem$y) + 0.1,
-                   main = "Observations (histogram) \n fitted by model (density line)",
+                   main = "Data (histogram) \n fitted by model (line)",
                    ...)
     graphics::lines(xtem$x, xtem$y, lty = 1, lwd = 2)
 

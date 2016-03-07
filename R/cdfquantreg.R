@@ -142,7 +142,7 @@ cdfquantreg <- function(formula, fd = NULL, sd = NULL, data, family = NULL, star
                serr <- serr, 
                zstat <- estim/serr,
                prob <- 2 * (1 - pnorm(abs(zstat))))
-  colnames(est) <- c("Estimate", "Std. Error", "z value", "Pr(>|t|)")
+  colnames(est) <- c("Estimate", "Std. Error", "z value", "Pr(>|z|)")
   
   # Separate output depending on the submodels
   est_lm <- est[1:n_lm, ]  #location model

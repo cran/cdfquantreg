@@ -1,9 +1,9 @@
-14c106443a5667b06028015a09da9642 *DESCRIPTION
+181b5763bca291e7e31344e179a5a285 *DESCRIPTION
 c19be3821b532d51227216bea565a019 *NAMESPACE
-18a68aa0a28d3fc670967746dd8b2d94 *NEWS
+6e9d0167f11cf5b9a4a3348c0ddf23f5 *NEWS
 76c2cf94bcae340e7d5a9c1e920a5821 *R/bugsLikelihood.R
 a491c71113c4fadb16d4c4c1b7b92dad *R/bugsModel.R
-6fd4ccf038f6ab375c9dc2388642b8d7 *R/cdfquantreg.R
+714fab0b2c426837aa528417b16a3931 *R/cdfquantreg.R
 2a371578fd2e9f5e773146ef95a9eb65 *R/data.R
 6e8976d8fe7f2299a33b4fdc42a465df *R/qrBoot.R
 fa75657be0d3033be905a496d5617ee4 *R/qrBugs.R
@@ -17,12 +17,12 @@ f5e8963128ed996fe1d8e11e1f44dd78 *R/qrDistributions.R
 06e16c425965ef668e816a5d8fcc3438 *R/qrLogLik.R
 6b3066c05be209b43ef0a4cbc766ae08 *R/qrLogLikFun.R
 6f0914f7719d72ac8a7000749e978d9f *R/qrMethod.R
-7646b3d3265ab055b05b0b76807bb652 *R/qrPlot.R
+d4fecdebb1c231a1eedd07f442f6956c *R/qrPlot.R
 ba46510b452fb25f0b9f0df30e95104f *R/qrPwlm.R
 937f6c43ec3287934058b7c85edad9a0 *R/qrResiduals.R
 e9914c6ac357f40fde83b6d1bdb997c9 *R/qrStart.R
 1d306e39b88fed3b872069c067deb2f3 *R/qrTransform.R
-6a44ed8001c328c47f56ce76e9074a6c *build/vignette.rds
+73ebf98a1d4aded41f18292f6864dd18 *build/vignette.rds
 2e35cc9d8d43f3bdf232d70094d99b63 *data/cdfqrExampleData.rda
 3cee34f369869c92b73509ed54dfbd57 *inst/doc/CDFQuantregIntroduction.Rmd
 5625ddf8e28a34d636f9bf894881416b *inst/doc/CDFQuantregIntroduction.html

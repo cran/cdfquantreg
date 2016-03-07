@@ -1,3 +1,10 @@
+cdfquantreg 1.0.3 (2016-03-05)
+---------------------------
+  
+Fixed bugs:
+  * Fixed minor issues in output.
+  * Fixed issues caused by extreme values (approching 0 or 1) in plotting the density function.
+
 cdfquantreg 1.0.2 (2016-02-08)
 ---------------------------
   
