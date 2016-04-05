@@ -1,3 +1,10 @@
+cdfquantreg 1.0.4 (2016-04-05)
+---------------------------
+  
+  * Update the package manual
+  * Reclassify the shapes of different cdf distributions (see ?cdfqrFamily)
+  * Fixed the bug in producing negative parameter estimation results and warning message when using the Kumaraswamy distribution
+
 cdfquantreg 1.0.3 (2016-03-05)
 ---------------------------
   

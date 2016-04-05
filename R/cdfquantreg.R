@@ -183,9 +183,16 @@ cdfquantreg <- function(formula, fd = NULL, sd = NULL, data, family = NULL, star
   # is the sample size)
   if(n_lm == 1) {fitted_mu <- data_lm * est_lm[, 1]
   }else{
-    fitted_mu <- rowSums(t(apply(data_lm, 1, function(x) x * est_lm[, 1])))
+    fitted_mu <- rowSums(t(apply(data_lm, 1, 
+                                 function(x) x * est_lm[, 1])))
+  }
+  if  (fd =="km"){
+    #log link for parameter a in Km distribution
+    fitted_mu <- exp(fitted_mu)
   }
   
+
+  #dispersion model
   if(n_pm == 1) {fitted_phi <- data_pm * est_pm[, 1]
   }else{
     fitted_phi <- rowSums(t(apply(data_pm, 1, function(x) x * est_pm[, 1])))
@@ -193,11 +200,13 @@ cdfquantreg <- function(formula, fd = NULL, sd = NULL, data, family = NULL, star
  
   fitted_sigma <- exp(fitted_phi)
   
+
   q_y <- seq(1e-06, 0.999999, length.out = n)
   cdf_y <- q_y[rank(ydata)]
   
   fitted <- qq(cdf_y, fitted_mu, fitted_sigma, fd, sd)
   
+ 
   # Raw residuals
   residuals <- ydata - fitted
   df.residual <- n - k
@@ -216,16 +225,22 @@ cdfquantreg <- function(formula, fd = NULL, sd = NULL, data, family = NULL, star
   # RMSlogit(E)
   rmseLogit <- sqrt(mean((logit(fitted) - logit(ydata))^2))
   
+  fitted = switch(fd,
+                  list(full = fitted, mu = fitted_mu, sigma = fitted_sigma),
+                  km = list(full = fitted, a = fitted_mu, b = fitted_sigma))
+  
   # Output
-  output <- list(family = list(fd = fd, sd = sd), coefficients = coefficients, 
-    call = input,  formula = formula, 
-    N = n, k = k, 
-    y = ydata, 
-    residuals = residuals, 
-    fitted = list(full = fitted,  mu = fitted_mu, sigma = fitted_sigma), 
-    vcov = vcov, rmse = rmse, rmseLogit = rmseLogit, logLik = logLiklihod, 
-    deviance = deviance, aic = AIC, bic = BIC, converged = converge, grad = gradients,
-   df.residual = df.residual)
+  output <- list(family = list(fd = fd, sd = sd), 
+                 coefficients = coefficients, 
+                 call = input,  formula = formula, 
+                 N = n, k = k, y = ydata, 
+                 residuals = residuals, 
+                 fitted = fitted, 
+                 vcov = vcov, rmse = rmse, rmseLogit = rmseLogit, 
+                 logLik = logLiklihod, deviance = deviance, 
+                 aic = AIC, bic = BIC, 
+                 converged = converge, grad = gradients,
+                 df.residual = df.residual)
   
   class(output) <- "cdfqr"
   

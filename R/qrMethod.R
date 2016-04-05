@@ -38,20 +38,38 @@ print.cdfqr <- function(x, digits = max(3, getOption("digits") - 3), ...) {
   cat("Call: ", deparse(x$call), "\n", fill = TRUE)
   
   if (length(x$coefficients$location)) {
-    cat("Mu coefficients (Location submodel)\n")
-#     print.default(round(x$coefficients$location, digits = digits), print.gap = 2, 
-#       quote = FALSE)
+    
+    mutitile <- "Mu coefficients (Location submodel)\n"
+    if (x$family$fd == 'km'){
+      mutitile <- "1st shape parameter coefficients (log link)\n"
+    }
+    cat(mutitile)
     printCoefmat(x$coefficients$location, digits=digits,signif.legend = FALSE)
     cat("\n")
-  } else cat("No coefficients in location submodel\n\n")
+  } else{
+    mutitile2 <- "No coefficients in location submodel\n\n"
+    if (x$family$fd == 'km'){
+      mutitile2 <- "No coefficient for the 1st shape parameter (log link)\n"
+    }
+    cat(mutitile2)
+  }
+  
   if (length(x$coefficients$dispersion)) {
     if (length(x$coefficients$dispersion)) {
-      cat("Sigma coefficients (Dispersion submodel)\n")
-      #       print.default(round(x$coefficients$dispersion, digits = digits), print.gap = 2, 
-      #         quote = FALSE)
+      Sigmatitile <- "Sigma coefficients (Dispersion submodel)\n"
+      if (x$family$fd == 'km'){
+        Sigmatitile <- "2nd shape parameter coefficients (log link)\n"
+      }
+      cat(Sigmatitile)
       printCoefmat(x$coefficients$dispersion, digits=digits)
       cat("\n")
-    } else cat("No coefficients in Dispersion submodel\n\n")
+    } else{
+      Sigmatitile2 <- "No coefficients in Dispersion submodel\n"
+      if (x$family$fd == 'km'){
+        Sigmatitile2 <- "No coefficient for the 2nd shape parameter (log link)\n"
+      }
+      cat(Sigmatitile2)
+    }
   }
   
   cat("Converge: ", x$converged, fill = TRUE)
