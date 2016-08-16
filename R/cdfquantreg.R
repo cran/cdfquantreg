@@ -115,8 +115,7 @@ cdfquantreg <- function(formula, fd = NULL, sd = NULL, data, family = NULL, star
     start[n_lm + 1] <- start_0[2] #starting value for sigma intercept
   }
  
-  
-  
+
   # ***************************** Fit the model
   preopt <- optim(start, fn = quantreg_loglik, hessian = F, x = data_lm, y = ydata, 
     z = data_pm, method = "Nelder-Mead")
@@ -132,6 +131,12 @@ cdfquantreg <- function(formula, fd = NULL, sd = NULL, data, family = NULL, star
   
   
   # ***************************** Process the output parameter
+  # Gradient
+  gradients <- grad(betaopt$par,ydata,data_lm,data_pm)
+  
+  # Convergence message from optim
+  converge <- betaopt$convergence
+  
   # estimation--------------------
   estim <- betaopt$par  #mean estiamte
   serr <- sqrt(sqrt(diag(solve(betaopt$hessian))^2))  # se
@@ -158,6 +163,8 @@ cdfquantreg <- function(formula, fd = NULL, sd = NULL, data, family = NULL, star
   
   coefficients <- list(location = est_lm, dispersion = est_pm)
   
+  
+  
   # Generall fit-------------------- Loglike
   logLiklihod <- -betaopt$value
   attr(logLiklihod, "nall") <- n
@@ -168,16 +175,6 @@ cdfquantreg <- function(formula, fd = NULL, sd = NULL, data, family = NULL, star
   # AIC & BIC
   AIC <- AIC(logLiklihod)
   BIC <- BIC(logLiklihod)
-  
-  # Gradient
-  # The `optim` function produce the list that includes an object called 'count'--
-  # A two-element integer vector giving the number of calls to fn and gr respectively. This excludes those calls needed to compute the Hessian, if requested, and any calls to fn to compute a finite-difference approximation to the gradient.
- 
-   gradients <- grad(betaopt$par,ydata,data_lm,data_pm)
-  
-  
-  # Convergence message from optim
-  converge <- betaopt$convergence
   
   # Fitted values (will be quantile estimates corresponding to seq(0,N)/N, where N
   # is the sample size)
@@ -216,7 +213,7 @@ cdfquantreg <- function(formula, fd = NULL, sd = NULL, data, family = NULL, star
                       qrLogLik(fitted,  fitted_mu, fitted_sigma, fd, sd))
   
   # Parameter variance-covariance matrix
-  vcov <- solve(-as.matrix(betaopt$hessian))
+  vcov <- solve(as.matrix(betaopt$hessian))
   rownames(vcov) <- colnames(vcov) <- c(rownames(est_lm), rownames(est_pm))
   
   # RMSE
@@ -240,7 +237,7 @@ cdfquantreg <- function(formula, fd = NULL, sd = NULL, data, family = NULL, star
                  logLik = logLiklihod, deviance = deviance, 
                  aic = AIC, bic = BIC, 
                  converged = converge, grad = gradients,
-                 df.residual = df.residual)
+                 df.residual = df.residual, optim = betaopt)
   
   class(output) <- "cdfqr"
   

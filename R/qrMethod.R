@@ -2,9 +2,11 @@
 #' @description Give the Gradient Function for CDF-Quantile Distribution Modles
 #' @param object The fitted cdfqr model.
 #' @param x The fitted cdfqr model.
-#' @param type The parts of coefficients or variance-covariance matrix to be extracted.
+#' @param type,submodel The parts of coefficients or variance-covariance matrix to be extracted.Can be "full", "mean",or "sigma". 
 #' @param formula. Changes to the formula. See \code{\link[Formula]{update.Formula}} for details.
 #' @param evaluate If true evaluate the new updated model else return the call for the new model.
+#' @param parm a specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names. If missing, all parameters are considere.
+#' @param level the confidence level required.
 #' @param digits Number of digits to be retained in printed output.
 #' @param ... Pass onto other functions or currently ignored
 #' @examples
@@ -17,6 +19,7 @@
 #' coef(fit)
 #' deviance(fit)
 #' vcov(fit)
+#' confint(fit)
 #' 
 #' #Update the model
 #' fit2 <- update(fit, crc99 ~ vert*confl | confl)
@@ -160,3 +163,77 @@ formula.cdfqr <- function(x, ...) {
   return(formula(call$formula))
 } 
 
+
+#' @method confint cdfqr
+#' @export
+#' @rdname summary.cdfqr
+confint.cdfqr <- function(object, parm, level = 0.95, submodel = "full", ...) {
+ 
+  cf_full <- object$coefficients
+  cf_mean <- cf_full['location'][[1]]
+  cf_sigma <- cf_full['dispersion'][[1]]
+  cf <- do.call(rbind, object$coefficients)
+  
+  if(missing(parm)) parm = rownames(cf)
+    
+  if (submodel == "location") {
+      if (is.character(parm)){
+        if (!all(parm %in% rownames(cf_mean)))
+        stop("One or more required parameter(s) is not in the location submodel!")}
+      
+      if (is.numeric(parm)){
+        if (!is.matrix(try(cf_mean[parm, ],T)))
+          stop("One or more required parameter(s) is not in the location submodel!")}
+      
+    cf <- cf_mean<- cf_mean[parm, ,drop=FALSE]
+    }
+    
+  if (submodel == "sigma") {
+    if (is.character(parm)){
+      if (!all(parm %in% rownames(cf_sigma)))
+        stop("One or more required parameter(s) is not in the dispersion submodel!")}
+      
+      if (is.numeric(parm)){
+        if (!is.matrix(try(cf_sigma[parm, ],T)))
+          stop("One or more required parameter(s) is not in the dispersion submodel!")}
+      
+     cf <- cf_sigma<- cf_sigma[parm, ,drop=FALSE]
+    }
+    
+  if (submodel == "full") {
+    if (is.character(parm)){
+      if (!any(parm %in% rownames(cf)))
+        stop("One or more required parameter(s) is not in the model!")
+      }
+      
+      if (is.numeric(parm)){
+        if (!is.matrix(try(cf[parm, ],T)))
+          stop("One or more required parameter(s) is not in the model!")}
+      
+    cf_mean <- cf_mean[parm[parm%in%rownames(cf_mean)][-length(parm[parm%in%rownames(cf_mean)])], ,drop=FALSE]
+    cf_sigma <- cf_sigma[parm[parm%in%rownames(cf_sigma)][-1], ,drop=FALSE]
+    cf <- rbind(cf_mean, cf_sigma)
+    }
+
+  cf_est <- cf[, 1]
+  cf_ses <- cf[, 2]
+  
+  a <- (1 - level)/2
+  a <- c(a, 1 - a)
+  fac <- qnorm(a)
+  ci_name <- paste0(round(a*100, 2),"%")
+  ci <- array(NA, dim = c(length(parm), 2L), 
+              dimnames = list(parm, ci_name))
+  ci[] <- cf_est + cf_ses %o% fac
+  
+  if(submodel == "full"){
+    location <- ci[rownames(cf_mean), ,drop=FALSE]
+    dispersion <- ci[rownames(cf_sigma), ,drop=FALSE]
+    ci <- list(location = location,
+               dispersion = dispersion)
+  }
+  
+  ci
+  
+  
+} 

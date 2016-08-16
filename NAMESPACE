@@ -2,6 +2,7 @@
 
 S3method(anova,cdfqr)
 S3method(coef,cdfqr)
+S3method(confint,cdfqr)
 S3method(deviance,cdfqr)
 S3method(dfbeta,cdfqr)
 S3method(dfbetas,cdfqr)

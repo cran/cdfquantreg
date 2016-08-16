@@ -2,6 +2,7 @@
 % Please edit documentation in R/qrMethod.R
 \name{summary.cdfqr}
 \alias{coef.cdfqr}
+\alias{confint.cdfqr}
 \alias{deviance.cdfqr}
 \alias{formula.cdfqr}
 \alias{logLik.cdfqr}
@@ -26,6 +27,8 @@
 \method{update}{cdfqr}(object, formula., ..., evaluate = TRUE)
 
 \method{formula}{cdfqr}(x, ...)
+
+\method{confint}{cdfqr}(object, parm, level = 0.95, submodel = "full", ...)
 }
 \arguments{
 \item{object}{The fitted cdfqr model.}
@@ -36,11 +39,15 @@
 
 \item{digits}{Number of digits to be retained in printed output.}
 
-\item{type}{The parts of coefficients or variance-covariance matrix to be extracted.}
+\item{type, submodel}{The parts of coefficients or variance-covariance matrix to be extracted.Can be "full", "mean",or "sigma".}
 
 \item{formula.}{Changes to the formula. See \code{\link[Formula]{update.Formula}} for details.}
 
 \item{evaluate}{If true evaluate the new updated model else return the call for the new model.}
+
+\item{parm}{a specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names. If missing, all parameters are considere.}
+
+\item{level}{the confidence level required.}
 }
 \description{
 Give the Gradient Function for CDF-Quantile Distribution Modles
@@ -55,6 +62,7 @@ logLik(fit)
 coef(fit)
 deviance(fit)
 vcov(fit)
+confint(fit)
 
 #Update the model
 fit2 <- update(fit, crc99 ~ vert*confl | confl)
