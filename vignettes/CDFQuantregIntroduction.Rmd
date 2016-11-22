@@ -14,7 +14,7 @@ Tadakimalla and Johnson (1982) replace the standard normal distribution in Johns
 1. Tractability, with explicit probability distribution functions (pdfs), cdfs, and quantiles. 
 2. They are amenable to both maximum likelihood and Bayesian estimation techniques. 
 3. They enable a wide variety of quantile regression models for random variables on the (0, 1) interval with predictors for both location and dispersion parameters, and simple interpretations of those parameters. 
-4. The family can model a wide variety of distribution shapes, with greater skew and kurtosis coverage than the beta or the Kumaraswamy. 
+4. The family can model a wide variety of distribution shapes, with different skew and kurtosis coverage from the beta or the Kumaraswamy. 
 5. Explicit quantiles render random generation of variates straightforward. 
 
 # The Distribution Family 
@@ -40,12 +40,12 @@ There is a relation between pairs of these distributions in which $F$ and $H$ ex
 
 1. The probability distribution functions (pdfs) $g(x,\mu,\sigma )$ are self-dual in this respect: $g\left( {x,\mu ,\sigma } \right) = g\left( {1 - x, - \mu ,\sigma } \right)$.
 2. When $H$ = $F$ the distribution includes the uniform distribution as a special case. Otherwise, all distributions are symmetrical at $x = \frac{1}{2}$. 
-3. For all distributions in this package, the median is a function solely of the location parameter $\mu$.  
-4. Simple functions of particular quantiles yield expressions solely in the scale parameter $\sigma$.
+3. For all distributions in this package, the median is a function solely of the location parameter $\mu$.
+4. It can be shown that the scale parameter $\sigma$ is a dispersion parameter, controlling the spread of other quantiles around the median. 
 5. Maximum likelihood estimation is feasible for all distributions in this package.
 6. Models with predictors of both location and scale (dispersion) parameters can be estimated. 
 
-Further details and more general characterizations of this distribution family are available in Smithson and Shou (2015). 
+Further details and more general characterizations of this distribution family are available in Smithson and Shou (2016). 
 
 ## Example
 
@@ -93,7 +93,7 @@ $\sigma = \tan \left(\pi  \left(Q\left(\frac{e}{e+1} \right)-\frac{1}{2}\right)\
 
 * Kumaraswamy, P. (1980). A generalized probability density function for double-bounded random processes. Journal of Hydrology, 46(1), 79-88.
 
-* Smithson and Shou (2015)
+* Smithson, M. and Shou, Y. (2016). CDF-quantile distributions for modeling random variables on the unit interval. Unpublished Manuscript, The Australian National University, Canberra, Australia.
 
 * Smithson, M., & Verkuilen, J. (2006). A better lemon squeezer? Maximum-likelihood regression with beta-distributed dependent variables. Psychological methods, 11(1), 54-71.
 

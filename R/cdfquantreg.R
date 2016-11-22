@@ -219,8 +219,17 @@ cdfquantreg <- function(formula, fd = NULL, sd = NULL, data, family = NULL, star
   # RMSE
   rmse <- sqrt(mean(residuals^2))
   
+  rmseLogit <- NULL
   # RMSlogit(E)
-  rmseLogit <- sqrt(mean((logit(fitted) - logit(ydata))^2))
+  for (i in 1:n){
+   if(is.nan(fitted[i])|is.na(fitted[i])){
+           rmseLogittemp <- NA
+   }else{
+         rmseLogittemp <-sqrt(mean((logit(fitted[i]) - logit(ydata[i]))^2))
+      }
+  
+      rmseLogit <- c(rmseLogit, rmseLogittemp)
+  }
   
   fitted = switch(fd,
                   list(full = fitted, mu = fitted_mu, sigma = fitted_sigma),

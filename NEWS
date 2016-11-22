@@ -1,3 +1,11 @@
+cdfquantreg 1.1.0 (2016-11-22)
+---------------------------
+  
+  * A total of 21 new distributions have been added! Check cdfqrFamily() or ?cdfqrFamily for more details of the newly added distributions.
+  * Fixed minor issues in S3 generic method.
+  * Fixed syntax errors in generating BUGS models.
+
+
 cdfquantreg 1.0.5 (2016-08-16)
 ---------------------------
   

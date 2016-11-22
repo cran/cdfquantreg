@@ -31,7 +31,7 @@ qrStart <- function(ydata,fd=NULL,sd=NULL) {
   if (fd == "arcsinh") qt = quantile(ydata, 0.75);
   if (fd == "burr7")   qt = quantile(ydata, (1 - tanh(1))/2);
   if (fd == "burr8") qt = quantile(ydata,0.2244);
-  if (fd == "cauchy") qt = quantile(ydata, 0.25);
+  if (fd == "cauchit") qt = quantile(ydata, 0.25);
   if (fd == "logit") qt = quantile(ydata, (1/(exp(1) + 1)))
 
   if (fd == "t2") qt = quantile(ydata, (3 - sqrt(3))/6)
