@@ -75,7 +75,11 @@ print.cdfqr <- function(x, digits = max(3, getOption("digits") - 3), ...) {
     }
   }
   
-  cat("Converge: ", x$converged, fill = TRUE)
+  coverge_msg <- ifelse(x$converged ==0,
+                        "successful completion",
+                        "has reached the maxit iterations")
+
+  cat("Converge: ", coverge_msg, fill = TRUE)
   cat("Log-Likelihood: ", round(x$logLik, digits=digits), "\n", fill = TRUE)
   cat("Gradient: ", round(x$grad, digits=digits), "\n", fill = TRUE)
   invisible(x)
@@ -87,6 +91,14 @@ print.cdfqr <- function(x, digits = max(3, getOption("digits") - 3), ...) {
 #' @rdname summary.cdfqr
 logLik.cdfqr <- function(object, ...) {
   object$logLik
+  
+}
+
+#' @method nobs cdfqr
+#' @export
+#' @rdname summary.cdfqr
+nobs.cdfqr <- function(object, ...) {
+  length(object$residuals)
 }
 
 #' @method deviance cdfqr
@@ -103,6 +115,7 @@ coef.cdfqr <- function(object, type = c("full","mean","sigma"), ...) {
   type <- match.arg(type)
   mean <- object$coefficients$location[,1]
   sigma <- object$coefficients$dispersion[,1]
+  names(sigma) <- paste('(sigma)_',names(sigma),sep = "")
   
   coef <- switch(type, 
                full = {c(mean,sigma)}, 
@@ -125,10 +138,11 @@ vcov.cdfqr <- function(object, type = c("full","mean","sigma"), ...) {
   mean <- vc[seq.int(length.out = k), seq.int(length.out = k), drop = FALSE]
   
   dispersion <- vc[seq.int(length.out = m) + k, seq.int(length.out = m) + k, drop = FALSE]
- 
+
+  
   vc <- switch(type, full = {object$vcov}, 
                mean = {mean}, 
-              sigma = {dispersion})
+               sigma = {dispersion})
   return(vc)
 }
 

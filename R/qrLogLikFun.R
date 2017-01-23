@@ -433,8 +433,9 @@ qrLogLikFun <- function(fd, sd) {
         mu <- hx
         gz <- z %*% h[length(x[1, ]) + 1:length(z[1, ])]
         sigma <- exp(gz)
-        loglik <- log(sigma) - log(mu^2 + sigma^2 - 2 * mu * (-log(1 - y) + log(y)) + (-log(1 - 
-        y) + log(y))^2) - log(1 - y) - log(y)
+        loglik <- log(sigma) - 
+          log(mu^2 + sigma^2 - (2 * mu * (log(y)-log(1 - y))) + 
+                (log(y)-(log(1 - y) )^2)) - log(1 - y) - log(y)
         -sum(loglik, na.rm = TRUE)
       }
       quantreg_loglik <- c_logistic_loglik

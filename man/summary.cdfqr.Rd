@@ -6,6 +6,7 @@
 \alias{deviance.cdfqr}
 \alias{formula.cdfqr}
 \alias{logLik.cdfqr}
+\alias{nobs.cdfqr}
 \alias{print.cdfqr}
 \alias{summary.cdfqr}
 \alias{update.cdfqr}
@@ -17,6 +18,8 @@
 \method{print}{cdfqr}(x, digits = max(3, getOption("digits") - 3), ...)
 
 \method{logLik}{cdfqr}(object, ...)
+
+\method{nobs}{cdfqr}(object, ...)
 
 \method{deviance}{cdfqr}(object, ...)
 

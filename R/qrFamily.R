@@ -101,14 +101,18 @@ cdfqrFamily <- function(shape = "all") {
   
   sds <- c(rep(c("arcsinh","burr7","burr8","cauchy","logistic","T2"), 6),"km")
   
-  shapes <- c("Finite-tailed","Trimodal","Trimodal","Finite-tailed","Trimodal",
-             "Trimodal","Bimodal","Logit-logistic","Logit-logistic","Bimodal",
-             "Logit-logistic","Bimodal","Bimodal","Logit-logistic",
-             "Logit-logistic","Bimodal","Bimodal","Logit-logistic","Finite-tailed",
-             "Trimodal","Trimodal", "Finite-tailed","Trimodal","Trimodal",
-             "Bimodal","Logit-logistic","Logit-logistic","Bimodal",
-             "Logit-logistic","Bimodal","Bimodal", "Trimodal","Trimodal",
-             "Bimodal","Trimodal","Finite-tailed","")
+  shapes <- c("Finite-tailed","Trimodal","Trimodal",
+              "Finite-tailed","Trimodal", "Trimodal",
+              "Bimodal","Logit-logistic","Logit-logistic",
+              "Bimodal","Logit-logistic","Bimodal",
+              "Bimodal","Logit-logistic","Logit-logistic",
+              "Bimodal","Logit-logistic","Logit-logistic",
+              "Finite-tailed", "Trimodal","Trimodal", 
+              "Finite-tailed","Trimodal","Trimodal",
+              "Bimodal","Logit-logistic","Logit-logistic",
+              "Bimodal","Logit-logistic","Bimodal",
+              "Bimodal", "Trimodal","Trimodal",
+              "Bimodal","Trimodal","Finite-tailed","")
 
   dist <- data.frame(Distributions = db,
                      fd = fds, sd = sds, shape=shapes, stringsAsFactors = F)

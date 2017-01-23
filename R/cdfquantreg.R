@@ -214,7 +214,8 @@ cdfquantreg <- function(formula, fd = NULL, sd = NULL, data, family = NULL, star
   
   # Parameter variance-covariance matrix
   vcov <- solve(as.matrix(betaopt$hessian))
-  rownames(vcov) <- colnames(vcov) <- c(rownames(est_lm), rownames(est_pm))
+  rownames(vcov) <- colnames(vcov) <- c(rownames(est_lm), 
+                                        paste('(sigma)_', rownames(est_pm), sep = ""))
   
   # RMSE
   rmse <- sqrt(mean(residuals^2))
