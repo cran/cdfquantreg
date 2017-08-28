@@ -15,6 +15,9 @@
   \item{high}{Distinguish lower, best and upper estiamtes } 
   \item{Question}{IPCC question number} 
 }}
+\source{
+\url{http://journals.sagepub.com/doi/abs/10.1111/j.1467-9280.2009.02284.x}
+}
 \usage{
 IPCC
 }
@@ -23,4 +26,3 @@ The IPCC data-set comprises the lower, best, and upper estimates
 for the phrases "likely" and "unlikely" in six IPCC report sentences.
 }
 \keyword{datasets}
-

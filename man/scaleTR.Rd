@@ -18,13 +18,13 @@ scaleTR(y, high = NULL, low = NULL, data = NULL, N = NULL,
 
 \item{N}{A integer, normally is the sample size or the number of values. If not supplied, the length of y will be used.}
 
-\item{scale}{A compressing parameter that determines the extend to which the boundary values are going to be pushed away from the boundray. See details.}
+\item{scale}{A compressing parameter that determines the extend to which the boundary values are going to be pushed away from the boundary. See details.}
 }
 \description{
 \code{scaleTR} is function that rescales values of a variable into the (0, 1) interval.
 }
 \details{
-\code{scaleTR} used the method suggested by Smithson and Verkuilen (2006) and applies linear transformation to values into the open interval (0, 1). It first transform the values from their original scale by taking \eqn{y' = (y - a)/(b-a)}, where \code{a} is the lowest possible value of that variable and  \code{b} is the highest possible value of that variable. Next, it compresses the range to avoid zeros and ones by taking \eqn{y" = (y'(N - 1) + c)/N}, where \code{N} is the sample size and \code{c} is the compressing parameter. The smaller value \code{c} is, the boundray values would be more approaching zeros and ones, and have greater impact on the estimation of the dispersion parameters in the cdf quantile model.
+\code{scaleTR} used the method suggested by Smithson and Verkuilen (2006) and applies linear transformation to values into the open interval (0, 1). It first transform the values from their original scale by taking \eqn{y' = (y - a)/(b-a)}, where \code{a} is the lowest possible value of that variable and  \code{b} is the highest possible value of that variable. Next, it compresses the range to avoid zeros and ones by taking \eqn{y" = (y'(N - 1) + c)/N}, where \code{N} is the sample size and \code{c} is the compressing parameter. The smaller value \code{c} is, the boundary values would be more approaching zeros and ones, and have greater impact on the estimation of the dispersion parameters in the cdf quantile model.
 }
 \examples{
 y <- rnorm(20, 0, 1)
@@ -34,4 +34,3 @@ ynew <- scaleTR(y)
 \seealso{
 \code{\link{cdfquantreg}}
 }
-

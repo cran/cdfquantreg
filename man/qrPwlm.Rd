@@ -34,4 +34,3 @@ qrPwlm(n = 1000, mu = 0.5, sigma = 1, fd = 't2', sd = 't2')
 \references{
 Greenwood, J. A., Landwehr, J. M., Matalas, N. C., & Wallis, J. R. (1979). Probability weighted moments: definition and relation to parameters of several distributions expressable in inverse form. Water Resources Research, 15(5), 1049-1054.
 }
-

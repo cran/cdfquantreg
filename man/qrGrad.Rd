@@ -20,4 +20,3 @@ Give the Gradient Function for CDF-Quantile Distribution Modles.
 \examples{
 qrGrad('t2','t2')
 }
-

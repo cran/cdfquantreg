@@ -93,4 +93,3 @@ Here is the list of currently available distributions.
 cdfqrFamily()
 
 }
-

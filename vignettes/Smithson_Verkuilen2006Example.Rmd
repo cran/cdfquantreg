@@ -17,19 +17,19 @@ vignette: >
 
 Deady (2004) studied naive mock-jurors' responses to two types of vertic setups. One has two options only (guilt vs. acquittal) and the other has an additional option "not proven". 
 The researcher also investigated the influence of conflicting testimonial evidence on judgments. 
-The study had 2 (two vs. three-option verdict) by 2 (conflict vs. no-conflict conditons) factorial design. The dependent variable was the juror’s degree of confidence in her or his verdict, expressed as a percentage rating (0–100). The data included the responses from 104 first-year psychology students at The Australian National University. 
+The study had 2 (two vs. three-option verdict) by 2 (conflict vs. no-conflict conditions) factorial design. The dependent variable was the juror’s degree of confidence in her or his verdict, expressed as a percentage rating (0–100). The data included the responses from 104 first-year psychology students at The Australian National University. 
 
 ## About the data 
 
 The data included three variables.
 
-* `crc99`: The ratings of confidence levels with rescaling into the (0, 1) interval to avoide 1 and 0 values.
+* `crc99`: The ratings of confidence levels with rescaling into the (0, 1) interval to avoid 1 and 0 values.
 * `vert`: was the dummy variable for coding the conditions of verdict types, whereas 
-    + `verdict = -1` indcates responses from the two-option verdict condition and 
-    + `verdict = 1` indcates responses from the three-option verdict condition.
+    + `verdict = -1` indicates responses from the two-option verdict condition and 
+    + `verdict = 1` indicates responses from the three-option verdict condition.
 * `confl`: was the dummy variable for coding the conflict conditions, whereas 
-    + `confl = -1` indcates the no-conflict condition and 
-    + `confl = 1` indcates the conflict condition.
+    + `confl = -1` indicates the no-conflict condition and 
+    + `confl = 1` indicates the conflict condition.
 
 
 ```{r}
@@ -48,8 +48,8 @@ That is, it was expected that there would be significant interaction effect betw
 
 ```{r fit}
 # We use T2-T2 distribution
-fd <- "logit" # The parent distribution
-sd <- "logistic" # The child distribution
+fd <- "t2" # The parent distribution
+sd <- "t2" # The child distribution
 
 # Fit the null model
 fit_null <- cdfquantreg(crc99 ~ 1 | 1, fd, sd, data = JurorData)
@@ -66,7 +66,7 @@ anova(fit1,fit2)
 summary(fit2)
 ```
 
-The results were similar to the ones outlined in Smithson & Verkuilen (2006). There was no signficant interaction between `vert` and `confl` in the location submodel.
+The results were similar to the ones outlined in Smithson & Verkuilen (2006). There was no significant interaction between `vert` and `confl` in the location submodel.
 
 Next, we replicate the steps in Smithson & Verkuilen by fitting models with the dispersion submodel, expanding the formula to `crc99 ~ vert*confl |vert + confl` and `crc99 ~ vert*confl |vert*confl`.
 
@@ -84,11 +84,11 @@ summary(fit4)
 ```
 
 
-As shown in the results, the number of options had signficant effect on the dispersion of the distribution. While whether the evidence is conflict or not does not influence the dispersion. There was no signficant interaction between the two predictors.
+As shown in the results, the number of options had significant effect on the dispersion of the distribution. While whether the evidence is conflict or not does not influence the dispersion. There was no significant interaction between the two predictors.
 
 The following figures shows how well the model fit the actual response distributions.
 
-```{r,fig.height=4, fig.width=4}
+```{r,fig.height=4, fig.width=8}
 # Compare the empirical distribution and the fitted values distribution
 breaks <- seq(0,1,length.out =11)
 
@@ -96,10 +96,10 @@ plot(fit4,xlim = c(0.1,1),ylim = c(0,3), breaks = breaks)
 ```
 
 
-### Model diagosis
+### Model diagnosis
 
 We can check the fitted values as well as model residuals.
-Currently three types of residuals are avaiable: raw residuals, Pearson's residuals and deviance residuals.
+Currently three types of residuals are available: raw residuals, Pearson's residuals and deviance residuals.
 
 ```{r plotfit,fig.height=9, fig.width= 9}
 par(mfrow=c(2,2),mar = c(2,3,2,2))
@@ -154,9 +154,9 @@ summary(fit2)
 It is clear that `Stress` influenced both the mean and the dispersion of scores on `anxiety`. 
 
 
-### Model diagosis
+### Model diagnosis
 
-```{r plotfit2, fig.height= 4, fig.width= 4}
+```{r plotfit2, fig.height= 4, fig.width= 8}
 # Compare the empirical distribution and the fitted values distribution
 plot(fit2)
 

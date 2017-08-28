@@ -11,7 +11,7 @@
   \item{confl}{ was the dummy variable for coding the conflict conditions}
 }}
 \source{
-\url{https://dl.dropboxusercontent.com/u/1857674/betareg/betareg.html}
+\url{http://www.tandfonline.com/doi/abs/10.1375/pplt.2004.11.1.154}
 }
 \usage{
 JurorData
@@ -20,4 +20,3 @@ JurorData
 Juror Judgment Study.
 }
 \keyword{datasets}
-

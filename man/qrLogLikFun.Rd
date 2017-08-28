@@ -21,4 +21,3 @@ Function to compute the (negative) log likelihood for fitting cdfquantile models
 qrLogLikFun('t2','t2')
 
 }
-

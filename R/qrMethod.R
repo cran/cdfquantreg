@@ -1,11 +1,11 @@
 #' @title S3 Methods for getting output from fitted cdfqr Objects.
-#' @description Give the Gradient Function for CDF-Quantile Distribution Modles
+#' @description Give the Gradient Function for CDF-Quantile Distribution Models
 #' @param object The fitted cdfqr model.
 #' @param x The fitted cdfqr model.
 #' @param type,submodel The parts of coefficients or variance-covariance matrix to be extracted.Can be "full", "mean",or "sigma". 
 #' @param formula. Changes to the formula. See \code{\link[Formula]{update.Formula}} for details.
 #' @param evaluate If true evaluate the new updated model else return the call for the new model.
-#' @param parm a specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names. If missing, all parameters are considere.
+#' @param parm a specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names. If missing, all parameters are considered.
 #' @param level the confidence level required.
 #' @param digits Number of digits to be retained in printed output.
 #' @param ... Pass onto other functions or currently ignored

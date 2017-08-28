@@ -6,9 +6,9 @@
 #' @param rn The sample size of bootstrap samples
 #' @param f A function whose one argument is the name of a cdfqr object that will be applied to the updated cdfqr object to compute the statistics of interest. The default is coef.
 #' @param R Number of bootstrap samples. 
-#' @param ci The confidence interval level to obtain the boostrap confidence intervals
+#' @param ci The confidence interval level to obtain the bootstrap confidence intervals
 #'
-#' @return A matrix that includes the original statistics, boostrap means, and boostrap confidence intervals
+#' @return A matrix that includes the original statistics, bootstrap means, and bootstrap confidence intervals
 #' @export
 #'
 #' @examples

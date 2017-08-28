@@ -11,7 +11,7 @@
 
 \item{...}{One or more cdfqr model objects for model comparison.}
 
-\item{test}{The model comparision test, currently only 'LRT' is implemented.}
+\item{test}{The model comparison test, currently only 'LRT' is implemented.}
 }
 \description{
 Likelihood Ratio Tests for fitted cdfqr Objects.
@@ -23,4 +23,3 @@ fit_mod1 <- cdfquantreg(crc99 ~ vert | confl, 't2','t2', data = JurorData)
 anova(fit_null, fit_mod1)
 
 }
-

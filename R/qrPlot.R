@@ -1,6 +1,6 @@
 #' @title Plot Fitted Values/Residuals of A Cdfqr Object or Distribution
 #' @aliases plot.cdfqr
-#' @description Plot Fitted Values/Residuals of A Cdfqr Object or Distribution
+#' @description Plot Fitted Values/Residuals of A cdfqr Object or Distribution
 #' @param x If the plot is based on the fitted values, provide a fitted cdfqr object.
 #'
 #' @param mu,sigma, fd, sd alternatively, mu and sigma, and the distribution can be specified

@@ -23,4 +23,3 @@ bugsLikelihood('t2','t2')
 \seealso{
 \link{qrBugs}
 }
-

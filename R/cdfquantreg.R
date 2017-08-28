@@ -2,7 +2,7 @@
 #' @aliases cdfquantreg
 #' @description \code{cdfquantreg} is the main function to fit a cdf quantile regression with a variety of distributions. 
 #' 
-#' @param formula A formula object, with the dependent variable (DV) on the left of an ~ operator, and predictors on the right. For the part on the right of '~', the specification of the location and dispersion submodels can be seperated by '|'. So \code{y ~ X1 | X2} specifies that the DV is \code{y}, \code{X1} is the predictor in the location submodel, and \code{X2} is the predictor in the dispersion submodel.
+#' @param formula A formula object, with the dependent variable (DV) on the left of an ~ operator, and predictors on the right. For the part on the right of '~', the specification of the location and dispersion submodels can be separated by '|'. So \code{y ~ X1 | X2} specifies that the DV is \code{y}, \code{X1} is the predictor in the location submodel, and \code{X2} is the predictor in the dispersion submodel.
 #' @param data The data in a data.frame format 
 #' @param fd A string that specifies the parent distribution.
 #' @param sd A string that specifies the child distribution.
@@ -121,7 +121,8 @@ cdfquantreg <- function(formula, fd = NULL, sd = NULL, data, family = NULL, star
     z = data_pm, method = "Nelder-Mead")
   
   contr.method <- control$method
-  contr.hessian <- control$hessian
+  #contr.hessian <- control$hessian
+  contr.hessian <- TRUE
   contr.trace <- control$trace
   contr.maxit <- control$maxit
   

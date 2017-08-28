@@ -23,7 +23,7 @@
 \item{...}{other plot parameters pass onto \code{\link[graphics]{plot}}.}
 }
 \description{
-Plot Fitted Values/Residuals of A Cdfqr Object or Distribution
+Plot Fitted Values/Residuals of A cdfqr Object or Distribution
 }
 \examples{
 data(cdfqrExampleData)
@@ -32,4 +32,3 @@ plot(fit)
 
 
 }
-

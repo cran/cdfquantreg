@@ -15,10 +15,10 @@ qrBoot(object, rn, f = coef, R = 500, ci = 0.95)
 
 \item{R}{Number of bootstrap samples.}
 
-\item{ci}{The confidence interval level to obtain the boostrap confidence intervals}
+\item{ci}{The confidence interval level to obtain the bootstrap confidence intervals}
 }
 \value{
-A matrix that includes the original statistics, boostrap means, and boostrap confidence intervals
+A matrix that includes the original statistics, bootstrap means, and bootstrap confidence intervals
 }
 \description{
 \code{qrBoot} provides a simple bootstrapping method for estimating the parameters of a cdf quantile regression model.
@@ -29,4 +29,3 @@ fit <- cdfquantreg(crc99 ~ vert | confl, 't2', 't2', data = JurorData)
 qrBoot(fit, rn = 50, R = 50)
 
 }
-

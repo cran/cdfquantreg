@@ -2,12 +2,12 @@
 % Please edit documentation in R/qrStart.R
 \name{qrStart}
 \alias{qrStart}
-\title{Starting Value Genertion for CDF quantile Regressions}
+\title{Starting Value Generation for CDF quantile Regressions}
 \usage{
 qrStart(ydata, fd = NULL, sd = NULL)
 }
 \arguments{
-\item{ydata}{The variable to be modelled}
+\item{ydata}{The variable to be modeled}
 
 \item{fd}{A string that specifies the parent distribution.}
 
@@ -21,7 +21,7 @@ A vector that consists initial values for mu and sigma.
 }
 \details{
 The start values for the location parameter in a null model are 
-the median of the empirical distribtution, and a starting value for the dispersion parameter based on a 
+the median of the empirical distribution, and a starting value for the dispersion parameter based on a 
 specific quantile of the empirical distribution, specified according to the theoretical distribution
 on which the model is based.
 The start values for all new predictor coefficients in both the location and dispersion 
@@ -32,4 +32,3 @@ x <- rbeta(100, 1, 2)
 qrStart(x, fd='t2', sd='t2')
 #[1] -0.5938286  1.3996999
 }
-

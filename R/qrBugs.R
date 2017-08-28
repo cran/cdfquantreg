@@ -9,8 +9,8 @@
 #' @param fd A string that specifies the parent distribution.
 #' @param sd A string that specifies the sub-family distribution.
 #' @param bugs A logical value to indicate whether to use JAGS or OpenBUGS (NOTE: currently only OpenBUGS supports the customized likelihood functions; the package will update to allow JAGS as soon as JAGS provides that function).
-#' @param random Character or vector of chacters that indicate the random effect factors.
-#' @param nodes Character or vector of chacters that indicate the parameters to be estimated. The default nodes are the coefficients in both the mean and dispersion submodel.
+#' @param random Character or vector of characters that indicate the random effect factors.
+#' @param nodes Character or vector of characters that indicate the parameters to be estimated. The default nodes are the coefficients in both the mean and dispersion submodel.
 #' @param inits A list of values that serve as initial values for MCMC chain procedure.
 #' @param modelname Name of the model (optional).
 #' @param working.directory the directory for generating temporary BUGS files.

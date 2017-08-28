@@ -1,8 +1,8 @@
-#' @title Starting Value Genertion for CDF quantile Regressions
+#' @title Starting Value Generation for CDF quantile Regressions
 #' @aliases qrStart
 #' @description \code{qrStart} is the function for generating starting values for a cdf-quantile GLM null model. 
 #'
-#' @param ydata The variable to be modelled
+#' @param ydata The variable to be modeled
 #' 
 #' @param fd A string that specifies the parent distribution.
 #' @param sd A string that specifies the sub-family distribution.
@@ -10,7 +10,7 @@
 #' @return A vector that consists initial values for mu and sigma.
 #' @export
 #' @details  The start values for the location parameter in a null model are 
-#' the median of the empirical distribtution, and a starting value for the dispersion parameter based on a 
+#' the median of the empirical distribution, and a starting value for the dispersion parameter based on a 
 #' specific quantile of the empirical distribution, specified according to the theoretical distribution
 #' on which the model is based.
 #' The start values for all new predictor coefficients in both the location and dispersion 

@@ -25,4 +25,3 @@ fit <- cdfquantreg(crc99 ~ vert | confl, 't2','t2', data = JurorData)
 
 residuals(fit, "pearson")
 }
-

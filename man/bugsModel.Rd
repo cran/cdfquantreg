@@ -8,7 +8,7 @@ bugsModel(formula, fd, sd, random = NULL, modelname = "bugmodel",
   wd = getwd())
 }
 \arguments{
-\item{formula}{A formula object, with the DV on the left of an ~ operator, and predictors on the right. For the part on the right of '~', the specification of the submodels can be separated by '|'. So \code{y ~ X1 | X2} means the DV is \code{y},\code{X1} is the term in the mean submodel, and \code{X2} is the term in the dispersion submodel.}
+\item{formula}{A formula object, with the DV on the left of an ~ operator, and predictors on the right. For the part on the right of '~', the specification of submodels can be separated by '|'. So \code{y ~ X1 | X2} means the DV is \code{y},\code{X1} is the term in the mean submodel, and \code{X2} is the term in the dispersion submodel.}
 
 \item{fd}{A string that specifies the parent distribution (see \link{cdfqrFamily}).}
 
@@ -44,4 +44,3 @@ bugsModel(y ~ x1 | x2, 't2','t2', random = 'ID')
 \seealso{
 \code{\link{qrBugs}}
 }
-

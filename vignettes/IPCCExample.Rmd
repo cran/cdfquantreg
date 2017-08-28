@@ -24,14 +24,24 @@ The raw estimates themselves are the variable named `prob`, and `probm` is a tra
 
 The remaining three variables (`treat`, `narrow`, and `wide`) represent the experimental conditions in the Budescu et al. study. The "treat" variable codes two conditions: `treat = 0` if participants were given a table with the IPCC guidelines in it, and `treat = 1` if the IPCC guideline was included in the sentence itself. Budescu, et al. (2009) reported that embedding the guideline in the sentence caused respondents' estimates to be less regressive and closer to the IPCC guidelines. 
 
-# Model fit
-
-```{r fit}
-# middle
+```{r}
 library(cdfquantreg)
 data(cdfqrExampleData)
 ipcc_mid <- subset(IPCC, mid == 1 & high == 0)
 
+# Overview the data
+knitr::kable(head(ipcc_mid), row.names=F)
+
+# Distribution of the data
+MASS::truehist(ipcc_mid$probm)
+
+# Choice of CDF distribution: finite tailed
+cdfqrFamily(shape='FT')
+```
+
+# Model fit
+
+```{r fit}
 # We use T2-T2 distribution
 fd <- "t2"
 sd <- "t2"
@@ -48,7 +58,7 @@ summary(fit)
 
 ### Model diagosis
 
-```{r plotfit}
+```{r plotfit, fig.width= 7}
 # Compare the empirical distribution and the fitted values distribution
 plot(fit)
 

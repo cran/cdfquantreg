@@ -2,16 +2,18 @@
 #' @description Influence Diagnosis (dfbetas) For Fitted Cdfqr Object
 #' @aliases influence.cdfqr
 #' @param model A cdfqr model object 
-#' @param type A string that indicates whether the results for all paramters are to be returned, or only the location/dispersion submodel's parameters returned.
+#' @param type A string that indicates whether the results for all parameters are to be returned, or only the location/dispersion submodel's parameters returned.
 #' @param what for influence statistics based on coefficient values, indicate the predictor variables that needs to be tested. 
 #' @param plot if plot is needed.
 #' @param method Currently only 'dfbeta' method is available.
+#' @param id for plot only, if TRUE, the case ids will be displayed in the plot.
 #' @param ... currently ignored.s
 #' @return A matrix, each row of which contains the estimated influence on parameters when that row's observation is removed from the sample.
 #' 
 #' @examples
 #' data(cdfqrExampleData)
 #'fit <- cdfquantreg(crc99 ~ vert | confl, 't2', 't2', data = JurorData)
+#'#It takes some time especially the data is large.
 #'influcne <- influence(fit)
 #'plot(influcne[,2])
 #'
@@ -25,8 +27,9 @@
 #' @method influence cdfqr
 #' @import graphics
 #' @export
-influence.cdfqr <- function(model, method = "dfbeta",type = c("full","location", "dispersion"), 
-                            what = "full",plot=FALSE, ...) {
+influence.cdfqr <- function(model, method = "dfbeta",
+                            type = c("full","location", "dispersion"), 
+                            what = "full",plot=FALSE, id = FALSE, ...) {
   # - dfbeta residuals (for influence check)
  
   method <- match.arg(method)
@@ -34,17 +37,28 @@ influence.cdfqr <- function(model, method = "dfbeta",type = c("full","location",
     infl.stats <- dfbeta(model, type, what)
   })
   
-  return(influcne)
-  if (plot){
-    if (!is.null(ncol(influence))) {
-      par(mfrow=c(3,2))
-      for (i in 1:ncol(influence))
+  plotfun <- function(ddd, id=FALSE){
+    if (!is.null(ncol(ddd))) {
+      par(mfcol=c(2,2), mar = c(2,2,2,1), oma = c(2, 1, 0, 0))
+      
+      for (i in 1:ncol(ddd))
       {
-        plot(influence[,i],xlab = colnames(influence)[i])
-        text(influence[,i], labels=1:nrow(influence),cex=1, pos=2, col="red")
+        plot(ddd[,i],xlab = "", ylab = "Estimated")
+        if(id) {text(ddd[,i], labels=1:nrow(ddd),cex=1, pos=2, col="red")}
+        title(colnames(ddd)[i], line = 0.5)
+        mtext("Cases", side = 1, outer = T, line = 0)
       }
+      
     }
   }
+  if (plot){
+    infplot <- plotfun(influcne)
+    return(list(influcne, infplot))
+  }else{
+    return(influcne)
+  }
+
+
 }
 
 #' @method dfbeta cdfqr
@@ -85,7 +99,7 @@ dfbetas.cdfqr <- function(model, type = c("full","location", "dispersion"), what
     dat1 <- dat[-i, ]
 
     #modify the call for cdfqr function with the new dataset
-    mod <- update(model, .~., fd=fd1, sd=sd1, data = dat1)
+    mod <- update(model, .~., fd=fd1, sd=sd1, data = dat1, start = coef0)
     
     dfbeta <- (coef(mod) - coef0)/bse
     betas <- rbind(betas, dfbeta)

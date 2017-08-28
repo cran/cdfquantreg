@@ -6,9 +6,9 @@
 #' @param low The lowest possible value of that variable. The value should be equal or smaller than the minimum value of y. If not supplied, the minimum value of y will be used.  
 #' @param data A dataframe that contains the variable y.  
 #' @param N A integer, normally is the sample size or the number of values. If not supplied, the length of y will be used. 
-#' @param scale A compressing parameter that determines the extend to which the boundary values are going to be pushed away from the boundray. See details.
+#' @param scale A compressing parameter that determines the extend to which the boundary values are going to be pushed away from the boundary. See details.
 #' 
-#' @details \code{scaleTR} used the method suggested by Smithson and Verkuilen (2006) and applies linear transformation to values into the open interval (0, 1). It first transform the values from their original scale by taking \eqn{y' = (y - a)/(b-a)}, where \code{a} is the lowest possible value of that variable and  \code{b} is the highest possible value of that variable. Next, it compresses the range to avoid zeros and ones by taking \eqn{y" = (y'(N - 1) + c)/N}, where \code{N} is the sample size and \code{c} is the compressing parameter. The smaller value \code{c} is, the boundray values would be more approaching zeros and ones, and have greater impact on the estimation of the dispersion parameters in the cdf quantile model. 
+#' @details \code{scaleTR} used the method suggested by Smithson and Verkuilen (2006) and applies linear transformation to values into the open interval (0, 1). It first transform the values from their original scale by taking \eqn{y' = (y - a)/(b-a)}, where \code{a} is the lowest possible value of that variable and  \code{b} is the highest possible value of that variable. Next, it compresses the range to avoid zeros and ones by taking \eqn{y" = (y'(N - 1) + c)/N}, where \code{N} is the sample size and \code{c} is the compressing parameter. The smaller value \code{c} is, the boundary values would be more approaching zeros and ones, and have greater impact on the estimation of the dispersion parameters in the cdf quantile model. 
 #' 
 #' @seealso \code{\link{cdfquantreg}}
 #' @export 

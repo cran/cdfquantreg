@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -47,7 +47,7 @@
 <h1>The Distribution Family</h1>
 <p>Let <span class="math inline">\(G(x,\mu,\sigma)\)</span> denote a cdf with support (0, 1), a real-valued location parameter <span class="math inline">\(\mu\)</span> and positive scale parameter <span class="math inline">\(\sigma\)</span>. <span class="math inline">\(G\)</span> is defined as</p>
 <p><span class="math inline">\(G(x,\mu,\sigma) = F[U(H^{-1}(x),\mu,\sigma)]\)</span>,</p>
-<p>where <span class="math inline">\(F\)</span> is a standard cdf with support <span class="math inline">\(D_1\)</span>, <span class="math inline">\(H\)</span> is a standard invertible cdf with support <span class="math inline">\(D_2\)</span>, and <span class="math inline">\(U: D_1 \rightarrow D_2\)</span> is an appropriate transform for imposing the location and scale parameters. <span class="math inline">\(D_1\)</span> and <span class="math inline">\(D_2\)</span> are either <span class="math inline">\([-\infty,\infty]\)</span> or <span class="math inline">\([0,\infty]\)</span>. If <span class="math inline">\(D_1 = [-\infty,\infty]\)</span> then</p>
+<p>where <span class="math inline">\(F\)</span> is a standard cdf with support <span class="math inline">\(D_1\)</span>, <span class="math inline">\(H\)</span> is a standard invertible cdf with support <span class="math inline">\(D_2\)</span>, and <span class="math inline">\(U: D_2 \rightarrow D_1\)</span> is an appropriate transform for imposing the location and scale parameters. <span class="math inline">\(D_1\)</span> and <span class="math inline">\(D_2\)</span> are either <span class="math inline">\([-\infty,\infty]\)</span> or <span class="math inline">\([0,\infty]\)</span>. If <span class="math inline">\(D_1 = D_2 = [-\infty,\infty]\)</span> then</p>
 <p><span class="math inline">\(U(x,\mu,\sigma) = (x - \mu)/\sigma\)</span>,</p>
 <p>and if <span class="math inline">\(D_1 = [0,\infty]\)</span> then</p>
 <p><span class="math inline">\(U(x,\mu,\sigma) = (e^{- \mu}x)^{1/\sigma}\)</span>.</p>
@@ -103,7 +103,7 @@
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

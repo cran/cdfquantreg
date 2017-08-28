@@ -3,7 +3,7 @@
 #' @aliases anova.cdfqr
 #' @param object The fitted cdfqr model.
 #' @param ... One or more cdfqr model objects for model comparison.
-#' @param test The model comparision test, currently only 'LRT' is implemented.
+#' @param test The model comparison test, currently only 'LRT' is implemented.
 #' @examples
 #' data(cdfqrExampleData)
 #' fit_null <- cdfquantreg(crc99 ~ 1 | 1, 't2','t2', data = JurorData)

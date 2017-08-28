@@ -19,9 +19,9 @@ qrBugs(formula, data, fd, sd, bugs = TRUE, random = NULL, nodes = NULL,
 
 \item{bugs}{A logical value to indicate whether to use JAGS or OpenBUGS (NOTE: currently only OpenBUGS supports the customized likelihood functions; the package will update to allow JAGS as soon as JAGS provides that function).}
 
-\item{random}{Character or vector of chacters that indicate the random effect factors.}
+\item{random}{Character or vector of characters that indicate the random effect factors.}
 
-\item{nodes}{Character or vector of chacters that indicate the parameters to be estimated. The default nodes are the coefficients in both the mean and dispersion submodel.}
+\item{nodes}{Character or vector of characters that indicate the parameters to be estimated. The default nodes are the coefficients in both the mean and dispersion submodel.}
 
 \item{inits}{A list of values that serve as initial values for MCMC chain procedure.}
 
@@ -71,4 +71,3 @@ Inference for Bugs model at "bugmodel.txt",
 \seealso{
 \code{\link[R2OpenBUGS]{bugs}}
 }
-

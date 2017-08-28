@@ -22,7 +22,7 @@ Let $G(x,\mu,\sigma)$ denote a cdf with support (0, 1), a real-valued location p
 
 $G(x,\mu,\sigma) = F[U(H^{-1}(x),\mu,\sigma)]$,
 
-where $F$ is a standard cdf with support $D_1$, $H$ is a standard invertible cdf with support $D_2$, and $U: D_1 \rightarrow D_2$ is an appropriate transform for imposing the location and scale parameters. $D_1$ and $D_2$ are either $[-\infty,\infty]$ or $[0,\infty]$.  If $D_1 = [-\infty,\infty]$ then
+where $F$ is a standard cdf with support $D_1$, $H$ is a standard invertible cdf with support $D_2$, and $U: D_2 \rightarrow D_1$ is an appropriate transform for imposing the location and scale parameters. $D_1$ and $D_2$ are either $[-\infty,\infty]$ or $[0,\infty]$.  If $D_1 = D_2 = [-\infty,\infty]$ then
 
 $U(x,\mu,\sigma) = (x - \mu)/\sigma$,
 

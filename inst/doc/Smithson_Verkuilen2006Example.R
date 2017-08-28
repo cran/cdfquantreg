@@ -10,8 +10,8 @@ rbind(head(JurorData,4),tail(JurorData,4))
 
 ## ----fit-----------------------------------------------------------------
 # We use T2-T2 distribution
-fd <- "logit" # The parent distribution
-sd <- "logistic" # The child distribution
+fd <- "t2" # The parent distribution
+sd <- "t2" # The child distribution
 
 # Fit the null model
 fit_null <- cdfquantreg(crc99 ~ 1 | 1, fd, sd, data = JurorData)
@@ -39,7 +39,7 @@ anova(fit2, fit3, fit4)
 # Obtain the statistics for the null model
 summary(fit4)
 
-## ----fig.height=4, fig.width=4-------------------------------------------
+## ----fig.height=4, fig.width=8-------------------------------------------
 # Compare the empirical distribution and the fitted values distribution
 breaks <- seq(0,1,length.out =11)
 
@@ -77,7 +77,7 @@ anova(fit_null,fit1, fit2)
 
 summary(fit2)
 
-## ----plotfit2, fig.height= 4, fig.width= 4-------------------------------
+## ----plotfit2, fig.height= 4, fig.width= 8-------------------------------
 # Compare the empirical distribution and the fitted values distribution
 plot(fit2)
 

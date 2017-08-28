@@ -1,14 +1,26 @@
+#' Ambiguity-Conflict data
+#'
+#' A data from a study that investigates the judgment under ambiguity and conflict 
+#'
+#' @format A data frame with 166 rows and 2 variables:
+#' \describe{
+#'   \item{ID}{subject ID}
+#'   \item{value}{Rating in each judgment scenario}
+#'   \item{scenario}{Index for judgment scenarios}
+#' }
+#' @source \url{http://psycnet.apa.org/record/2006-03820-004}
+"Ambdata"
+
 #' Stress-Anxiety data
 #'
-#' A second example is a data from a study that investigates the relationship 
-#' between stress and anxiety..
+#' A data from a study that investigates the relationship between stress and anxiety.
 #'
 #' @format A data frame with 166 rows and 2 variables:
 #' \describe{
 #'   \item{Anxiety}{Scores on Anxiety subscale}
 #'   \item{Stress}{Scores on Stress subscale}
 #' }
-#' @source \url{https://dl.dropboxusercontent.com/u/1857674/betareg/betareg.html}
+#' @source \url{http://psycnet.apa.org/record/2006-03820-004}
 "AnxStrData"
 
 
@@ -22,7 +34,7 @@
 #'   \item{vert}{ was the dummy variable for coding the conditions of verdict types, whereas }
 #'   \item{confl}{ was the dummy variable for coding the conflict conditions}
 #' }
-#' @source \url{https://dl.dropboxusercontent.com/u/1857674/betareg/betareg.html}
+#' @source \url{http://www.tandfonline.com/doi/abs/10.1375/pplt.2004.11.1.154}
 "JurorData"
 
 
@@ -42,4 +54,38 @@
 #'   \item{high}{Distinguish lower, best and upper estiamtes } 
 #'   \item{Question}{IPCC question number} 
 #' }
+#' @source \url{http://journals.sagepub.com/doi/abs/10.1111/j.1467-9280.2009.02284.x}
 "IPCC"
+
+#' IPCC data-set - Wide format
+#'
+#' The IPCC-wide data-set  comprises the best estimates 
+#' for the phrases "likely" and "unlikely" in six IPCC report sentences. 
+#'
+#' @format A data frame with 4014 rows and 8 variables:
+#' \describe{
+#'   \item{Q4}{Each column indicates the estimates for one sentence.}
+#'   \item{Q5}{Each column indicates the estimates for one sentence.}
+#'   \item{Q6}{Each column indicates the estimates for one sentence.}
+#'   \item{Q8}{Each column indicates the estimates for one sentence.}
+#'   \item{Q9}{Each column indicates the estimates for one sentence.}
+#'   \item{Q10}{Each column indicates the estimates for one sentence.}
+#' }
+#' @source \url{http://journals.sagepub.com/doi/abs/10.1111/j.1467-9280.2009.02284.x}
+"IPCC_Wide"
+
+#' IPCC data-set - Australian data
+#'
+#' The IPCC-AUS data-set  comprises the best estimates for the phrases 
+#' in IPCC report sentences. 
+#'
+#' @format A data frame with 4014 rows and 8 variables:
+#' \describe{
+#'   \item{ID}{Subject ID}
+#'   \item{gender}{Gender of subjects, `0`is male, `1`is female}
+#'   \item{age}{age of subjects}
+#'   \item{cfprob}{personal probability.}
+#'   \item{bestprob}{nominated probability.}
+#' }
+#' @source \url{http://journals.sagepub.com/doi/abs/10.1111/j.1467-9280.2009.02284.x}
+"IPCCAUS"

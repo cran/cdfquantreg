@@ -1,3 +1,16 @@
+cdfquantreg 1.1.3 (2017-08-15)
+---------------------------
+  
+  * Optimize `influence` and `dfbeta` function for checking influencial cases.
+  * Update the `predict` function.
+  * Other minor improvement and bug fixes.
+
+cdfquantreg 1.1.2 (2017-05-15)
+---------------------------
+  
+  * Minor improvement and fixed some bugs.
+
+
 cdfquantreg 1.1.1 (2017-01-22)
 ---------------------------
   

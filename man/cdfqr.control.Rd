@@ -4,15 +4,12 @@
 \alias{cdfqr.control}
 \title{Control Optimization Parameters for CDF-Quantile Probability Distributions}
 \usage{
-cdfqr.control(method = "BFGS", maxit = 5000, hessian = TRUE,
-  trace = FALSE)
+cdfqr.control(method = "BFGS", maxit = 5000, trace = FALSE)
 }
 \arguments{
 \item{method}{Characters string specifying the method argument passed to \link[stats]{optim}.}
 
 \item{maxit}{Integer specifying the maxit argument (maximal number of iterations) passed to \link[stats]{optim}.}
-
-\item{hessian}{logical value, which indicates whether the numerical Hessian matrix from the optim output be used for estimation of the covariance matrix. Currently, only 'TRUE' is allowed, as only the analytical solution is employed.}
 
 \item{trace}{Logical or integer controlling whether tracing information on the progress of the optimization should be produced}
 }
@@ -28,4 +25,3 @@ data(cdfqrExampleData)
 fit <- cdfquantreg(crc99 ~ vert | confl, 't2', 't2', 
 data = JurorData,control = cdfqr.control(trace = TRUE))
 }
-
