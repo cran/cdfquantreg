@@ -1,5 +1,5 @@
 #' @title S3 Methods for getting output from fitted cdfqr Objects.
-#' @description Give the Gradient Function for CDF-Quantile Distribution Models
+#' @description Give the S3 Methods for CDF-Quantile Distribution Models
 #' @param object The fitted cdfqr model.
 #' @param x The fitted cdfqr model.
 #' @param type,submodel The parts of coefficients or variance-covariance matrix to be extracted.Can be "full", "mean",or "sigma". 

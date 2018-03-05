@@ -4,6 +4,9 @@
 \alias{influence.cdfqr}
 \alias{dfbeta.cdfqr}
 \alias{dfbetas.cdfqr}
+\alias{influence.cdfqrH}
+\alias{dfbeta.cdfqrH}
+\alias{dfbetas.cdfqrH}
 \title{Influence Diagnosis For Fitted Cdfqr Object}
 \usage{
 \method{influence}{cdfqr}(model, method = "dfbeta", type = c("full",
@@ -14,6 +17,16 @@
 
 \method{dfbetas}{cdfqr}(model, type = c("full", "location", "dispersion"),
   what = "full", ...)
+
+\method{influence}{cdfqrH}(model, method = "dfbeta", type = c("full",
+  "location", "dispersion", "zero", "one"), what = "full", plot = FALSE,
+  id = FALSE, ...)
+
+\method{dfbeta}{cdfqrH}(model, type = c("full", "location", "dispersion",
+  "zero", "one"), what = "full", ...)
+
+\method{dfbetas}{cdfqrH}(model, type = c("full", "location", "dispersion",
+  "zero", "one"), what = "full", ...)
 }
 \arguments{
 \item{model}{A cdfqr model object}

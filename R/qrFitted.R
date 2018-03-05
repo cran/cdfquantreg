@@ -97,3 +97,107 @@ fitted.cdfqr <- function(object, type = c("full","mu","sigma"), plot = FALSE, ..
     }
 
 }
+
+
+#' @method predict cdfqrH 
+#' @export 
+#' @rdname predict.cdfqr
+predict.cdfqrH <- function(object, newdata = NULL, 
+                           type = c("full","mu","sigma","zero","one"), 
+                           quant = 0.5,...) {
+  type <- match.arg(type)
+  
+  if (!is.null(newdata)){
+    tt <- terms(object$formula)
+    Terms <- delete.response(tt)
+    fd <- object$family$fd
+    sd <- object$family$sd
+    m <- model.frame(Terms, newdata)
+    X <- model.matrix(Terms, m)
+    
+    
+    betas.lm <- object$coefficients$location[,"Estimate"]
+    betas.pm <- object$coefficients$dispersion[,"Estimate"]
+    term.lm <- rownames(object$coefficients$location)
+    term.pm <- rownames(object$coefficients$dispersion)
+    
+    if(length(term.lm) < 2){
+      predictlm <- X[, term.lm] * betas.lm
+    }else{
+      predictlm <- X[, term.lm] %*% betas.lm
+    }
+    
+    if(length(term.pm) < 2){
+      predictpm <- X[, term.pm] * betas.pm
+    }else{
+      predictpm <- X[, term.pm] %*% betas.pm
+    }
+    
+    predictsigma <- exp(predictpm)
+    
+    n <- length(predictsigma)
+    if (length(quant) == 1) {
+      q_y <- rep(quant, n)
+    }else if (length(quant) == n){
+      q_y <- quant
+    }
+    
+    pred <- qq(q_y, predictlm, predictsigma, fd, sd)
+    
+    if (!is.null(object$mod_zp)){
+      pred_zero <- predict(object$mod_zp, newdata = newdata,
+                           type = "response")
+    }
+    if (!is.null(object$mod_op)){
+      pred_one <- predict(object$mod_op, newdata = newdata,
+                           type = "response")
+    }
+  
+    fitted <- switch(type, full = {
+      pred
+    }, mu = {
+      predictlm
+    }, sigma = {
+      predictsigma
+    }, zero = {
+      pred_zero
+    }, one = {
+      pred_one
+    })
+  }else{
+    fitted <- switch(type, full = {
+      object$fitted$full
+    }, mu = {
+      object$fitted$full_mu
+    }, sigma = {
+      object$fitted$full_sigma
+    }, zero = {
+      object$fitted$zerop
+    }, one = {
+      object$fitted$onep
+    })
+  }
+  
+  return(fitted)
+}
+
+#' @method fitted cdfqrH 
+#' @export 
+#' @rdname predict.cdfqr
+fitted.cdfqrH <- function(object,  type = c("full","mu","sigma","zero","one"), ...) {
+  type <- match.arg(type)
+  fitted <- switch(type, full = {
+    object$fitted$full
+  }, mu = {
+    object$fitted$full_mu
+  }, sigma = {
+    object$fitted$full_sigma
+  }, zero = {
+    object$fitted$zerop
+  }, one = {
+    object$fitted$onep
+  })
+  
+  return(fitted)
+  
+}

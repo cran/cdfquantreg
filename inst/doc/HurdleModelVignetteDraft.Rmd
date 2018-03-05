@@ -1,0 +1,108 @@
+---
+title: "Censored and Hurdle Model Vignettes"
+author: "Michael Smithson, Yiyun Shou"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Juror & Stree data example}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo = FALSE}
+library(cdfquantreg)
+library(MASS)
+
+data(cdfqrExampleData)
+```
+
+# Censored CDF-Quantile Model: Probability of Human Extinction Study
+## About the Data 
+
+An online survey conducted by Smithson and Shou in 2017 included an experimental component, whereby participants were randomly assigned to receive one of these two questions: "In the next 5,000 years, what is the probability that the human species will become extinct?" or "Within how many years' time do you expect that the human species will become extinct?". They also were randomly assigned to make this estimate before or after they had been asked to rank ten existential threats to humanity according to their severity.  
+
+The response formats asked respondents to choose a range (e.g., "between 1 in 100 and 1 in 500 chances" vs "100 to 500 years from now") and then a specific value from a list within that range (e.g., 1 in 300 chances vs 300 years).  These alternatives are equated with one another by taking expectations of the probability to arrive at the expected number of years before an extinction event.  For instance, an event whose probability is 1 in 300 chances within a given year would be expected to occur once every 300 years. 
+
+Both response formats had boundaries on the probabilities that were above 0 and below 1. The lowest probability that could be assigned was less than 1 in 55,000 chances vs more than 55,000 years (.000018), and the highest was more than 1 in 10 chances vs less than 10 years (.1). Thus, these are censored scores.  
+
+Samples were taken from three adult populations: The USA ($N$ = 330), UK ($N$ = 420), and India ($N$ = 420). The example here therefore has two experimental factors to include in the model (question format and order of presentation) and one non-experimental factor (nationality). 
+
+## Model Fitting
+This example includes five models, all of them using the logit-logistic distribution with censoring at 0.00001818 and 0.1. The first four models investigate the effects of the two experimental factors (order and format), with the conclusion that order and format have effects in the location submodel but only format does so in the dispersion submodel. The fifth model (m4) includes nationality by using the India sample as the base group, and the coefficients indicate that the US sample rates the probability of human extinction lowest on average, followed by the UK sample. 
+
+```{r}
+# Examine effects of format and order for general extinction:
+m0 <- cdfquantregC(EQ1_P ~ 1 | 1, fd ='logit',sd ='logistic', c1 = 0.00001818, c2 = 0.1,data = ExtEvent)
+m1 <- update(m0, .~. + order + format)
+anova(m0, m1)
+
+m2 <- update(m1, .~. |.+ order)
+anova(m1, m2)
+
+m3 <- update(m1, .~. |.+ format)
+anova(m1, m3)
+
+m4 <- update(m3, .~. + nation|.)
+anova(m3, m4)
+
+summary(m4)
+```
+
+## Model Evaluation and Diagnosis
+An examination of the parameter estimate correlation matrix reveals no correlations whose magnitudes are alarming.  The model distribution is fairly similar to the empirical distribution and the residuals are reasonably well-behaved. 
+
+```{r}
+cov2cor(vcov(m4))
+plot(m4, nbins = 50)
+
+```
+
+
+
+# Hurdle CDF-Quantile Model: American Attitudes Toward Gun Ownership
+## About the Data 
+The USA sample in the online survey conducted by Smithson and Shou (2017) as described earlier included items from the social and economic conservatism scales created by Everett (2013). Each item asked respondents to rate their feelings about the issue described in the item on a scale from 0 to 100, according to this instruction: "Please indicate the extent to which you feel positive or negative towards each issue. Scores of 0 indicate greater negativity, and scores of 100 indicate greater positivity. Scores of 50 indicate that you feel neutral about the issue."  
+
+## Model Fitting 
+The next figure shows a histogram of the ratings on the issue of "gun ownership".  This is clearly a strongly polarizing issue. There are reasonable arguments for treating the bounds on the gun ownership scale either as censored scores or true scores.  Here, we treat the bounds as true scores, so that responses are considered as a doubly-bounded random variable. 
+
+```{r, echo = FALSE}
+# Preliminary stuff
+
+gunowndata <- subset(ExtEvent, nation == "US")[, c("political", "SECS_6")]
+gunowndata$gunown <- gunowndata$SECS_6/100
+gunowndata <- na.omit(gunowndata)
+hist(gunowndata$gunown, breaks = 50, xlab = "gun ownership", ylab = "density", main = "", col = "red")
+# 
+```
+
+Histograms of gun ownership ratings separated by political orientation show clear differences among the four orientations. The sources of the polarization in the distribution are primarily the Democrats and Republicans, as would be expected.  We should expect an accurate model to highlight these differences, given that there are sufficiently many people in each of the four groups for such a model to detect sizable group differences. 
+
+```{r}
+# How many people occupy the political orientation groups in the sample?
+table(gunowndata$political)
+# 
+par(mfrow = c(2,2),mar = c(4,4,1,1))
+truehist(gunowndata$gunown[gunowndata$political == "Democrat"], nbins = 50, main = "Democrat", xlab = "gun ownership", ylab = "density", ylim = c(0,11), col = "red")
+truehist(gunowndata$gunown[gunowndata$political == "Independent"], nbins = 50, main = "Independent", xlab = "gun ownership", ylab = "density", ylim = c(0,11), col = "red")
+truehist(gunowndata$gunown[gunowndata$political == "NoPref"], nbins = 50, main = "No Preference", xlab = "gun ownership", ylab = "density", ylim = c(0,11), col = "red")
+truehist(gunowndata$gunown[gunowndata$political == "Republican"], nbins = 50, main = "Republican", xlab = "gun ownership", ylab = "density", ylim = c(0,11), col = "red")
+```
+
+The first three models test for the effect of political orientation in the non-hurdle component of the data, using the burr8-burr8 distribution. Including political orientation in the dispersion submodel does not improve model fit, so subsequent models omit it. 
+
+```{r}
+mod0 <- cdfquantregH(gunown ~ 1, zero.fo = ~1, one.fo = ~1, fd = 'burr8', sd = 'burr8', type = 'ZO', data = gunowndata)
+mod1 <- cdfquantregH(gunown ~ political, zero.fo = ~1, one.fo = ~1, fd = 'burr8', sd = 'burr8', type = 'ZO', data = gunowndata)
+mod2 <- cdfquantregH(gunown ~ political|political, zero.fo = ~1, one.fo = ~1, fd = 'burr8', sd = 'burr8', type = 'ZO', data = gunowndata)
+mod3 <- cdfquantregH(gunown ~ political, zero.fo = ~political, one.fo = ~political, fd = 'burr8', sd = 'burr8', type = 'ZO', data = gunowndata)
+
+
+anova(mod1,mod3)
+summary(mod3)
+```
+
+The final model shows the expected effects of political orientation in all three model components. The location submodel yields higher ratings for Republicans and Independents than for Democrats, whereas the submodel does not find a significant difference between the Democrat and No Preference groups.  These differences are echoed in the zero and one components.  Republicans and Independents are more likely to give zero ratings and less likely to give ratings of one than Democrats.  The No Preference group has a marginally greater tendency than Democrats to give ratings of 1, but it does not reach significance.  

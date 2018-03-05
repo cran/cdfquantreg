@@ -89,3 +89,25 @@
 #' }
 #' @source \url{http://journals.sagepub.com/doi/abs/10.1111/j.1467-9280.2009.02284.x}
 "IPCCAUS"
+
+
+#' Extinction Study data-set
+#'
+#' Probability of Human Extinction Study
+#'
+#' @format A data frame with 1170 rows and 11 variables:
+#' \describe{
+#'   \item{ID}{Subject ID}
+#'   \item{gend}{Gender of subjects, `0`is male, `1`is female}
+#'   \item{nation}{The nation of the participants come from}
+#'   \item{UK}{effect coding for nation}   
+#'   \item{IND}{effect coding for nation}  
+#'   \item{political}{political orientation of subjects}
+#'   \item{format}{The format of probability elicitation}
+#'   \item{order}{the order of probability judgement task.}
+#'   \item{SECS_6}{Social conservativsm question on attitude toward gun ownership.}   
+#'   \item{EQ1_P}{Probability estimates for general threats.}
+#'   \item{EQ3_P}{Probability estimates for the greatest threat.}
+#' }
+#' @source \url{http://www.michaelsmithson.online/}
+"ExtEvent"

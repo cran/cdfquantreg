@@ -142,3 +142,126 @@ dfbetas.cdfqr <- function(model, type = c("full","location", "dispersion"), what
   return(betas)
   
 } 
+
+
+#' @method influence cdfqrH
+#' @rdname influence.cdfqr
+#' @export 
+influence.cdfqrH <- function(model, method = "dfbeta",
+                            type = c("full","location", "dispersion",
+                                     "zero", "one"), 
+                            what = "full",plot=FALSE, id = FALSE, ...) {
+  # - dfbeta residuals (for influence check)
+  
+  method <- match.arg(method)
+  influcne <- switch(method, dfbeta = {
+    infl.stats <- dfbeta(model, type, what)
+  })
+  
+  plotfun <- function(ddd, id=FALSE){
+    if (!is.null(ncol(ddd))) {
+      par(mfcol=c(2,2), mar = c(2,2,2,1), oma = c(2, 1, 0, 0))
+      
+      for (i in 1:ncol(ddd))
+      {
+        plot(ddd[,i],xlab = "", ylab = "Estimated")
+        if(id) {text(ddd[,i], labels=1:nrow(ddd),cex=1, pos=2, col="red")}
+        title(colnames(ddd)[i], line = 0.5)
+        mtext("Cases", side = 1, outer = T, line = 0)
+      }
+      
+    }
+  }
+  if (plot){
+    infplot <- plotfun(influcne)
+    return(list(influcne, infplot))
+  }else{
+    return(influcne)
+  }
+  
+  
+}
+
+#' @method dfbeta cdfqrH
+#' @export
+#' @rdname influence.cdfqr
+dfbeta.cdfqrH <- function(model, type = c("full","location", "dispersion",
+                                         "zero", "one"), 
+                         what = "full", ...) {
+  dfbetas(model, type = type, what = what, ...)
+}
+
+#' @method dfbetas cdfqrH
+#' @export
+#' @rdname influence.cdfqr
+dfbetas.cdfqrH <- function(model, type = c("full","location", "dispersion",
+                                           "zero", "one"), what = "full", ...) {
+  # - dfbeta residuals (for influence check)
+  type <- match.arg(type)
+  
+  # The original model estimation call
+  call <- model$call
+  fd1 <- model$family$fd
+  sd1 <- model$family$sd
+  
+  # Get the data from the call
+  dat <- eval(call$data)
+  n <- nrow(dat)
+  
+  # the number of location parameters
+  k_lm <- nrow(model$coefficients$location)
+  
+  #Get the original coefficients estimates (mean and se)
+  coefficients <- do.call(rbind, model$coefficients)
+  coef0 <- coefficients[, 1]
+  bse <- coefficients[, 2]
+  
+  # Casewise deletion
+  betas <- NULL
+  for (i in 1:nrow(dat)) {
+    dat1 <- dat[-i, ]
+    
+    #modify the call for cdfqr function with the new dataset
+    mod <- update(model, .~., fd=fd1, sd=sd1, data = dat1, start = coef0)
+    
+    dfbeta <- (coef(mod) - coef0)/bse
+    betas <- rbind(betas, dfbeta)
+  }
+  
+  colnames(betas) <- names(coef(model))
+  betas_location <-betas[, 1:k_lm] 
+  betas_dispersion <-betas[, (k_lm+1):ncol(betas)] 
+  
+  # If only a specific subset of parameters is needed, extract such subsets
+  if (what != "full") {
+    locind <- pmatch(colnames(betas_location), what, duplicates.ok = TRUE) 
+    
+    if(length(na.omit(locind))!=0) {
+      betas_location<- betas_location[, what]
+    }else{betas_location <- NULL}
+    
+    precind <- pmatch(colnames(betas_dispersion), what, duplicates.ok = TRUE) 
+    
+    if(length(na.omit(precind))!=0) {
+      betas_dispersion<- betas_dispersion[, what]
+    }else{betas_dispersion <- NULL}
+    
+  }
+  
+  #Rename the two submodels' paraters to distinguish the two submodels
+  colnames(betas_location) <- paste("lm.",colnames(betas_location),sep="")
+  colnames(betas_dispersion) <- paste("pm.",colnames(betas_dispersion),sep="")
+  
+  betas<-cbind(betas_location, betas_dispersion)
+  
+  betas <- switch(type, full = {
+    betas
+  }, location = {
+    betas_location
+  },  dispersion = {
+    betas_dispersion
+  })
+  
+  return(betas)
+  
+} 

@@ -42,6 +42,7 @@ plot.cdfqr <- function(x, mu = NULL, sigma = NULL, fd = NULL, sd = NULL, n = 100
 #     if(missing(ylim)) ylim <- c(0, max(max(c(xtem$x, xtem$y))))
     MASS::truehist(ydata, col = "white", ymax = max(xtem$y) + 0.1,
                    main = "Data (histogram) \n fitted by model (line)",
+                   xlab = 'Observations', ylab = 'Density',
                    ...)
     graphics::lines(xtem$x, xtem$y, lty = 1, lwd = 2)
 

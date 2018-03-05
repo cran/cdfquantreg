@@ -2,9 +2,12 @@
 % Please edit documentation in R/qrLRT.R
 \name{anova.cdfqr}
 \alias{anova.cdfqr}
+\alias{anova.cdfqrH}
 \title{Model comparison test for fitted cdfqr models}
 \usage{
 \method{anova}{cdfqr}(object, ..., test = "LRT")
+
+\method{anova}{cdfqrH}(object, ..., test = "LRT")
 }
 \arguments{
 \item{object}{The fitted cdfqr model.}

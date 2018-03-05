@@ -53,7 +53,7 @@
 \item{level}{the confidence level required.}
 }
 \description{
-Give the Gradient Function for CDF-Quantile Distribution Models
+Give the S3 Methods for CDF-Quantile Distribution Models
 }
 \examples{
 data(cdfqrExampleData)
