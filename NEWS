@@ -1,3 +1,10 @@
+cdfquantreg 1.2.1 (2019-01-25)
+---------------------------
+  
+  * Fixed bugs in calculating the deviance residuals
+  * Citation added
+
+
 cdfquantreg 1.2.0 (2018-02-12)
 ---------------------------
   

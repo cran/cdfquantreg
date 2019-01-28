@@ -37,8 +37,8 @@ residuals.cdfqr <- function(object, type = c("raw","pearson", "deviance"), ...) 
  
   
   # - Deviance residuals
-  deviance_r <- sign(residuals) * sqrt(2 * abs(-qrLogLik(ydata, mu, sigma, fd, sd) + qrLogLik(fitted, 
-    mu, sigma, fd, sd)))
+  deviance_r <- sign(residuals) * sqrt(2 * abs(-qrLogLik(ydata, mu, sigma, fd, sd, total = FALSE) + qrLogLik(fitted, 
+    mu, sigma, fd, sd, total = FALSE)))
   
     res <- switch(type, raw = {
     residuals

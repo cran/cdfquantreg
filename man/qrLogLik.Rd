@@ -4,7 +4,7 @@
 \alias{qrLogLik}
 \title{Log Likelihood for Fitting Cdfquantile Distributions}
 \usage{
-qrLogLik(y, mu, sigma, fd, sd)
+qrLogLik(y, mu, sigma, fd, sd, total = TRUE)
 }
 \arguments{
 \item{y}{the vector to be evaluated.}
@@ -16,6 +16,8 @@ qrLogLik(y, mu, sigma, fd, sd)
 \item{fd}{A string that specifies the parent distribution.}
 
 \item{sd}{A string that specifies the sub-family distribution.}
+
+\item{total}{whether the sum of logliklihood is calculated}
 }
 \value{
 The negative log likelihood for fitting the data with a cdfquantile distribution.

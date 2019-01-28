@@ -1,0 +1,17 @@
+bibentry(bibtype = "Article",
+  title        = "{cdfquantreg}: An {R} Package for {CDF}-Quantile Regression",
+  author       = c(person(given = "Yiyun",
+                          family = "Shou",
+                          email = "Yiyun.Shou@anu.edu.au"),
+                   person(given = "Michael",
+                          family = "Smithson")),
+  journal      = "Journal of Statistical Software",
+  year         = "2019",
+  volume       = "88",
+  number       = "1",
+  pages        = "1--30",
+  doi          = "10.18637/jss.v088.i01",
+
+  header       = "To cite cdfquantreg in publications use:"
+)
+

@@ -7,6 +7,7 @@
 #' @param sigma sigma of the distribution.
 #' @param fd A string that specifies the parent distribution.
 #' @param sd A string that specifies the sub-family distribution.
+#' @param total whether the sum of logliklihood is calculated
 #'
 #' @return The negative log likelihood for fitting the data with a cdfquantile distribution.
 #' 
@@ -16,7 +17,7 @@
 #' y <- rbeta(20, 0.5, 0.5)
 #' qrLogLik(y, mu = 0.5, sigma = 1, 't2','t2')
 #' 
-qrLogLik <- function(y, mu, sigma, fd, sd) {
+qrLogLik <- function(y, mu, sigma, fd, sd, total = TRUE) {
   # arcsinh-XX----- 
   if (fd == "arcsinh") {
     
@@ -412,5 +413,5 @@ qrLogLik <- function(y, mu, sigma, fd, sd) {
     loglik <- log(a) + log(b) + (a - 1) * log(y) + (b - 1) * log(1 - y^a)
   }
   
-  sum(loglik, na.rm = TRUE)
+  if (total) sum(loglik, na.rm = TRUE) else loglik
 } 

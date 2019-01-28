@@ -24,9 +24,8 @@ Yiyun Shou (\email{yiyun.shou@@anu.edu.au}) and Michael Smithson (\email{Michael
 Maintainer: Yiyun Shou
 }
 \references{
-Smithson, M. and Shou, Y. (2016). CDF-Quantile Distributions for Modeling Random Variables on the Unit Interval. Unpublished Manuscript, The Australian National University, Canberra, Australia.
+Shou, Y. and Smithson, M., (2019). {cdfquantreg}: An {R} Package for {CDF}-Quantile Regression. Journal of Statistical Software,88(1), pp.1--30, doi: 10.18637/jss.v088.i01
 }
-
 \keyword{ package }
 \seealso{
 \code{\link{cdfqrFamily}}
