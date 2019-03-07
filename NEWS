@@ -1,3 +1,8 @@
+cdfquantreg 1.2.2 (2019-03-08)
+---------------------------
+  
+  * Removed the functions that require `OpenBugs` to resolve the cross-platform issue.
+  
 cdfquantreg 1.2.1 (2019-01-25)
 ---------------------------
   

@@ -1,14 +1,14 @@
-fd1e21cefe57efbd89d3807147d337e3 *DESCRIPTION
-bbf244937987ba33696cec783f5b34ed *NAMESPACE
-b31489d50d203f8e959d9711def61877 *NEWS
-03ac7f8c4fa37edc8cee169957866665 *R/bugsLikelihood.R
-564cf3c651aacbad03de124b738df25e *R/bugsModel.R
+14c3191769ff35b44e4e147af9c04238 *DESCRIPTION
+a4f263311277b5d6bb2dbe9f0be9f54e *NAMESPACE
+44bd1cfc2fd75f25054dc209950d60d6 *NEWS
+920978a29d5ef799efde9d5849ccaea7 *R/bugsLikelihood.R
+7cba7cbf3b5b46efaab9f0032761b2f5 *R/bugsModel.R
 3e3c68bf9195dd9eb7ecacce321b47be *R/cdfquantreg.R
 587c33c24279ba2b9877e369c8c9e769 *R/cdfquantregCensor.R
 8e76b077eb47e42c54b72a7e0214c237 *R/cdfquantregHurdle.R
 729beee493a162a2258e3d06e0cb50ea *R/data.R
 8731d8f665656417711b018bce10055e *R/qrBoot.R
-bf495373fcc449d39d3289f36637d6f7 *R/qrBugs.R
+8f32be507985f95dfbf1c53de45bf6c7 *R/qrBugs.R
 9780f81cda91fcbd43f9b038383020a9 *R/qrCdf.R
 33cba2997550bef3167a6ac1f229325e *R/qrControl.R
 bd0d5486f754dcfd3110f0538b765000 *R/qrFamily.R
@@ -19,7 +19,7 @@ ee9633a4cd82f89066e68de0ed372b7c *R/qrInfluence.R
 12db72766d50a4e4a256b75c584d0efa *R/qrLRT.R
 06709f44d22f0e668e2a7c407f2bc65e *R/qrLogLik.R
 ab73e3e2e5ae6590f9bb075b30cc8741 *R/qrLogLikFun.R
-cfc3481f0662201ab0f1ff2afd90a8d4 *R/qrMethod.R
+38e9a35a09b8e8dfe59a3c04b5dba50b *R/qrMethod.R
 5842f98cd4db4f97309d9d46edb0300a *R/qrPdf.R
 2df0d960a5acccffc5b4cb3e2526b463 *R/qrPlot.R
 ba46510b452fb25f0b9f0df30e95104f *R/qrPwlm.R
@@ -27,7 +27,7 @@ ba46510b452fb25f0b9f0df30e95104f *R/qrPwlm.R
 4bb520c70a3f3f8b5f8db448e7d9e078 *R/qrStart.R
 57fe9c4bbe1e654ac9835ce2f210ec5b *R/qrTransform.R
 4e934fde429c86776739ac112c6f2fb7 *R/qrqq.R
-80cc235aa4a0c28fb058e6d010d5b330 *build/vignette.rds
+cc6f3c3fbdff7a7582b9e5fa24d4a524 *build/vignette.rds
 198ff1540039d6110f4c7b260785b3e5 *data/cdfqrExampleData.rda
 8bfa64b3431321e2a89ba2dcc22dd65f *inst/CITATION
 6daaa1dec24470254764cd02f80eb84d *inst/doc/CDFQuantregIntroduction.Rmd
@@ -49,8 +49,8 @@ b0c6c9d1720b6b30d177a42a72d5e25d *man/IPCCAUS.Rd
 64e7be39cc27b6aefe5ceeccce55c6a2 *man/IPCC_Wide.Rd
 6ad21485b509026e21307346f8c4c2a7 *man/JurorData.Rd
 736623dbff38f79bcab13d2a852b393e *man/anova.cdfqr.Rd
-181884301d8c677bb5aa983852421e2f *man/bugsLikelihood.Rd
-3c54e6ac9c686faf971514ed0d2001d5 *man/bugsModel.Rd
+4521fe770f14275e7ce40c7ec59a0282 *man/bugsLikelihood.Rd
+0455337e2484619477bb580867a7e154 *man/bugsModel.Rd
 ac85c7aac5c36b3fbff3472d2236283b *man/cdfqr.control.Rd
 3b103689697f943a6b87a189549b97cf *man/cdfqrFamily.Rd
 42a27ab20a94c94ebca7b9792ded5e99 *man/cdfquantreg-package.Rd
@@ -62,7 +62,6 @@ cd390f3c7461d8d5feb511bfe0c06767 *man/dq.Rd
 c11885714c47ca528a8c208144b88f89 *man/plot.cdfqr.Rd
 da69c80fe7d783231db0371265ef1a05 *man/predict.cdfqr.Rd
 c906df1935b0160d501681c95946a0ee *man/qrBoot.Rd
-e1dfb366892931d8c005543026bed02b *man/qrBugs.Rd
 412ed8c7597ce38c0b1d4f278bc89fa6 *man/qrGrad.Rd
 372319def2e0bfcd87822e84e98eeb99 *man/qrLogLik.Rd
 da93dbd68a47f038d3846362f6fa58f0 *man/qrLogLikFun.Rd

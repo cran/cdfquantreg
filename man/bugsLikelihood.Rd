@@ -20,6 +20,3 @@ Likelihood functions for generating OpenBUGS model file.
 \examples{
 bugsLikelihood('t2','t2')
 }
-\seealso{
-\link{qrBugs}
-}

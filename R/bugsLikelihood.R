@@ -7,7 +7,6 @@
 #' @return A string to be written in the BUGS model file.
 #' 
 #' @export
-#' @seealso \link{qrBugs}
 #' @examples
 #' bugsLikelihood('t2','t2')
 

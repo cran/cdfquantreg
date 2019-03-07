@@ -18,7 +18,6 @@
 #' 
 #' @export
 #' 
-#' @seealso \code{\link{qrBugs}}
 #' @examples
 #'\dontrun{
 #' # Need write access in the working directory before executing the code.

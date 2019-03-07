@@ -188,45 +188,64 @@ confint.cdfqr <- function(object, parm, level = 0.95, submodel = "full", ...) {
   cf_sigma <- cf_full['dispersion'][[1]]
   cf <- do.call(rbind, object$coefficients)
   
-  if(missing(parm)) parm = rownames(cf)
     
   if (submodel == "location") {
-      if (is.character(parm)){
-        if (!all(parm %in% rownames(cf_mean)))
+    if(missing(parm)) parm.l = rownames(cf_mean) else parm.l = parm
+    
+      if (is.character(parm.l)){
+        if (!all(parm.l %in% rownames(cf_mean)))
         stop("One or more required parameter(s) is not in the location submodel!")}
       
-      if (is.numeric(parm)){
-        if (!is.matrix(try(cf_mean[parm, ],T)))
+      if (is.numeric(parm.l)){
+        if (!is.matrix(try(cf_mean[parm.l, ],T)))
           stop("One or more required parameter(s) is not in the location submodel!")}
       
-    cf <- cf_mean<- cf_mean[parm, ,drop=FALSE]
+    cf <- cf_mean<- cf_mean[parm.l, ,drop=FALSE]
+    parm <- parm.l
     }
     
   if (submodel == "sigma") {
-    if (is.character(parm)){
-      if (!all(parm %in% rownames(cf_sigma)))
+    if(missing(parm)) parm.d = rownames(cf_sigma) else parm.d = parm
+    
+    if (is.character(parm.d)){
+      if (!all(parm.d %in% rownames(cf_sigma)))
         stop("One or more required parameter(s) is not in the dispersion submodel!")}
       
-      if (is.numeric(parm)){
-        if (!is.matrix(try(cf_sigma[parm, ],T)))
+      if (is.numeric(parm.d)){
+        if (!is.matrix(try(cf_sigma[parm.d, ],T)))
           stop("One or more required parameter(s) is not in the dispersion submodel!")}
       
-     cf <- cf_sigma<- cf_sigma[parm, ,drop=FALSE]
+     cf <- cf_sigma<- cf_sigma[parm.d, ,drop=FALSE]
+     parm <- parm.d
     }
     
   if (submodel == "full") {
-    if (is.character(parm)){
-      if (!any(parm %in% rownames(cf)))
-        stop("One or more required parameter(s) is not in the model!")
+    if(missing(parm)) {
+      parm.l = rownames(cf_mean)
+      parm.d = rownames(cf_sigma)}else{
+        parm.l = parm[[1]]
+        parm.d = parm[[2]]
       }
+    
+    if (is.character(parm.l)){
+      if (!all(parm.l %in% rownames(cf_mean)))
+        stop("One or more required parameter(s) is not in the location submodel!")}
+    if (is.numeric(parm.l)){
+      if (!is.matrix(try(cf_mean[parm.l, ],T)))
+        stop("One or more required parameter(s) is not in the location submodel!")}
+    if (is.character(parm.d)){
+      if (!all(parm.d %in% rownames(cf_sigma)))
+        stop("One or more required parameter(s) is not in the dispersion submodel!")}
+    
+    if (is.numeric(parm.d)){
+      if (!is.matrix(try(cf_sigma[parm.d, ],T)))
+        stop("One or more required parameter(s) is not in the dispersion submodel!")}
+    
       
-      if (is.numeric(parm)){
-        if (!is.matrix(try(cf[parm, ],T)))
-          stop("One or more required parameter(s) is not in the model!")}
-      
-    cf_mean <- cf_mean[parm[parm%in%rownames(cf_mean)][-length(parm[parm%in%rownames(cf_mean)])], ,drop=FALSE]
-    cf_sigma <- cf_sigma[parm[parm%in%rownames(cf_sigma)][-1], ,drop=FALSE]
+    cf_mean <- cf_mean[rownames(cf_mean)[parm.l%in%rownames(cf_mean)], ,drop=FALSE]
+    cf_sigma <- cf_sigma[rownames(cf_sigma)[parm.d%in%rownames(cf_sigma)], ,drop=FALSE]
     cf <- rbind(cf_mean, cf_sigma)
+    parm <- c(parm.l, parm.d)
     }
 
   cf_est <- cf[, 1]
@@ -236,13 +255,13 @@ confint.cdfqr <- function(object, parm, level = 0.95, submodel = "full", ...) {
   a <- c(a, 1 - a)
   fac <- qnorm(a)
   ci_name <- paste0(round(a*100, 2),"%")
-  ci <- array(NA, dim = c(length(parm), 2L), 
+  ci <- array(NA, dim = c(nrow(cf), 2L), 
               dimnames = list(parm, ci_name))
   ci[] <- cf_est + cf_ses %o% fac
   
   if(submodel == "full"){
-    location <- ci[rownames(cf_mean), ,drop=FALSE]
-    dispersion <- ci[rownames(cf_sigma), ,drop=FALSE]
+    location <- ci[1:nrow(cf_mean), ,drop=FALSE]
+    dispersion <- ci[(1+nrow(cf_mean)):nrow(ci), ,drop=FALSE]
     ci <- list(location = location,
                dispersion = dispersion)
   }

@@ -41,6 +41,3 @@ bugsModel(y ~ x1 | x2, 't2','t2', random = 'ID')
 }
 
 }
-\seealso{
-\code{\link{qrBugs}}
-}
