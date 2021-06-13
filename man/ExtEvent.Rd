@@ -4,7 +4,8 @@
 \name{ExtEvent}
 \alias{ExtEvent}
 \title{Extinction Study data-set}
-\format{A data frame with 1170 rows and 11 variables:
+\format{
+A data frame with 1170 rows and 11 variables:
 \describe{
   \item{ID}{Subject ID}
   \item{gend}{Gender of subjects, `0`is male, `1`is female}
@@ -17,9 +18,10 @@
   \item{SECS_6}{Social conservativsm question on attitude toward gun ownership.}   
   \item{EQ1_P}{Probability estimates for general threats.}
   \item{EQ3_P}{Probability estimates for the greatest threat.}
-}}
+}
+}
 \source{
-\url{http://www.michaelsmithson.online/}
+\url{https://www.michaelsmithson.online/}
 }
 \usage{
 ExtEvent

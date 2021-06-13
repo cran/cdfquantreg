@@ -205,21 +205,27 @@ qrGrad <- function(fd, sd) {
       b7_burr8_grad <- function(h, y, x, z) {
     hx <- x %*% h[1:length(x[1, ])]
     gz <- z %*% h[length(x[1, ]) + 1:length(z[1, ])]
-    gd <- cbind(x * rep((2 * (1 - (2 * exp((2 * hx)/exp(gz)))/(exp((2 * hx)/exp(gz)) + (-(0 + 
-        1))^(2/exp(gz)) * ((-1 + exp((0 + 1) * pi * y))/(1 + exp((0 + 1) * pi * y)))^(2/exp(gz)))))/exp(gz), 
-        length(x[1, ])), z * rep(-(((exp(gz) * (-1 + exp((0 + 1) * pi * y))^(2/exp(gz)) + exp(((0 + 
-        1) * pi + 2 * hx + exp(gz) * gz)/exp(gz)) * (1 + exp((0 + 1) * pi * y))^(2/exp(gz)) + 
-        (0 + 1) * (-1 + exp((0 + 1) * pi * y))^(2/exp(gz)) * pi - (0 + 1) * exp(((0 + 1) * 
-        pi + 2 * hx)/exp(gz)) * (1 + exp((0 + 1) * pi * y))^(2/exp(gz)) * pi + 2 * ((-1 + exp((0 + 
-        1) * pi * y))^(2/exp(gz)) + exp(((0 + 1) * pi + 2 * hx)/exp(gz)) * (1 + exp((0 + 1) * 
-        pi * y))^(2/exp(gz))) * log(-1 + exp((0 + 1) * pi * y)) - 2 * ((-1 + exp((0 + 1) * 
-        pi * y))^(2/exp(gz)) + exp(((0 + 1) * pi + 2 * hx)/exp(gz)) * (1 + exp((0 + 1) * pi * 
-        y))^(2/exp(gz))) * log(1 + exp((0 + 1) * pi * y)) - 4 * (-1 + exp((0 + 1) * pi * y))^(2/exp(gz)) * 
-        log(-1 + exp((0 + 1) * pi * y)) + 4 * (-1 + exp((0 + 1) * pi * y))^(2/exp(gz)) * log(1 + 
-        exp((0 + 1) * pi * y)) + 2 * (-1 + exp((0 + 1) * pi * y))^(2/exp(gz)) * hx - 2 * exp(((0 + 
-        1) * pi + 2 * hx)/exp(gz)) * (1 + exp((0 + 1) * pi * y))^(2/exp(gz)) * hx))/exp(gz)/((-1 + 
-        exp((0 + 1) * pi * y))^(2/exp(gz)) + exp(((0 + 1) * pi + 2 * hx)/exp(gz)) * (1 + exp((0 + 
-        1) * pi * y))^(2/exp(gz)))), length(z[1, ])))
+    # gd <- cbind(x * rep((2 * (1 - (2 * exp((2 * hx)/exp(gz)))/(exp((2 * hx)/exp(gz)) + (-(0 + 
+    #     1))^(2/exp(gz)) * ((-1 + exp((0 + 1) * pi * y))/(1 + exp((0 + 1) * pi * y)))^(2/exp(gz)))))/exp(gz), 
+    #     length(x[1, ])), z * rep(-(((exp(gz) * (-1 + exp((0 + 1) * pi * y))^(2/exp(gz)) + exp(((0 + 
+    #     1) * pi + 2 * hx + exp(gz) * gz)/exp(gz)) * (1 + exp((0 + 1) * pi * y))^(2/exp(gz)) + 
+    #     (0 + 1) * (-1 + exp((0 + 1) * pi * y))^(2/exp(gz)) * pi - (0 + 1) * exp(((0 + 1) * 
+    #     pi + 2 * hx)/exp(gz)) * (1 + exp((0 + 1) * pi * y))^(2/exp(gz)) * pi + 2 * ((-1 + exp((0 + 
+    #     1) * pi * y))^(2/exp(gz)) + exp(((0 + 1) * pi + 2 * hx)/exp(gz)) * (1 + exp((0 + 1) * 
+    #     pi * y))^(2/exp(gz))) * log(-1 + exp((0 + 1) * pi * y)) - 2 * ((-1 + exp((0 + 1) * 
+    #     pi * y))^(2/exp(gz)) + exp(((0 + 1) * pi + 2 * hx)/exp(gz)) * (1 + exp((0 + 1) * pi * 
+    #     y))^(2/exp(gz))) * log(1 + exp((0 + 1) * pi * y)) - 4 * (-1 + exp((0 + 1) * pi * y))^(2/exp(gz)) * 
+    #     log(-1 + exp((0 + 1) * pi * y)) + 4 * (-1 + exp((0 + 1) * pi * y))^(2/exp(gz)) * log(1 + 
+    #     exp((0 + 1) * pi * y)) + 2 * (-1 + exp((0 + 1) * pi * y))^(2/exp(gz)) * hx - 2 * exp(((0 + 
+    #     1) * pi + 2 * hx)/exp(gz)) * (1 + exp((0 + 1) * pi * y))^(2/exp(gz)) * hx))/exp(gz)/((-1 + 
+    #     exp((0 + 1) * pi * y))^(2/exp(gz)) + exp(((0 + 1) * pi + 2 * hx)/exp(gz)) * (1 + exp((0 + 
+    #     1) * pi * y))^(2/exp(gz)))), length(z[1, ])))
+    
+    gd <- cbind(x * rep( -2*tanh((hx -log(tan((pi*y)/2)))/exp(gz))/exp(gz), length(x[1, ])),
+                z * rep((-exp(gz) + 2*(hx-log(tan((pi*y)/2)))*tanh((hx-log(tan((pi*y)/2)))/exp(gz)))/exp(gz)^2, length(z[1, 
+                                                                                                                         ])))
+    
+    
     colSums(gd, na.rm = TRUE)
       }
       grad <- b7_burr8_grad
@@ -447,12 +453,31 @@ qrGrad <- function(fd, sd) {
       c_logistic_grad <- function(h, y, x, z) {
         hx <- x %*% h[1:length(x[1, ])]
         gz <- z %*% h[length(x[1, ]) + 1:length(z[1, ])]
-       gd <- cbind(x * rep(((-2 * (log(1 - y) - log(y) + hx))/(exp(2 * gz) + (log(1 - y) - log(y))^2 + 
-        2 * hx * (log(1 - y) - log(y)) + hx^2)), length(x[1, ])), z * rep((1 - (2 * exp(2 * 
-        gz))/(exp(2 * gz) + (log(1 - y) - log(y))^2 + 2 * hx * (log(1 - y) - log(y)) + hx^2)), 
-        length(z[1, ])))
-        colSums(gd, na.rm = TRUE)
+       
+        # gd <- cbind(x * rep(((-2 * (log(1 - y) - log(y) + hx))/(exp(2 * gz) + (log(1 - y) - log(y))^2 + 
+        # 2 * hx * (log(1 - y) - log(y)) + hx^2)), length(x[1, ])), z * rep((1 - (2 * exp(2 * 
+        # gz))/(exp(2 * gz) + (log(1 - y) - log(y))^2 + 2 * hx * (log(1 - y) - log(y)) + hx^2)), 
+        # length(z[1, ])))
+        
+        # gz <- cbind(
+        #   x*rep(-log(-(exp(gz)/(pi*(-1 + y)*y*(hx^2 + exp(gz)^2 - 2*hx*log(y/(1 - y)) + log(y/(1 - y))^2)))), length(x[1, ])), 
+        #   z*rep(-log(-(exp(gz)/(pi*(-1 + y)*y*(hx^2 + exp(gz)^2 - 2*hx*log(y/(1 - y)) + log(y/(1 - y))^2)))), length(x[1, ]))
+        # ) 
+      lldq <- function(u) {
+          loglik <- -log(dq(u[1], u[2], exp(u[3]), fd = "cauchit", sd = "logistic"))
+        } 
+      n <- length(y)
+      pdfgrad <- matrix(c(rep(0,3*n)), ncol = 3)
+      for (i in 1:n) {
+      pdfgrad[i,] <- pracma::grad(lldq, x0 <- c(y[i], hx[i], gz[i]))}
+      
+      pdfgrad <- cbind(
+        x*rep(pdfgrad[, 2], length(x[1, ])),
+        z*rep(pdfgrad[, 3], length(z[1, ]))
+      )
+      colSums(pdfgrad, na.rm = TRUE)
       }
+      
       grad <- c_logistic_grad
     }
     

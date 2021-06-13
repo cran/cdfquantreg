@@ -4,14 +4,16 @@
 \name{Ambdata}
 \alias{Ambdata}
 \title{Ambiguity-Conflict data}
-\format{A data frame with 166 rows and 2 variables:
+\format{
+A data frame with 166 rows and 2 variables:
 \describe{
   \item{ID}{subject ID}
   \item{value}{Rating in each judgment scenario}
   \item{scenario}{Index for judgment scenarios}
-}}
+}
+}
 \source{
-\url{http://psycnet.apa.org/record/2006-03820-004}
+\url{https://psycnet.apa.org/record/2006-03820-004}
 }
 \usage{
 Ambdata

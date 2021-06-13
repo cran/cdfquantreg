@@ -23,19 +23,21 @@
 
 \method{deviance}{cdfqrH}(object, ...)
 
-\method{coef}{cdfqrH}(object, type = c("full", "mean", "sigma", "zero",
-  "one"), ...)
+\method{coef}{cdfqrH}(object, type = c("full", "mean", "sigma", "zero", "one"), ...)
 
-\method{vcov}{cdfqrH}(object, type = c("full", "mean", "sigma", "zero",
-  "one"), ...)
+\method{vcov}{cdfqrH}(object, type = c("full", "mean", "sigma", "zero", "one"), ...)
 
-\method{update}{cdfqrH}(object, formula., zero.fo., one.fo., ...,
-  evaluate = TRUE)
+\method{update}{cdfqrH}(object, formula., zero.fo., one.fo., ..., evaluate = TRUE)
 
 \method{formula}{cdfqrH}(x, ...)
 
-\method{confint}{cdfqrH}(object, parm, level = 0.95, type = c("full",
-  "mean", "sigma", "zero", "one"), ...)
+\method{confint}{cdfqrH}(
+  object,
+  parm,
+  level = 0.95,
+  type = c("full", "mean", "sigma", "zero", "one"),
+  ...
+)
 }
 \arguments{
 \item{object}{The fitted cdfqrH model.}

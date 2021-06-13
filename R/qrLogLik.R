@@ -114,12 +114,13 @@ qrLogLik <- function(y, mu, sigma, fd, sd, total = TRUE) {
     
     # burr7-burr8----
     if (sd == 'burr8'){
-         loglik <- Re((1/(2 * sigma)) * (-2 * (0 + 1i) * pi + 4 * mu + (0 + 1i) * pi * sigma + sigma * 
-        log(16) + 2 * sigma * log(pi) - 2 * sigma * log(sigma) + 4 * log(-1 + exp((0 + 1i) * 
-        pi * y)) - 4 * log(1 + exp((0 + 1i) * pi * y)) - 2 * sigma * log(-1 + exp(2 * (0 + 1i) * 
-        pi * y)) - 4 * sigma * log(exp((2 * mu)/sigma) + ((-(0 + 1i))^(2/sigma) * (-1 + exp((0 + 
-        1) * pi * y))^(2/sigma))/(1 + exp((0 + 1i) * pi * y))^(2/sigma)) + 2 * (0 + 1i) * pi * 
-        sigma * y))
+        #  loglik <- Re((1/(2 * sigma)) * (-2 * (0 + 1i) * pi + 4 * mu + (0 + 1i) * pi * sigma + sigma * 
+        # log(16) + 2 * sigma * log(pi) - 2 * sigma * log(sigma) + 4 * log(-1 + exp((0 + 1i) * 
+        # pi * y)) - 4 * log(1 + exp((0 + 1i) * pi * y)) - 2 * sigma * log(-1 + exp(2 * (0 + 1i) * 
+        # pi * y)) - 4 * sigma * log(exp((2 * mu)/sigma) + ((-(0 + 1i))^(2/sigma) * (-1 + exp((0 + 
+        # 1) * pi * y))^(2/sigma))/(1 + exp((0 + 1i) * pi * y))^(2/sigma)) + 2 * (0 + 1i) * pi * 
+        # sigma * y))
+         loglik <-  log((pi*csc((pi*y)/2)*sec((pi*y)/2)*sech((mu- log(tan((pi*y)/2)))/sigma)^2)/(4*sigma))
     }
 
     # burr7-cauchy----
@@ -242,8 +243,10 @@ qrLogLik <- function(y, mu, sigma, fd, sd, total = TRUE) {
     
      # cauchit-Logistic----- 
     if (sd == "logistic") {
-    loglik <- log(sigma) - log(mu^2 + sigma^2 - 2 * mu * (-log(1 - y) + log(y)) + (-log(1 - 
-        y) + log(y))^2) - log(1 - y) - log(y)
+    # loglik <- log(sigma) - log(mu^2 + sigma^2 - 2 * mu * (-log(1 - y) + log(y)) + (-log(1 - 
+    #     y) + log(y))^2) - log(1 - y) - log(y)
+    # 
+    loglik <- log((pi*csc((pi*y)/2)*sec((pi*y)/2)*sech((mu- log(tan((pi*y)/2)))/sigma)^2)/(4*sigma))
     }
     
     # cauchit-t2---- 

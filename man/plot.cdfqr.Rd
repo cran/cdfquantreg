@@ -4,8 +4,16 @@
 \alias{plot.cdfqr}
 \title{Plot Fitted Values/Residuals of A Cdfqr Object or Distribution}
 \usage{
-\method{plot}{cdfqr}(x, mu = NULL, sigma = NULL, fd = NULL, sd = NULL,
-  n = 10000, type = c("fitted"), ...)
+\method{plot}{cdfqr}(
+  x,
+  mu = NULL,
+  sigma = NULL,
+  fd = NULL,
+  sd = NULL,
+  n = 10000,
+  type = c("fitted"),
+  ...
+)
 }
 \arguments{
 \item{x}{If the plot is based on the fitted values, provide a fitted cdfqr object.}

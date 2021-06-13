@@ -5,9 +5,6 @@
 \alias{dq}
 \alias{rq}
 \alias{qq}
-\alias{pq}
-\alias{rq}
-\alias{qq}
 \title{The Famility of Distributions}
 \usage{
 pq(q, mu, sigma, fd, sd)

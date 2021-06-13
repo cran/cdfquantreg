@@ -4,8 +4,7 @@
 \alias{bugsModel}
 \title{Generating OpenBUGS Model File}
 \usage{
-bugsModel(formula, fd, sd, random = NULL, modelname = "bugmodel",
-  wd = getwd())
+bugsModel(formula, fd, sd, random = NULL, modelname = "bugmodel", wd = getwd())
 }
 \arguments{
 \item{formula}{A formula object, with the DV on the left of an ~ operator, and predictors on the right. For the part on the right of '~', the specification of submodels can be separated by '|'. So \code{y ~ X1 | X2} means the DV is \code{y},\code{X1} is the term in the mean submodel, and \code{X2} is the term in the dispersion submodel.}

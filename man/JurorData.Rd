@@ -4,14 +4,16 @@
 \name{JurorData}
 \alias{JurorData}
 \title{Juror data}
-\format{A data frame with 104 rows and 3 variables:
+\format{
+A data frame with 104 rows and 3 variables:
 \describe{
   \item{crc99}{The ratings of confidence levels with rescaling into the (0, 1) interval to avoide 1 and 0 values.}
   \item{vert}{ was the dummy variable for coding the conditions of verdict types, whereas }
   \item{confl}{ was the dummy variable for coding the conflict conditions}
-}}
+}
+}
 \source{
-\url{http://www.tandfonline.com/doi/abs/10.1375/pplt.2004.11.1.154}
+\url{https://www.tandfonline.com/doi/abs/10.1375/pplt.2004.11.1.154}
 }
 \usage{
 JurorData

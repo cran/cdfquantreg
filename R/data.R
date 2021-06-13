@@ -8,7 +8,7 @@
 #'   \item{value}{Rating in each judgment scenario}
 #'   \item{scenario}{Index for judgment scenarios}
 #' }
-#' @source \url{http://psycnet.apa.org/record/2006-03820-004}
+#' @source \url{https://psycnet.apa.org/record/2006-03820-004}
 "Ambdata"
 
 #' Stress-Anxiety data
@@ -20,7 +20,7 @@
 #'   \item{Anxiety}{Scores on Anxiety subscale}
 #'   \item{Stress}{Scores on Stress subscale}
 #' }
-#' @source \url{http://psycnet.apa.org/record/2006-03820-004}
+#' @source \url{https://psycnet.apa.org/record/2006-03820-004}
 "AnxStrData"
 
 
@@ -34,7 +34,7 @@
 #'   \item{vert}{ was the dummy variable for coding the conditions of verdict types, whereas }
 #'   \item{confl}{ was the dummy variable for coding the conflict conditions}
 #' }
-#' @source \url{http://www.tandfonline.com/doi/abs/10.1375/pplt.2004.11.1.154}
+#' @source \url{https://www.tandfonline.com/doi/abs/10.1375/pplt.2004.11.1.154}
 "JurorData"
 
 
@@ -54,7 +54,7 @@
 #'   \item{high}{Distinguish lower, best and upper estiamtes } 
 #'   \item{Question}{IPCC question number} 
 #' }
-#' @source \url{http://journals.sagepub.com/doi/abs/10.1111/j.1467-9280.2009.02284.x}
+#' @source \url{https://journals.sagepub.com/doi/abs/10.1111/j.1467-9280.2009.02284.x}
 "IPCC"
 
 #' IPCC data-set - Wide format
@@ -71,7 +71,7 @@
 #'   \item{Q9}{Each column indicates the estimates for one sentence.}
 #'   \item{Q10}{Each column indicates the estimates for one sentence.}
 #' }
-#' @source \url{http://journals.sagepub.com/doi/abs/10.1111/j.1467-9280.2009.02284.x}
+#' @source \url{https://journals.sagepub.com/doi/abs/10.1111/j.1467-9280.2009.02284.x}
 "IPCC_Wide"
 
 #' IPCC data-set - Australian data
@@ -87,7 +87,7 @@
 #'   \item{cfprob}{personal probability.}
 #'   \item{bestprob}{nominated probability.}
 #' }
-#' @source \url{http://journals.sagepub.com/doi/abs/10.1111/j.1467-9280.2009.02284.x}
+#' @source \url{https://journals.sagepub.com/doi/abs/10.1111/j.1467-9280.2009.02284.x}
 "IPCCAUS"
 
 
@@ -109,5 +109,5 @@
 #'   \item{EQ1_P}{Probability estimates for general threats.}
 #'   \item{EQ3_P}{Probability estimates for the greatest threat.}
 #' }
-#' @source \url{http://www.michaelsmithson.online/}
+#' @source \url{https://www.michaelsmithson.online/}
 "ExtEvent"

@@ -1,3 +1,8 @@
+cdfquantreg 1.2.3-4 (2021-06-06)
+---------------------------
+  
+  * Fixed errors in likelihood functions for cauchit-logistic and burr7-burr8 distributions.
+  
 cdfquantreg 1.2.2 (2019-03-08)
 ---------------------------
   

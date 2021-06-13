@@ -9,24 +9,43 @@
 \alias{dfbetas.cdfqrH}
 \title{Influence Diagnosis For Fitted Cdfqr Object}
 \usage{
-\method{influence}{cdfqr}(model, method = "dfbeta", type = c("full",
-  "location", "dispersion"), what = "full", plot = FALSE, id = FALSE, ...)
+\method{influence}{cdfqr}(
+  model,
+  method = "dfbeta",
+  type = c("full", "location", "dispersion"),
+  what = "full",
+  plot = FALSE,
+  id = FALSE,
+  ...
+)
 
-\method{dfbeta}{cdfqr}(model, type = c("full", "location", "dispersion"),
-  what = "full", ...)
+\method{dfbeta}{cdfqr}(model, type = c("full", "location", "dispersion"), what = "full", ...)
 
-\method{dfbetas}{cdfqr}(model, type = c("full", "location", "dispersion"),
-  what = "full", ...)
+\method{dfbetas}{cdfqr}(model, type = c("full", "location", "dispersion"), what = "full", ...)
 
-\method{influence}{cdfqrH}(model, method = "dfbeta", type = c("full",
-  "location", "dispersion", "zero", "one"), what = "full", plot = FALSE,
-  id = FALSE, ...)
+\method{influence}{cdfqrH}(
+  model,
+  method = "dfbeta",
+  type = c("full", "location", "dispersion", "zero", "one"),
+  what = "full",
+  plot = FALSE,
+  id = FALSE,
+  ...
+)
 
-\method{dfbeta}{cdfqrH}(model, type = c("full", "location", "dispersion",
-  "zero", "one"), what = "full", ...)
+\method{dfbeta}{cdfqrH}(
+  model,
+  type = c("full", "location", "dispersion", "zero", "one"),
+  what = "full",
+  ...
+)
 
-\method{dfbetas}{cdfqrH}(model, type = c("full", "location", "dispersion",
-  "zero", "one"), what = "full", ...)
+\method{dfbetas}{cdfqrH}(
+  model,
+  type = c("full", "location", "dispersion", "zero", "one"),
+  what = "full",
+  ...
+)
 }
 \arguments{
 \item{model}{A cdfqr model object}

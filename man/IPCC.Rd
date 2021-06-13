@@ -4,7 +4,8 @@
 \name{IPCC}
 \alias{IPCC}
 \title{IPCC data-set}
-\format{A data frame with 4014 rows and 8 variables:
+\format{
+A data frame with 4014 rows and 8 variables:
 \describe{
   \item{subj}{Subject ID number}
   \item{treat}{Experimental conditions}
@@ -14,9 +15,10 @@
   \item{mid}{Distinguish lower, best and upper estiamtes }
   \item{high}{Distinguish lower, best and upper estiamtes } 
   \item{Question}{IPCC question number} 
-}}
+}
+}
 \source{
-\url{http://journals.sagepub.com/doi/abs/10.1111/j.1467-9280.2009.02284.x}
+\url{https://journals.sagepub.com/doi/abs/10.1111/j.1467-9280.2009.02284.x}
 }
 \usage{
 IPCC

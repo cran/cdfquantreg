@@ -4,8 +4,7 @@
 \alias{scaleTR}
 \title{Transform Values into (0, 1) Interval}
 \usage{
-scaleTR(y, high = NULL, low = NULL, data = NULL, N = NULL,
-  scale = 0.5)
+scaleTR(y, high = NULL, low = NULL, data = NULL, N = NULL, scale = 0.5)
 }
 \arguments{
 \item{y}{A numeric vector, or a variable in a dataframe.}

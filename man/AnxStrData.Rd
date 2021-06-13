@@ -4,13 +4,15 @@
 \name{AnxStrData}
 \alias{AnxStrData}
 \title{Stress-Anxiety data}
-\format{A data frame with 166 rows and 2 variables:
+\format{
+A data frame with 166 rows and 2 variables:
 \describe{
   \item{Anxiety}{Scores on Anxiety subscale}
   \item{Stress}{Scores on Stress subscale}
-}}
+}
+}
 \source{
-\url{http://psycnet.apa.org/record/2006-03820-004}
+\url{https://psycnet.apa.org/record/2006-03820-004}
 }
 \usage{
 AnxStrData

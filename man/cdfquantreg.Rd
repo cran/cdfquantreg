@@ -4,8 +4,16 @@
 \alias{cdfquantreg}
 \title{CDF-Quantile Probability Distributions}
 \usage{
-cdfquantreg(formula, fd = NULL, sd = NULL, data, family = NULL,
-  start = NULL, control = cdfqr.control(...), ...)
+cdfquantreg(
+  formula,
+  fd = NULL,
+  sd = NULL,
+  data,
+  family = NULL,
+  start = NULL,
+  control = cdfqr.control(...),
+  ...
+)
 }
 \arguments{
 \item{formula}{A formula object, with the dependent variable (DV) on the left of an ~ operator, and predictors on the right. For the part on the right of '~', the specification of the location and dispersion submodels can be separated by '|'. So \code{y ~ X1 | X2} specifies that the DV is \code{y}, \code{X1} is the predictor in the location submodel, and \code{X2} is the predictor in the dispersion submodel.}

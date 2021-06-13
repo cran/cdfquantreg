@@ -184,14 +184,18 @@ qrLogLikFun <- function(fd, sd) {
         mu <- hx
         gz <- z %*% h[length(x[1, ]) + 1:length(z[1, ])]
         sigma <- exp(gz)
-       loglik <- Re((1/(2 * sigma)) * (-2 * (0 + 1i) * pi + 4 * mu + (0 + 1i) * pi * sigma + sigma * 
-        log(16) + 2 * sigma * log(pi) - 2 * sigma * log(sigma) + 4 * log(-1 + exp((0 + 1i) * 
-        pi * y)) - 4 * log(1 + exp((0 + 1i) * pi * y)) - 2 * sigma * log(-1 + exp(2 * (0 + 1i) * 
-        pi * y)) - 4 * sigma * log(exp((2 * mu)/sigma) + ((-(0 + 1i))^(2/sigma) * (-1 + exp((0 + 
-        1) * pi * y))^(2/sigma))/(1 + exp((0 + 1i) * pi * y))^(2/sigma)) + 2 * (0 + 1i) * pi * 
-        sigma * y))
-        
-        -sum(loglik, na.rm = TRUE)
+       # loglik <- Re((1/(2 * sigma)) * (-2 * (0 + 1i) * pi + 4 * mu + (0 + 1i) * pi * sigma + sigma * 
+       #  log(16) + 2 * sigma * log(pi) - 2 * sigma * log(sigma) + 4 * log(-1 + exp((0 + 1i) * 
+       #  pi * y)) - 4 * log(1 + exp((0 + 1i) * pi * y)) - 2 * sigma * log(-1 + exp(2 * (0 + 1i) * 
+       #  pi * y)) - 4 * sigma * log(exp((2 * mu)/sigma) + ((-(0 + 1i))^(2/sigma) * (-1 + exp((0 + 
+       #  1) * pi * y))^(2/sigma))/(1 + exp((0 + 1i) * pi * y))^(2/sigma)) + 2 * (0 + 1i) * pi * 
+       #  sigma * y))
+       #  -sum(loglik, na.rm = TRUE)
+       
+
+       loglik <- log((pi*csc((pi*y)/2)*sec((pi*y)/2)*sech((mu- log(tan((pi*y)/2)))/sigma)^2)/(4*sigma))
+       -sum(loglik, na.rm = TRUE)
+       
        }
        quantreg_loglik <- b7_burr8_loglik
     }
@@ -433,9 +437,13 @@ qrLogLikFun <- function(fd, sd) {
         mu <- hx
         gz <- z %*% h[length(x[1, ]) + 1:length(z[1, ])]
         sigma <- exp(gz)
-        loglik <- log(sigma) - 
-          log(mu^2 + sigma^2 - (2 * mu * (log(y)-log(1 - y))) + 
-                (log(y)-(log(1 - y) )^2)) - log(1 - y) - log(y)
+        # loglik <- log(sigma) - 
+        #   log(mu^2 + sigma^2 - (2 * mu * (log(y)-log(1 - y))) + 
+        #         (log(y)-(log(1 - y) )^2)) - log(1 - y) - log(y)
+        # -sum(loglik, na.rm = TRUE)
+        
+
+        loglik <- log(-(sigma/(pi*(-1 + y)*y*(mu^2 + sigma^2 - 2*mu*log(y/(1 - y)) + (log(y/(1 - y)))^2))))
         -sum(loglik, na.rm = TRUE)
       }
       quantreg_loglik <- c_logistic_loglik

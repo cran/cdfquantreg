@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <meta name="author" content="Michael Smithson, Yiyun Shou" />
 
@@ -16,49 +16,297 @@
 <title>Censored and Hurdle Model Vignettes</title>
 
 
-
-<style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
 
 
-<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -68,10 +316,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 <h1 class="title toc-ignore">Censored and Hurdle Model Vignettes</h1>
-<h4 class="author"><em>Michael Smithson, Yiyun Shou</em></h4>
+<h4 class="author">Michael Smithson, Yiyun Shou</h4>
 
 
 
+<pre><code>## Warning: package &#39;MASS&#39; was built under R version 3.6.3</code></pre>
 <div id="censored-cdf-quantile-model-probability-of-human-extinction-study" class="section level1">
 <h1>Censored CDF-Quantile Model: Probability of Human Extinction Study</h1>
 <div id="about-the-data" class="section level2">
@@ -84,43 +333,43 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="model-fitting" class="section level2">
 <h2>Model Fitting</h2>
 <p>This example includes five models, all of them using the logit-logistic distribution with censoring at 0.00001818 and 0.1. The first four models investigate the effects of the two experimental factors (order and format), with the conclusion that order and format have effects in the location submodel but only format does so in the dispersion submodel. The fifth model (m4) includes nationality by using the India sample as the base group, and the coefficients indicate that the US sample rates the probability of human extinction lowest on average, followed by the UK sample.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Examine effects of format and order for general extinction:</span>
-m0 &lt;-<span class="st"> </span><span class="kw">cdfquantregC</span>(EQ1_P <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">fd =</span><span class="st">'logit'</span>,<span class="dt">sd =</span><span class="st">'logistic'</span>, <span class="dt">c1 =</span> <span class="fl">0.00001818</span>, <span class="dt">c2 =</span> <span class="fl">0.1</span>,<span class="dt">data =</span> ExtEvent)
-m1 &lt;-<span class="st"> </span><span class="kw">update</span>(m0, .<span class="op">~</span>. <span class="op">+</span><span class="st"> </span>order <span class="op">+</span><span class="st"> </span>format)
-<span class="kw">anova</span>(m0, m1)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="co"># Examine effects of format and order for general extinction:</span></a>
+<a class="sourceLine" id="cb2-2" title="2">m0 &lt;-<span class="st"> </span><span class="kw">cdfquantregC</span>(EQ1_P <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">fd =</span><span class="st">&#39;logit&#39;</span>,<span class="dt">sd =</span><span class="st">&#39;logistic&#39;</span>, <span class="dt">c1 =</span> <span class="fl">0.00001818</span>, <span class="dt">c2 =</span> <span class="fl">0.1</span>,<span class="dt">data =</span> ExtEvent)</a>
+<a class="sourceLine" id="cb2-3" title="3">m1 &lt;-<span class="st"> </span><span class="kw">update</span>(m0, .<span class="op">~</span>. <span class="op">+</span><span class="st"> </span>order <span class="op">+</span><span class="st"> </span>format)</a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="kw">anova</span>(m0, m1)</a></code></pre></div>
 <pre><code>## Likelihood ratio tests 
 ## 
 ##   Resid. Df -2Loglik Df LR stat  Pr(&gt;Chi)    
 ## 1      1168   -10880                         
 ## 2      1166   -10912  2  31.741 1.281e-07 ***
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m2 &lt;-<span class="st"> </span><span class="kw">update</span>(m1, .<span class="op">~</span>. <span class="op">|</span>.<span class="op">+</span><span class="st"> </span>order)
-<span class="kw">anova</span>(m1, m2)</code></pre></div>
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">m2 &lt;-<span class="st"> </span><span class="kw">update</span>(m1, .<span class="op">~</span>. <span class="op">|</span>.<span class="op">+</span><span class="st"> </span>order)</a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="kw">anova</span>(m1, m2)</a></code></pre></div>
 <pre><code>## Likelihood ratio tests 
 ## 
 ##   Resid. Df -2Loglik Df LR stat Pr(&gt;Chi)
 ## 1      1166   -10912                    
 ## 2      1165   -10912  1 0.49173   0.4832</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m3 &lt;-<span class="st"> </span><span class="kw">update</span>(m1, .<span class="op">~</span>. <span class="op">|</span>.<span class="op">+</span><span class="st"> </span>format)
-<span class="kw">anova</span>(m1, m3)</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">m3 &lt;-<span class="st"> </span><span class="kw">update</span>(m1, .<span class="op">~</span>. <span class="op">|</span>.<span class="op">+</span><span class="st"> </span>format)</a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="kw">anova</span>(m1, m3)</a></code></pre></div>
 <pre><code>## Likelihood ratio tests 
 ## 
 ##   Resid. Df -2Loglik Df LR stat Pr(&gt;Chi)   
 ## 1      1166   -10912                       
 ## 2      1165   -10921  1   9.169 0.002461 **
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m4 &lt;-<span class="st"> </span><span class="kw">update</span>(m3, .<span class="op">~</span>. <span class="op">+</span><span class="st"> </span>nation<span class="op">|</span>.)
-<span class="kw">anova</span>(m3, m4)</code></pre></div>
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">m4 &lt;-<span class="st"> </span><span class="kw">update</span>(m3, .<span class="op">~</span>. <span class="op">+</span><span class="st"> </span>nation<span class="op">|</span>.)</a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="kw">anova</span>(m3, m4)</a></code></pre></div>
 <pre><code>## Likelihood ratio tests 
 ## 
 ##   Resid. Df -2Loglik Df LR stat  Pr(&gt;Chi)    
 ## 1      1165   -10921                         
 ## 2      1163   -10971  2  50.694 9.818e-12 ***
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(m4)</code></pre></div>
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">summary</span>(m4)</a></code></pre></div>
 <pre><code>## Family:  logit logistic 
 ## Call:  cdfquantregC(formula = EQ1_P ~ order + format + nation | format,  
 ##     data = ExtEvent, fd = &quot;logit&quot;, sd = &quot;logistic&quot;, c1 = 1.818e-05,  
@@ -139,7 +388,7 @@ m1 &lt;-<span class="st"> </span><span class="kw">update</span>(m0, .<span class
 ## (Intercept)  0.39009    0.03482  11.204  &lt; 2e-16 ***
 ## formatyear  -0.14132    0.04894  -2.887  0.00388 ** 
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Converge:  successful completion
 ## Log-Likelihood:  5485.719 
@@ -149,7 +398,7 @@ m1 &lt;-<span class="st"> </span><span class="kw">update</span>(m0, .<span class
 <div id="model-evaluation-and-diagnosis" class="section level2">
 <h2>Model Evaluation and Diagnosis</h2>
 <p>An examination of the parameter estimate correlation matrix reveals no correlations whose magnitudes are alarming. The model distribution is fairly similar to the empirical distribution and the residuals are reasonably well-behaved.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cov2cor</span>(<span class="kw">vcov</span>(m4))</code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">cov2cor</span>(<span class="kw">vcov</span>(m4))</a></code></pre></div>
 <pre><code>##                     (Intercept) orderranklater  formatyear    nationUK
 ## (Intercept)          1.00000000    -0.39421528 -0.54905657 -0.49983137
 ## orderranklater      -0.39421528     1.00000000 -0.02406778 -0.08422835
@@ -166,7 +415,7 @@ m1 &lt;-<span class="st"> </span><span class="kw">update</span>(m0, .<span class
 ## nationUS             1.00000000          0.01750136        -0.03514061
 ## (sigma)_(Intercept)  0.01750136          1.00000000        -0.71236420
 ## (sigma)_formatyear  -0.03514061         -0.71236420         1.00000000</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(m4, <span class="dt">nbins =</span> <span class="dv">50</span>)</code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw">plot</span>(m4, <span class="dt">nbins =</span> <span class="dv">50</span>)</a></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
 </div>
 </div>
@@ -181,34 +430,34 @@ m1 &lt;-<span class="st"> </span><span class="kw">update</span>(m0, .<span class
 <p>The next figure shows a histogram of the ratings on the issue of “gun ownership”. This is clearly a strongly polarizing issue. There are reasonable arguments for treating the bounds on the gun ownership scale either as censored scores or true scores. Here, we treat the bounds as true scores, so that responses are considered as a doubly-bounded random variable.</p>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
 <p>Histograms of gun ownership ratings separated by political orientation show clear differences among the four orientations. The sources of the polarization in the distribution are primarily the Democrats and Republicans, as would be expected. We should expect an accurate model to highlight these differences, given that there are sufficiently many people in each of the four groups for such a model to detect sizable group differences.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># How many people occupy the political orientation groups in the sample?</span>
-<span class="kw">table</span>(gunowndata<span class="op">$</span>political)</code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="co"># How many people occupy the political orientation groups in the sample?</span></a>
+<a class="sourceLine" id="cb15-2" title="2"><span class="kw">table</span>(gunowndata<span class="op">$</span>political)</a></code></pre></div>
 <pre><code>## 
 ##    Democrat Independent      NoPref  Republican 
 ##          98         109          46          68</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># </span>
-<span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">1</span>))
-<span class="kw">truehist</span>(gunowndata<span class="op">$</span>gunown[gunowndata<span class="op">$</span>political <span class="op">==</span><span class="st"> &quot;Democrat&quot;</span>], <span class="dt">nbins =</span> <span class="dv">50</span>, <span class="dt">main =</span> <span class="st">&quot;Democrat&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;gun ownership&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;density&quot;</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">11</span>), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)
-<span class="kw">truehist</span>(gunowndata<span class="op">$</span>gunown[gunowndata<span class="op">$</span>political <span class="op">==</span><span class="st"> &quot;Independent&quot;</span>], <span class="dt">nbins =</span> <span class="dv">50</span>, <span class="dt">main =</span> <span class="st">&quot;Independent&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;gun ownership&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;density&quot;</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">11</span>), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)
-<span class="kw">truehist</span>(gunowndata<span class="op">$</span>gunown[gunowndata<span class="op">$</span>political <span class="op">==</span><span class="st"> &quot;NoPref&quot;</span>], <span class="dt">nbins =</span> <span class="dv">50</span>, <span class="dt">main =</span> <span class="st">&quot;No Preference&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;gun ownership&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;density&quot;</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">11</span>), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)
-<span class="kw">truehist</span>(gunowndata<span class="op">$</span>gunown[gunowndata<span class="op">$</span>political <span class="op">==</span><span class="st"> &quot;Republican&quot;</span>], <span class="dt">nbins =</span> <span class="dv">50</span>, <span class="dt">main =</span> <span class="st">&quot;Republican&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;gun ownership&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;density&quot;</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">11</span>), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="co"># </span></a>
+<a class="sourceLine" id="cb17-2" title="2"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb17-3" title="3"><span class="kw">truehist</span>(gunowndata<span class="op">$</span>gunown[gunowndata<span class="op">$</span>political <span class="op">==</span><span class="st"> &quot;Democrat&quot;</span>], <span class="dt">nbins =</span> <span class="dv">50</span>, <span class="dt">main =</span> <span class="st">&quot;Democrat&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;gun ownership&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;density&quot;</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">11</span>), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</a>
+<a class="sourceLine" id="cb17-4" title="4"><span class="kw">truehist</span>(gunowndata<span class="op">$</span>gunown[gunowndata<span class="op">$</span>political <span class="op">==</span><span class="st"> &quot;Independent&quot;</span>], <span class="dt">nbins =</span> <span class="dv">50</span>, <span class="dt">main =</span> <span class="st">&quot;Independent&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;gun ownership&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;density&quot;</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">11</span>), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</a>
+<a class="sourceLine" id="cb17-5" title="5"><span class="kw">truehist</span>(gunowndata<span class="op">$</span>gunown[gunowndata<span class="op">$</span>political <span class="op">==</span><span class="st"> &quot;NoPref&quot;</span>], <span class="dt">nbins =</span> <span class="dv">50</span>, <span class="dt">main =</span> <span class="st">&quot;No Preference&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;gun ownership&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;density&quot;</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">11</span>), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</a>
+<a class="sourceLine" id="cb17-6" title="6"><span class="kw">truehist</span>(gunowndata<span class="op">$</span>gunown[gunowndata<span class="op">$</span>political <span class="op">==</span><span class="st"> &quot;Republican&quot;</span>], <span class="dt">nbins =</span> <span class="dv">50</span>, <span class="dt">main =</span> <span class="st">&quot;Republican&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;gun ownership&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;density&quot;</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">11</span>), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
 <p>The first three models test for the effect of political orientation in the non-hurdle component of the data, using the burr8-burr8 distribution. Including political orientation in the dispersion submodel does not improve model fit, so subsequent models omit it.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod0 &lt;-<span class="st"> </span><span class="kw">cdfquantregH</span>(gunown <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">zero.fo =</span> <span class="op">~</span><span class="dv">1</span>, <span class="dt">one.fo =</span> <span class="op">~</span><span class="dv">1</span>, <span class="dt">fd =</span> <span class="st">'burr8'</span>, <span class="dt">sd =</span> <span class="st">'burr8'</span>, <span class="dt">type =</span> <span class="st">'ZO'</span>, <span class="dt">data =</span> gunowndata)
-mod1 &lt;-<span class="st"> </span><span class="kw">cdfquantregH</span>(gunown <span class="op">~</span><span class="st"> </span>political, <span class="dt">zero.fo =</span> <span class="op">~</span><span class="dv">1</span>, <span class="dt">one.fo =</span> <span class="op">~</span><span class="dv">1</span>, <span class="dt">fd =</span> <span class="st">'burr8'</span>, <span class="dt">sd =</span> <span class="st">'burr8'</span>, <span class="dt">type =</span> <span class="st">'ZO'</span>, <span class="dt">data =</span> gunowndata)
-mod2 &lt;-<span class="st"> </span><span class="kw">cdfquantregH</span>(gunown <span class="op">~</span><span class="st"> </span>political<span class="op">|</span>political, <span class="dt">zero.fo =</span> <span class="op">~</span><span class="dv">1</span>, <span class="dt">one.fo =</span> <span class="op">~</span><span class="dv">1</span>, <span class="dt">fd =</span> <span class="st">'burr8'</span>, <span class="dt">sd =</span> <span class="st">'burr8'</span>, <span class="dt">type =</span> <span class="st">'ZO'</span>, <span class="dt">data =</span> gunowndata)
-mod3 &lt;-<span class="st"> </span><span class="kw">cdfquantregH</span>(gunown <span class="op">~</span><span class="st"> </span>political, <span class="dt">zero.fo =</span> <span class="op">~</span>political, <span class="dt">one.fo =</span> <span class="op">~</span>political, <span class="dt">fd =</span> <span class="st">'burr8'</span>, <span class="dt">sd =</span> <span class="st">'burr8'</span>, <span class="dt">type =</span> <span class="st">'ZO'</span>, <span class="dt">data =</span> gunowndata)
-
-
-<span class="kw">anova</span>(mod1,mod3)</code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1">mod0 &lt;-<span class="st"> </span><span class="kw">cdfquantregH</span>(gunown <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">zero.fo =</span> <span class="op">~</span><span class="dv">1</span>, <span class="dt">one.fo =</span> <span class="op">~</span><span class="dv">1</span>, <span class="dt">fd =</span> <span class="st">&#39;burr8&#39;</span>, <span class="dt">sd =</span> <span class="st">&#39;burr8&#39;</span>, <span class="dt">type =</span> <span class="st">&#39;ZO&#39;</span>, <span class="dt">data =</span> gunowndata)</a>
+<a class="sourceLine" id="cb18-2" title="2">mod1 &lt;-<span class="st"> </span><span class="kw">cdfquantregH</span>(gunown <span class="op">~</span><span class="st"> </span>political, <span class="dt">zero.fo =</span> <span class="op">~</span><span class="dv">1</span>, <span class="dt">one.fo =</span> <span class="op">~</span><span class="dv">1</span>, <span class="dt">fd =</span> <span class="st">&#39;burr8&#39;</span>, <span class="dt">sd =</span> <span class="st">&#39;burr8&#39;</span>, <span class="dt">type =</span> <span class="st">&#39;ZO&#39;</span>, <span class="dt">data =</span> gunowndata)</a>
+<a class="sourceLine" id="cb18-3" title="3">mod2 &lt;-<span class="st"> </span><span class="kw">cdfquantregH</span>(gunown <span class="op">~</span><span class="st"> </span>political<span class="op">|</span>political, <span class="dt">zero.fo =</span> <span class="op">~</span><span class="dv">1</span>, <span class="dt">one.fo =</span> <span class="op">~</span><span class="dv">1</span>, <span class="dt">fd =</span> <span class="st">&#39;burr8&#39;</span>, <span class="dt">sd =</span> <span class="st">&#39;burr8&#39;</span>, <span class="dt">type =</span> <span class="st">&#39;ZO&#39;</span>, <span class="dt">data =</span> gunowndata)</a>
+<a class="sourceLine" id="cb18-4" title="4">mod3 &lt;-<span class="st"> </span><span class="kw">cdfquantregH</span>(gunown <span class="op">~</span><span class="st"> </span>political, <span class="dt">zero.fo =</span> <span class="op">~</span>political, <span class="dt">one.fo =</span> <span class="op">~</span>political, <span class="dt">fd =</span> <span class="st">&#39;burr8&#39;</span>, <span class="dt">sd =</span> <span class="st">&#39;burr8&#39;</span>, <span class="dt">type =</span> <span class="st">&#39;ZO&#39;</span>, <span class="dt">data =</span> gunowndata)</a>
+<a class="sourceLine" id="cb18-5" title="5"></a>
+<a class="sourceLine" id="cb18-6" title="6"></a>
+<a class="sourceLine" id="cb18-7" title="7"><span class="kw">anova</span>(mod1,mod3)</a></code></pre></div>
 <pre><code>## Likelihood ratio tests 
 ## 
 ##   Resid. Df -2Loglik Df LR stat Pr(&gt;Chi)    
 ## 1       314   353.83                        
 ## 2       308   322.05  6  31.777  1.8e-05 ***
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(mod3)</code></pre></div>
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="kw">summary</span>(mod3)</a></code></pre></div>
 <pre><code>## Family:  burr8 burr8 
 ## Call:  cdfquantregH(formula = gunown ~ political, data = gunowndata,  
 ##     fd = &quot;burr8&quot;, sd = &quot;burr8&quot;, zero.fo = ~political, one.fo = ~political,  
@@ -225,7 +474,7 @@ mod3 &lt;-<span class="st"> </span><span class="kw">cdfquantregH</span>(gunown <
 ##             Estimate Std. Error z value Pr(&gt;|z|)    
 ## (Intercept) -0.19451    0.05573   -3.49 0.000483 ***
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Zero component coefficients
 ##                      Estimate Std. Error z value Pr(&gt;|z|)    
@@ -246,6 +495,9 @@ mod3 &lt;-<span class="st"> </span><span class="kw">cdfquantregH</span>(gunown <
 </div>
 </div>
 
+
+
+<!-- code folding -->
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

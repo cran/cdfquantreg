@@ -4,16 +4,18 @@
 \name{IPCCAUS}
 \alias{IPCCAUS}
 \title{IPCC data-set - Australian data}
-\format{A data frame with 4014 rows and 8 variables:
+\format{
+A data frame with 4014 rows and 8 variables:
 \describe{
   \item{ID}{Subject ID}
   \item{gender}{Gender of subjects, `0`is male, `1`is female}
   \item{age}{age of subjects}
   \item{cfprob}{personal probability.}
   \item{bestprob}{nominated probability.}
-}}
+}
+}
 \source{
-\url{http://journals.sagepub.com/doi/abs/10.1111/j.1467-9280.2009.02284.x}
+\url{https://journals.sagepub.com/doi/abs/10.1111/j.1467-9280.2009.02284.x}
 }
 \usage{
 IPCCAUS

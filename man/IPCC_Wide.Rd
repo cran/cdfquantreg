@@ -4,7 +4,8 @@
 \name{IPCC_Wide}
 \alias{IPCC_Wide}
 \title{IPCC data-set - Wide format}
-\format{A data frame with 4014 rows and 8 variables:
+\format{
+A data frame with 4014 rows and 8 variables:
 \describe{
   \item{Q4}{Each column indicates the estimates for one sentence.}
   \item{Q5}{Each column indicates the estimates for one sentence.}
@@ -12,9 +13,10 @@
   \item{Q8}{Each column indicates the estimates for one sentence.}
   \item{Q9}{Each column indicates the estimates for one sentence.}
   \item{Q10}{Each column indicates the estimates for one sentence.}
-}}
+}
+}
 \source{
-\url{http://journals.sagepub.com/doi/abs/10.1111/j.1467-9280.2009.02284.x}
+\url{https://journals.sagepub.com/doi/abs/10.1111/j.1467-9280.2009.02284.x}
 }
 \usage{
 IPCC_Wide
