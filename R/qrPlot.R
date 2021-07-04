@@ -33,7 +33,7 @@ plot.cdfqr <- function(x, mu = NULL, sigma = NULL, fd = NULL, sd = NULL, n = 100
     # smooth the boundary values
     fitted <- scaleTR(x$fitted$full)
     fit_d <- dq(fitted, mu, sigma, fd, sd)
-    xtem <- data.frame(x = fitted, y = as.numeric(fit_d))
+    xtem <- data.frame(x = as.numeric(fitted), y = as.numeric(fit_d))
     xtem <- xtem[order(xtem$x),]
     
     par(mfrow=c(1,2))

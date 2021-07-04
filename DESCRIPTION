@@ -1,8 +1,8 @@
 Package: cdfquantreg
 Type: Package
 Title: Quantile Regression for Random Variables on the Unit Interval
-Version: 1.2.4
-Date: 2021-06-07
+Version: 1.2.5
+Date: 2021-07-05
 Authors@R: c(person(given  = "Yiyun", family = "Shou", email = "yiyun.shou@anu.edu.au", role = c("aut", "cre")),
              person(given  = "Michael", family = "Smithson", email = "Michael.Smithson@anu.edu.au", role = "aut"))
 Description: Employs a two-parameter family of
@@ -18,9 +18,9 @@ VignetteBuilder: knitr
 LazyData: true
 RoxygenNote: 7.1.1
 NeedsCompilation: no
-Packaged: 2021-06-07 01:31:07 UTC; cici_blue
+Packaged: 2021-07-04 05:53:52 UTC; cici_blue
 Author: Yiyun Shou [aut, cre],
   Michael Smithson [aut]
 Maintainer: Yiyun Shou <yiyun.shou@anu.edu.au>
 Repository: CRAN
-Date/Publication: 2021-06-13 04:20:02 UTC
+Date/Publication: 2021-07-04 08:10:02 UTC

@@ -1,6 +1,6 @@
-69935b32315e519a8eec61cbed34d465 *DESCRIPTION
+1a55875e7d83a81dc4d0fcf83aa0fd60 *DESCRIPTION
 a4f263311277b5d6bb2dbe9f0be9f54e *NAMESPACE
-2bf1929caf7ff8e8a1be43ed35dab605 *NEWS
+b80a49cdd5d40b284392564df797b37a *NEWS
 920978a29d5ef799efde9d5849ccaea7 *R/bugsLikelihood.R
 7cba7cbf3b5b46efaab9f0032761b2f5 *R/bugsModel.R
 3e3c68bf9195dd9eb7ecacce321b47be *R/cdfquantreg.R
@@ -21,7 +21,7 @@ ee9633a4cd82f89066e68de0ed372b7c *R/qrInfluence.R
 baf35b576e14dc2e9bddbc36ebb328b4 *R/qrLogLikFun.R
 38e9a35a09b8e8dfe59a3c04b5dba50b *R/qrMethod.R
 5842f98cd4db4f97309d9d46edb0300a *R/qrPdf.R
-2df0d960a5acccffc5b4cb3e2526b463 *R/qrPlot.R
+e91186745cdfd917b60ed6c2b697545e *R/qrPlot.R
 ba46510b452fb25f0b9f0df30e95104f *R/qrPwlm.R
 6732c6fb8a29a81faa20c70135a93f58 *R/qrResiduals.R
 4bb520c70a3f3f8b5f8db448e7d9e078 *R/qrStart.R
