@@ -12,7 +12,7 @@ A data frame with 166 rows and 2 variables:
 }
 }
 \source{
-\url{https://psycnet.apa.org/record/2006-03820-004}
+\url{https://pubmed.ncbi.nlm.nih.gov/16594767/}
 }
 \usage{
 AnxStrData

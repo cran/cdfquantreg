@@ -8,7 +8,7 @@
 #'   \item{value}{Rating in each judgment scenario}
 #'   \item{scenario}{Index for judgment scenarios}
 #' }
-#' @source \url{https://psycnet.apa.org/record/2006-03820-004}
+#' @source \url{https://pubmed.ncbi.nlm.nih.gov/16594767/}
 "Ambdata"
 
 #' Stress-Anxiety data
@@ -20,7 +20,7 @@
 #'   \item{Anxiety}{Scores on Anxiety subscale}
 #'   \item{Stress}{Scores on Stress subscale}
 #' }
-#' @source \url{https://psycnet.apa.org/record/2006-03820-004}
+#' @source \url{https://pubmed.ncbi.nlm.nih.gov/16594767/}
 "AnxStrData"
 
 
@@ -34,7 +34,7 @@
 #'   \item{vert}{ was the dummy variable for coding the conditions of verdict types, whereas }
 #'   \item{confl}{ was the dummy variable for coding the conflict conditions}
 #' }
-#' @source \url{https://www.tandfonline.com/doi/abs/10.1375/pplt.2004.11.1.154}
+#' @source \doi{10.1375/pplt.2004.11.1.154}
 "JurorData"
 
 
@@ -54,7 +54,7 @@
 #'   \item{high}{Distinguish lower, best and upper estiamtes } 
 #'   \item{Question}{IPCC question number} 
 #' }
-#' @source \url{https://journals.sagepub.com/doi/abs/10.1111/j.1467-9280.2009.02284.x}
+#' @source \url{https://pubmed.ncbi.nlm.nih.gov/19207697/}
 "IPCC"
 
 #' IPCC data-set - Wide format
@@ -71,7 +71,7 @@
 #'   \item{Q9}{Each column indicates the estimates for one sentence.}
 #'   \item{Q10}{Each column indicates the estimates for one sentence.}
 #' }
-#' @source \url{https://journals.sagepub.com/doi/abs/10.1111/j.1467-9280.2009.02284.x}
+#' @source \url{https://pubmed.ncbi.nlm.nih.gov/19207697/}
 "IPCC_Wide"
 
 #' IPCC data-set - Australian data
@@ -87,7 +87,7 @@
 #'   \item{cfprob}{personal probability.}
 #'   \item{bestprob}{nominated probability.}
 #' }
-#' @source \url{https://journals.sagepub.com/doi/abs/10.1111/j.1467-9280.2009.02284.x}
+#' @source \url{https://pubmed.ncbi.nlm.nih.gov/19207697/}
 "IPCCAUS"
 
 
@@ -111,3 +111,37 @@
 #' }
 #' @source \url{https://www.michaelsmithson.online/}
 "ExtEvent"
+
+#' Patient Time Data
+#'
+#' Data from Modeling Proportion of Patient Time in Emergency Ward Stages
+#'
+#' @format A data frame with 1170 rows and 11 variables:
+#' \describe{
+#'   \item{id}{case identification}
+#'   \item{Day}{day of the week ( 0 = Sunday)}
+#'   \item{Ambulance}{0 = walk-in; 1 = ambulance-arrival}
+#'   \item{Triage}{triage level}   
+#'   \item{Triage1}{1 = triage level 1}  
+#'   \item{Triage2}{1 = triage level 2}  
+#'   \item{Triage3}{1 = triage level 3}  
+#'   \item{Triage4}{1 = triage level 4}  
+#'   \item{Triage5}{1 = triage level 5}  
+#'   \item{Lab}{1 = laboratory test(s) conducted}  
+#'   \item{Xray}{1 = x-ray conducted}
+#'   \item{Other}{1 = other intervention}
+#'   \item{LOS}{length of stay in minutes}
+#'   \item{LOSh}{length of stay in hours}
+#'   \item{preg}{proportion of time in registration stage}
+#'   \item{ptriage}{proportion of time in triage stage}
+#'   \item{pnurse}{proportion of time in nursing care stage}
+#'   \item{pphysician}{proportion of time in consultation with physician(s)}
+#'   \item{pdecis}{proportion of time in decisional stage}
+#'   \item{pregptriage}{preg + ptriage}
+#'   \item{pphysdecis}{pphysician + pdecis}
+#'   \item{prnurse}{pnurse/(pnurse + pregptriage)}
+#'   \item{prphysdec}{pphysdecis /(pphysdecis + pregptriage)}
+#' }
+#' @source \doi{10.1017/S1481803500006539}
+"yoon"
+

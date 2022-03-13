@@ -42,7 +42,7 @@ cdfquantregH(
 \item{...}{Currently ignored.}
 }
 \value{
-An object of class \code{cdfquantreg} will be returned. Generic functions such as \link{summary},\link{print} (e.g.,  \link{print.cdfqr}) and \link{coef} can be used to extract output (see \link{summary.cdfqr} for more details about the generic functions that can be used).
+An object of class \code{cdfqrH} will be returned. Generic functions such as \link{summary},\link{print} (e.g.,  \link{print.cdfqr}) and \link{coef} can be used to extract output (see \link{summary.cdfqr} for more details about the generic functions that can be used).
 Class of object is a list with the following output:
  \describe{
   \item{coefficients}{A named vector of coefficients.}

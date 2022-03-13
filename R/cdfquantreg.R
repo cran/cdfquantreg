@@ -42,8 +42,10 @@ cdfquantreg <- function(formula, fd = NULL, sd = NULL, data, family = NULL, star
   input_full <- match.call()
   
   input <- match.call(expand.dots = FALSE)
-  input_index <- match(c("formula", "data", "fd", "sd", "family", "start"), names(input), 
-    0L)
+  input_index <-
+    match(c("formula", "data", "fd", "sd", "family", "start"),
+          names(input),
+          0L)
   input <- input[c(1L, input_index)]
   
   if (is.null(family) & (is.null(fd) | is.null(sd))) {
@@ -51,21 +53,21 @@ cdfquantreg <- function(formula, fd = NULL, sd = NULL, data, family = NULL, star
   }
   
   if (!is.null(family)) {
-    fd <- strsplit(family,"-")[[1]][1]
-    sd <- strsplit(family,"-")[[1]][2]
+    fd <- strsplit(family, "-")[[1]][1]
+    sd <- strsplit(family, "-")[[1]][2]
   }
   
-
+  
   
   # check the data if data frame is not provided, try to find the data in the
   # global environment
-  if (missing(data)) 
+  if (missing(data))
     data <- environment(formula)
   
   for (i in 1:ncol(data)) {
-    if (!is.numeric(data[, i])) 
+    if (!is.numeric(data[, i]))
       data[, i] <- factor(data[, i])
-  }  #turn character variables to factor 
+  }  #turn character variables to factor
   
   # check the formula
   formula <- Formula::as.Formula(formula)
@@ -83,42 +85,61 @@ cdfquantreg <- function(formula, fd = NULL, sd = NULL, data, family = NULL, star
   
   
   # ***************************** Process data and formula
-  data <- model.frame(formula, data)  # get the data with variables in the model only
+  data <-
+    model.frame(formula, data)  # get the data with variables in the model only
   ydata <- as.matrix(model.frame(formula, data, rhs = 0))
   
   if (any(ydata <= 0) | any(ydata >= 1)) {
-    warning(paste("The values of the dependent variable is rescaled into (0, 1) interval", "\n", "see scaleTR() for details"))
+    warning(
+      paste(
+        "The values of the dependent variable is rescaled into (0, 1) interval",
+        "\n",
+        "see scaleTR() for details"
+      )
+    )
     ydata <- scaleTR(ydata)
   }
-   
   
-  data_lm <- as.matrix(model.matrix(formula, data, rhs = 1))  # datamatrix for location model
-  data_pm <- as.matrix(model.matrix(formula, data, rhs = 2))  # datamatrix for dispersion model
+  
+  data_lm <-
+    as.matrix(model.matrix(formula, data, rhs = 1))  # datamatrix for location model
+  data_pm <-
+    as.matrix(model.matrix(formula, data, rhs = 2))  # datamatrix for dispersion model
   
   n_lm <- ncol(data_lm)  #number of parameters in mean component
-  n_pm <- ncol(data_pm)  #number of parameters in dispersion component
+  n_pm <-
+    ncol(data_pm)  #number of parameters in dispersion component
   
   n <- nrow(data)  #number of responses
   k <- n_lm + n_pm  # total number of parameters
   
   # ***************************** Obtain other parameter specifications, get the
   # distribution specific loglikelihood function and grad
-  quantreg_loglik <- qrLogLikFun(fd, sd)
+  quantreg_loglik <- .qrLogLikFun(fd, sd)
   grad <- qrGrad(fd, sd)
   
   # starting values
-  if(is.null(start)){
+  if (is.null(start)) {
     # if the user does not supply starting values, generate some default values
     start <- rep(0.1, k)
-    start_0 <- qrStart(ydata,fd=fd,sd=sd)
+    start_0 <- qrStart(ydata, fd = fd, sd = sd)
     start[1] <- start_0[1] #starting value for mu intercept
-    start[n_lm + 1] <- start_0[2] #starting value for sigma intercept
+    start[n_lm + 1] <-
+      start_0[2] #starting value for sigma intercept
   }
- 
-
+  
+  
   # ***************************** Fit the model
-  preopt <- optim(start, fn = quantreg_loglik, hessian = F, x = data_lm, y = ydata, 
-    z = data_pm, method = "Nelder-Mead")
+  preopt <-
+    optim(
+      start,
+      fn = quantreg_loglik,
+      hessian = F,
+      x = data_lm,
+      y = ydata,
+      z = data_pm,
+      method = "Nelder-Mead"
+    )
   
   contr.method <- control$method
   #contr.hessian <- control$hessian
@@ -126,39 +147,50 @@ cdfquantreg <- function(formula, fd = NULL, sd = NULL, data, family = NULL, star
   contr.trace <- control$trace
   contr.maxit <- control$maxit
   
-  betaopt <- optim(preopt$par, fn = quantreg_loglik,  x = data_lm, y = ydata, z = data_pm, 
-                  hessian = contr.hessian, method = contr.method, 
-                  control=list(trace = contr.trace , maxit = contr.maxit))
+  betaopt <-
+    optim(
+      preopt$par,
+      fn = quantreg_loglik,
+      x = data_lm,
+      y = ydata,
+      z = data_pm,
+      hessian = contr.hessian,
+      method = contr.method,
+      control = list(trace = contr.trace , maxit = contr.maxit)
+    )
   
   
   # ***************************** Process the output parameter
   # Gradient
-  gradients <- grad(betaopt$par,ydata,data_lm,data_pm)
+  gradients <- grad(betaopt$par, ydata, data_lm, data_pm)
   
   # Convergence message from optim
   converge <- betaopt$convergence
   
   # estimation--------------------
   estim <- betaopt$par  #mean estiamte
-  serr <- sqrt(sqrt(diag(solve(betaopt$hessian))^2))  # se
-  zstat <- estim/serr  # z-test
+  serr <- sqrt(sqrt(diag(solve(betaopt$hessian)) ^ 2))  # se
+  zstat <- estim / serr  # z-test
   prob <- 2 * (1 - pnorm(abs(zstat)))  # p value
   
-  est <- cbind(estim <- estim, 
-               serr <- serr, 
-               zstat <- estim/serr,
+  est <- cbind(estim <- estim,
+               serr <- serr,
+               zstat <- estim / serr,
                prob <- 2 * (1 - pnorm(abs(zstat))))
-  colnames(est) <- c("Estimate", "Std. Error", "z value", "Pr(>|z|)")
+  colnames(est) <-
+    c("Estimate", "Std. Error", "z value", "Pr(>|z|)")
   
   # Separate output depending on the submodels
-  est_lm <- est[1:n_lm, ]  #location model
-  if(n_lm==1) est_lm <- matrix(est_lm, ncol=4)
+  est_lm <- est[1:n_lm,]  #location model
+  if (n_lm == 1)
+    est_lm <- matrix(est_lm, ncol = 4)
   
   rownames(est_lm) <- colnames(data_lm)
   colnames(est_lm) <- colnames(est)
   
-  est_pm <- est[(1 + n_lm):nrow(est), ]  #dispersion model
-  if(n_pm==1) est_pm <- matrix(est_pm, ncol=4)
+  est_pm <- est[(1 + n_lm):nrow(est),]  #dispersion model
+  if (n_pm == 1)
+    est_pm <- matrix(est_pm, ncol = 4)
   rownames(est_pm) <- colnames(data_pm)
   colnames(est_pm) <- colnames(est)
   
@@ -166,7 +198,7 @@ cdfquantreg <- function(formula, fd = NULL, sd = NULL, data, family = NULL, star
   
   
   
-  # Generall fit-------------------- Loglike
+  # General fit-------------------- Loglike
   logLiklihod <- -betaopt$value
   attr(logLiklihod, "nall") <- n
   attr(logLiklihod, "nobs") <- n
@@ -179,81 +211,102 @@ cdfquantreg <- function(formula, fd = NULL, sd = NULL, data, family = NULL, star
   
   # Fitted values (will be quantile estimates corresponding to seq(0,N)/N, where N
   # is the sample size)
-  if(n_lm == 1) {fitted_mu <- data_lm * est_lm[, 1]
-  }else{
-    fitted_mu <- rowSums(t(apply(data_lm, 1, 
-                                 function(x) x * est_lm[, 1])))
+  if (n_lm == 1) {
+    fitted_mu <- data_lm * est_lm[, 1]
+  } else{
+    fitted_mu <- rowSums(t(apply(data_lm, 1,
+                                 function(x)
+                                   x * est_lm[, 1])))
   }
-  if  (fd =="km"){
+  if (fd == "km") {
     #log link for parameter a in Km distribution
     fitted_mu <- exp(fitted_mu)
   }
   
-
+  
   #dispersion model
-  if(n_pm == 1) {fitted_phi <- data_pm * est_pm[, 1]
-  }else{
-    fitted_phi <- rowSums(t(apply(data_pm, 1, function(x) x * est_pm[, 1])))
+  if (n_pm == 1) {
+    fitted_phi <- data_pm * est_pm[, 1]
+  } else{
+    fitted_phi <-
+      rowSums(t(apply(data_pm, 1, function(x)
+        x * est_pm[, 1])))
   }
- 
+  
   fitted_sigma <- exp(fitted_phi)
   
-
+  
   q_y <- seq(1e-06, 0.999999, length.out = n)
   cdf_y <- q_y[rank(ydata)]
   
   fitted <- qq(cdf_y, fitted_mu, fitted_sigma, fd, sd)
   
- 
+  
   # Raw residuals
   residuals <- ydata - fitted
   df.residual <- n - k
   
   # Deviance
-  deviance <- 2 * (qrLogLik(ydata, fitted_mu, fitted_sigma, fd, sd) - 
-                      qrLogLik(fitted,  fitted_mu, fitted_sigma, fd, sd))
+  deviance <-
+    2 * (
+      qrLogLik(ydata, fitted_mu, fitted_sigma, fd, sd) -
+        qrLogLik(fitted,  fitted_mu, fitted_sigma, fd, sd)
+    )
   
   # Parameter variance-covariance matrix
   vcov <- solve(as.matrix(betaopt$hessian))
-  rownames(vcov) <- colnames(vcov) <- c(rownames(est_lm), 
+  rownames(vcov) <- colnames(vcov) <- c(paste('(mu)_', rownames(est_lm), sep = ""),
                                         paste('(sigma)_', rownames(est_pm), sep = ""))
   
   # RMSE
-  rmse <- sqrt(mean(residuals^2))
+  rmse <- sqrt(mean(residuals ^ 2))
   
   rmseLogit <- NULL
   # RMSlogit(E)
-  for (i in 1:n){
-   if(is.nan(fitted[i])|is.na(fitted[i])){
-           rmseLogittemp <- NA
-   }else{
-         rmseLogittemp <-sqrt(mean((logit(fitted[i]) - logit(ydata[i]))^2))
-      }
-  
-      rmseLogit <- c(rmseLogit, rmseLogittemp)
+  for (i in 1:n) {
+    if (is.nan(fitted[i]) | is.na(fitted[i])) {
+      rmseLogittemp <- NA
+    } else{
+      rmseLogittemp <- sqrt(mean((logit(fitted[i]) - logit(ydata[i])) ^ 2))
+    }
+    
+    rmseLogit <- c(rmseLogit, rmseLogittemp)
   }
   
-  fitted = switch(fd,
-                  list(full = fitted, mu = fitted_mu, sigma = fitted_sigma),
-                  km = list(full = fitted, a = fitted_mu, b = fitted_sigma))
+  fitted = switch(
+    fd,
+    list(full = fitted, mu = fitted_mu, sigma = fitted_sigma),
+    km = list(full = fitted, a = fitted_mu, b = fitted_sigma)
+  )
   
   # Output
-  output <- list(family = list(fd = fd, sd = sd), 
-                 coefficients = coefficients, 
-                 call = input,  formula = formula, 
-                 N = n, k = k, y = ydata, 
-                 residuals = residuals, 
-                 fitted = fitted, 
-                 vcov = vcov, rmse = rmse, rmseLogit = rmseLogit, 
-                 logLik = logLiklihod, deviance = deviance, 
-                 aic = AIC, bic = BIC, 
-                 converged = converge, grad = gradients,
-                 df.residual = df.residual, optim = betaopt)
+  output <- list(
+    family = list(fd = fd, sd = sd),
+    coefficients = coefficients,
+    call = input,
+    formula = formula,
+    N = n,
+    k = k,
+    y = ydata,
+    residuals = residuals,
+    fitted = fitted,
+    vcov = vcov,
+    rmse = rmse,
+    rmseLogit = rmseLogit,
+    logLik = logLiklihod,
+    deviance = deviance,
+    aic = AIC,
+    bic = BIC,
+    converged = converge,
+    grad = gradients,
+    df.residual = df.residual,
+    optim = betaopt
+  )
   
   class(output) <- "cdfqr"
   
   rm(quantreg_loglik, grad)
-  #print.cdfqr(output)
+  
   return(output)
   
 } 

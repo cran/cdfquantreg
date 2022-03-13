@@ -3,48 +3,60 @@
 \name{summary.cdfqr}
 \alias{summary.cdfqr}
 \alias{print.cdfqr}
-\alias{logLik.cdfqr}
-\alias{nobs.cdfqr}
-\alias{deviance.cdfqr}
 \alias{coef.cdfqr}
 \alias{vcov.cdfqr}
 \alias{update.cdfqr}
-\alias{formula.cdfqr}
 \alias{confint.cdfqr}
+\alias{formula.cdfqr}
+\alias{nobs.cdfqr}
+\alias{deviance.cdfqr}
+\alias{logLik.cdfqrH}
+\alias{confint.cdfqrH}
+\alias{confint.cdfqrFT}
 \title{S3 Methods for getting output from fitted cdfqr Objects.}
 \usage{
 \method{summary}{cdfqr}(object, ...)
 
 \method{print}{cdfqr}(x, digits = max(3, getOption("digits") - 3), ...)
 
-\method{logLik}{cdfqr}(object, ...)
+\method{coef}{cdfqr}(object, type = "full", ...)
+
+\method{vcov}{cdfqr}(object, type = "full", ...)
+
+\method{update}{cdfqr}(object, formula., zero.fo., one.fo., mu.fo., ..., evaluate = TRUE)
+
+\method{confint}{cdfqr}(object, parm, level = 0.95, submodel = "full", ...)
+
+\method{formula}{cdfqr}(x, ...)
 
 \method{nobs}{cdfqr}(object, ...)
 
 \method{deviance}{cdfqr}(object, ...)
 
-\method{coef}{cdfqr}(object, type = c("full", "mean", "sigma"), ...)
+\method{logLik}{cdfqrH}(object, ...)
 
-\method{vcov}{cdfqr}(object, type = c("full", "mean", "sigma"), ...)
+\method{confint}{cdfqrH}(
+  object,
+  parm,
+  level = 0.95,
+  type = c("full", "mean", "sigma", "zero", "one"),
+  ...
+)
 
-\method{update}{cdfqr}(object, formula., ..., evaluate = TRUE)
-
-\method{formula}{cdfqr}(x, ...)
-
-\method{confint}{cdfqr}(object, parm, level = 0.95, submodel = "full", ...)
+\method{confint}{cdfqrFT}(object, parm, level = 0.95, submodel = "full", ...)
 }
 \arguments{
-\item{object}{The fitted cdfqr model.}
-
 \item{...}{Pass onto other functions or currently ignored}
 
-\item{x}{The fitted cdfqr model.}
+\item{x, object}{The fitted cdfqr model.}
 
 \item{digits}{Number of digits to be retained in printed output.}
 
 \item{type, submodel}{The parts of coefficients or variance-covariance matrix to be extracted.Can be "full", "mean",or "sigma".}
 
 \item{formula.}{Changes to the formula. See \code{\link[Formula]{update.Formula}} for details.}
+
+\item{zero.fo., one.fo., mu.fo., }{Changes to the formulas for zero/one component for hurdle models, and for location submodel for finite-tailed models.}
 
 \item{evaluate}{If true evaluate the new updated model else return the call for the new model.}
 
@@ -70,5 +82,4 @@ confint(fit)
 #Update the model
 fit2 <- update(fit, crc99 ~ vert*confl | confl)
 summary(fit2)
-
 }

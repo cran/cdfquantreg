@@ -2,7 +2,7 @@
 % Please edit documentation in R/qrGrad.R
 \name{qrGrad}
 \alias{qrGrad}
-\title{Give the Gradient Function for CDF-Quantile Distribution Modles}
+\title{Give the Gradient Function for CDF-Quantile Distribution Models}
 \usage{
 qrGrad(fd, sd)
 }
@@ -15,7 +15,7 @@ qrGrad(fd, sd)
 grad The gradient function of parameter estimates, given a specified cdf-quantile distribution
 }
 \description{
-Give the Gradient Function for CDF-Quantile Distribution Modles.
+Give the Gradient Function for CDF-Quantile Distribution models
 }
 \examples{
 qrGrad('t2','t2')

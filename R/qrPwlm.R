@@ -31,7 +31,7 @@ qrPwlm <- function(x, n = NULL, mu = NULL, sigma=NULL, fd=NULL, sd=NULL) {
     x <- sort(x)
   }
 
-  # generate probablity weights
+  # generate probability weights
   betas <- rep(0, 4)
   for (k in 0:3) {
     i <- k + 1

@@ -4,7 +4,7 @@
 \alias{qrStart}
 \title{Starting Value Generation for CDF quantile Regressions}
 \usage{
-qrStart(ydata, fd = NULL, sd = NULL)
+qrStart(ydata, fd = NULL, sd = NULL, skew = FALSE)
 }
 \arguments{
 \item{ydata}{The variable to be modeled}
@@ -12,6 +12,8 @@ qrStart(ydata, fd = NULL, sd = NULL)
 \item{fd}{A string that specifies the parent distribution.}
 
 \item{sd}{A string that specifies the sub-family distribution.}
+
+\item{skew}{If ture, the starting values will be generated for the finited tailed distribution case.}
 }
 \value{
 A vector that consists initial values for mu and sigma.

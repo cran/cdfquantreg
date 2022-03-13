@@ -27,27 +27,32 @@ scaleTR <- function(y, high = NULL, low = NULL, data = NULL,
   }
 
   if (is.null(high)) {
-    high <- max(y)
+    high <- max(y, na.rm = TRUE)
   }
   
   if (is.null(low)) {
-    low <- min(y)
+    low <- min(y, na.rm = TRUE)
   }
   
   if (is.null(N)) {
-    N <- length(y)
+    N <- length(na.omit(y))
   }
   
-  y1 <- (y - low)/(high-low)
+  y0 <- y[!is.na(y)]
+  
+  y1 <- (y0 - low)/(high-low)
   
   y2 <- (y1*(N - 1) + scale)/N
   
+  y3 <- y
+  y3[!is.na(y)] <- y2 
+  
   if (is.null(data)) {
-    return(y2)
+    return(y3)
   } else {
    names <- paste(yname,'old', sep ='')
    data[, names] <- y
-   data[, yname] <- y2
+   data[, yname] <- y3
    return(data)
   }
 

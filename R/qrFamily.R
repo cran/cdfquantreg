@@ -123,6 +123,7 @@ cdfqrFamily <- function(shape = "all") {
         if (shape =="LL")  dists <- subset(dist, shape =="Logit-logistic") else
           dists <- dist
   
+
   cat("Overview cdfquantreg distributions:")
   knitr::kable(dists, row.names=F)
 }

@@ -8,23 +8,34 @@
   x,
   mu = NULL,
   sigma = NULL,
+  theta = NULL,
   fd = NULL,
   sd = NULL,
   n = 10000,
+  inner = TRUE,
+  version = "V",
   type = c("fitted"),
   ...
 )
 }
 \arguments{
-\item{x}{If the plot is based on the fitted values, provide a fitted cdfqr object.}
+\item{x}{If the plot is based on the fitted values, provide a fitted cdfqr object, alternatively, mu and sigma, and the distribution can be specified.}
 
-\item{mu, sigma, }{fd, sd alternatively, mu and sigma, and the distribution can be specified}
+\item{mu}{Location parameter value}
+
+\item{sigma}{Sigma parameter value}
+
+\item{theta}{Skew parameter value}
 
 \item{fd}{A string that specifies the parent distribution.}
 
 \item{sd}{A string that specifies the sub-family distribution.}
 
 \item{n}{The number of random variates to be generated for user specified plot.}
+
+\item{inner}{If finite-tailed distribution is used: a logic value that indicates if the inner (\code{inner = TRUE}) case or outer (\code{inner = FALSE}) will be used. Currently inner case can only be used for 2-parameter distributions.}
+
+\item{version}{If finite-tailed distribution is used: A string indicates that which version will be used. "V" is the tilt parameter function while "W" indicates the Jones Pewsey transformation.}
 
 \item{type}{Currently only fitted values are available for generating plots.}
 

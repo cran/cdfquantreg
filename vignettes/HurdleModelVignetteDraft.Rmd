@@ -3,7 +3,7 @@ title: "Censored and Hurdle Model Vignettes"
 author: "Michael Smithson, Yiyun Shou"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Censored and Hurdle Model}
+  %\VignetteIndexEntry{Censored and Hurdle Model Vignettes}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---

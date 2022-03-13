@@ -3,29 +3,22 @@
 \name{predict.cdfqr}
 \alias{predict.cdfqr}
 \alias{fitted.cdfqr}
-\alias{predict.cdfqrH}
-\alias{fitted.cdfqrH}
 \title{Methods for Cdfqr Objects}
 \usage{
 \method{predict}{cdfqr}(
   object,
   newdata = NULL,
-  type = c("full", "mu", "sigma"),
+  type = c("full", "mu", "sigma", "theta", "one", "zero"),
   quant = 0.5,
   ...
 )
 
-\method{fitted}{cdfqr}(object, type = c("full", "mu", "sigma"), plot = FALSE, ...)
-
-\method{predict}{cdfqrH}(
+\method{fitted}{cdfqr}(
   object,
-  newdata = NULL,
-  type = c("full", "mu", "sigma", "zero", "one"),
-  quant = 0.5,
+  type = c("full", "mu", "sigma", "theta", "one", "zero"),
+  plot = FALSE,
   ...
 )
-
-\method{fitted}{cdfqrH}(object, type = c("full", "mu", "sigma", "zero", "one"), ...)
 }
 \arguments{
 \item{object}{A cdfqr model fit object}

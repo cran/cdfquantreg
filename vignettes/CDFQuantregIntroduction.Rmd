@@ -3,7 +3,7 @@ title: "cdfquantreg: An Introduction"
 author: "Michael Smithson, Yiyun Shou"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{cdf quantile regresson introduction}
+  %\VignetteIndexEntry{cdfquantreg: An Introduction}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---

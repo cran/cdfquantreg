@@ -1,9 +1,9 @@
 ---
-title: "cdfquantreg: Smithson & Verkuilen data example"
+title: "cdfquantreg: Juror & Stree data example"
 author: "Yiyun Shou, Michael Smithson"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Juror & Stree data example}
+  %\VignetteIndexEntry{cdfquantreg: Juror & Stree data example}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---

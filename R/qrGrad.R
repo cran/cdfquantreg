@@ -1,5 +1,5 @@
-#' @title Give the Gradient Function for CDF-Quantile Distribution Modles
-#' @description Give the Gradient Function for CDF-Quantile Distribution Modles. 
+#' @title Give the Gradient Function for CDF-Quantile Distribution Models
+#' @description Give the Gradient Function for CDF-Quantile Distribution models 
 #' @aliases qrGrad
 #' @param fd A string that specifies the parent distribution.
 #' @param sd A string that specifies the sub-family distribution.
@@ -7,7 +7,6 @@
 #' @return grad The gradient function of parameter estimates, given a specified cdf-quantile distribution
 #' 
 #' @export
-#' 
 #' @examples
 #' qrGrad('t2','t2')
 qrGrad <- function(fd, sd) {

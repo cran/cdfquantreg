@@ -4,45 +4,28 @@
 \alias{influence.cdfqr}
 \alias{dfbeta.cdfqr}
 \alias{dfbetas.cdfqr}
-\alias{influence.cdfqrH}
-\alias{dfbeta.cdfqrH}
-\alias{dfbetas.cdfqrH}
 \title{Influence Diagnosis For Fitted Cdfqr Object}
 \usage{
 \method{influence}{cdfqr}(
   model,
   method = "dfbeta",
-  type = c("full", "location", "dispersion"),
+  type = c("full", "location", "dispersion", "skew", "zero", "one"),
   what = "full",
   plot = FALSE,
   id = FALSE,
   ...
 )
 
-\method{dfbeta}{cdfqr}(model, type = c("full", "location", "dispersion"), what = "full", ...)
-
-\method{dfbetas}{cdfqr}(model, type = c("full", "location", "dispersion"), what = "full", ...)
-
-\method{influence}{cdfqrH}(
+\method{dfbeta}{cdfqr}(
   model,
-  method = "dfbeta",
-  type = c("full", "location", "dispersion", "zero", "one"),
-  what = "full",
-  plot = FALSE,
-  id = FALSE,
-  ...
-)
-
-\method{dfbeta}{cdfqrH}(
-  model,
-  type = c("full", "location", "dispersion", "zero", "one"),
+  type = c("full", "location", "dispersion", "skew", "zero", "one"),
   what = "full",
   ...
 )
 
-\method{dfbetas}{cdfqrH}(
+\method{dfbetas}{cdfqr}(
   model,
-  type = c("full", "location", "dispersion", "zero", "one"),
+  type = c("full", "location", "dispersion", "skew", "zero", "one"),
   what = "full",
   ...
 )
@@ -52,7 +35,7 @@
 
 \item{method}{Currently only 'dfbeta' method is available.}
 
-\item{type}{A string that indicates whether the results for all parameters are to be returned, or only the location/dispersion submodel's parameters returned.}
+\item{type}{A string that indicates whether the results for all parameters are to be returned, or only the submodel's parameters returned.}
 
 \item{what}{for influence statistics based on coefficient values, indicate the predictor variables that needs to be tested.}
 
@@ -60,7 +43,7 @@
 
 \item{id}{for plot only, if TRUE, the case ids will be displayed in the plot.}
 
-\item{...}{currently ignored.s}
+\item{...}{Pass onto other functions or currently ignored}
 }
 \value{
 A matrix, each row of which contains the estimated influence on parameters when that row's observation is removed from the sample.

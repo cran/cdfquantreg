@@ -1,0 +1,124 @@
+---
+title: "Finite-Tailed CDF-Quantile Distribution Vignettes"
+author: "Michael Smithson, Yiyun Shou"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Finite-Tailed CDF-Quantile Distribution Vignettes}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo = FALSE, warning=FALSE}
+library(cdfquantreg)
+library(MASS)
+
+data(cdfqrExampleData)
+```
+
+# Modeling Proportion of Patient Time in Emergency Ward Stages
+## About the Data 
+
+Yoon,  Steiner, and  Reinhardt (2003) conducted a study of time spent by patients admitted to the emergency department of the University of Alberta Hospital between midnight January 23 and midnight January 29, 1999, for five stages of ED assessment and treatment: Registration, triage assessment, nursing assessment, physician assessment, and disposition decision.  While Yoon, et al. analyzed predictors of the total length of stay in the emergency ward, we will follow the analyses in Smithson and Broomell (2022), who examine the proportions of the patients' stays in the various stages.  
+
+Smithson and Broomell observed that the data include a substantial number of zeros (e.g., 696 out of 894 patients spending no time in the decision stage). They reduced the zeros by aggregating the decision and physician stages, and aggregating the registration and triage stages. The resulting composition had three parts: Registration-triage, nursing assessment, and physician-decision. We will use that composition here. 
+
+Our example focuses on the proportion of time spent in the Registration-triage stage.  Patients arriving by ambulance tended to have more life-threatening conditions than those arriving as ``walk-ins'', so we expect to find that the ambulance-arrivals spend a smaller proportion of their time in this preliminary stage because many of them need to be rushed into treatment. The more serious cases also typically required lengthy nursing and treatment times, so excpect that longer length of stay will predict a lower proportion of time spent in the Registration-triage stage. 
+
+A quick examination of the relevant variables reveals that the log of the length of stay adequately corrects skew in that variable, and the split between ambulance-arrivals and walk-ins has adequate numbers of cases in both categories.  
+
+```{r, warning=FALSE}
+# Ambulance-arrival vs walk-in split shows 683 walk-ins and 211 ambulance-arrivals
+table(yoon$Ambulance)
+#
+# Length of stay (in hours) is skewed, but the log of it isn't:
+hist(yoon$LOSh, breaks = 50, main = "", xlab = "LOS", col = "gray")
+hist(yoon$LOSh, breaks = 50, main = "", xlab = "ln(LOS)", col = "gray")
+hist(log(yoon$LOSh), breaks = 50, main = "", xlab = "ln(LOS)", col = "gray")
+loglosh <- log(yoon$LOSh)
+# 
+```
+
+
+## Model Fitting
+This example compares outer-position distributions for goodness-of-fit.  The Cauchit-ArcSinh outer-W model turns out to have the best fit, and it identifies significant effects of both ambulance arrival and log of length of stay in the expected directions for the $\theta$ (location) submodel.  Note that the coefficients are positive for Ambulance and loglosh, because $\theta$ tracks skew and therefore a positive coefficient predicts a decrease in the median proportion of time spent in the Registration-triage stage.  
+
+There is only a marginally significant effect of loglosh in the $\sigma$ (dispersion) submodel. Nonetheless, a model without the dispersion submodel effects suffers a significant decline in goodness-of-fit. However, a model with interaction-effect terms does not significantly improve fit over the main-effects model. 
+
+Does a 3-parameter model contribute anything more?  Note that we cannot compare 2- and 3-parameer models with likelihood-ratio tests because they are not nested.  However, we can examine their AIC values. These turn out to be nearly identical, with the 2-parameter AIC slightly smaller.  Moreover, there are no significant effects in the $\mu$ submodel, so the 2-paraameter model appears to be our best alternative. 
+
+```{r, warning=FALSE}
+# Examine alternative distribution models' goodness-of-fit:
+fit1 <- cdfquantregFT(pregptriage ~ Ambulance + loglosh|Ambulance + loglosh, fd = "arcsinh", sd = "arcsinh", inner = FALSE, version = "V", data = yoon); logLik(fit1)
+fit2 <- cdfquantregFT(pregptriage ~ Ambulance + loglosh|Ambulance + loglosh, fd = "arcsinh", sd = "cauchy", inner = FALSE, version = "V", data = yoon); logLik(fit2)
+fit3 <- cdfquantregFT(pregptriage ~ Ambulance + loglosh|Ambulance + loglosh, fd = "cauchit", sd = "arcsinh", inner = FALSE, version = "V", data = yoon); logLik(fit3)
+fit4 <- cdfquantregFT(pregptriage ~ Ambulance + loglosh|Ambulance + loglosh, fd = "cauchit", sd = "arcsinh", inner = FALSE, version = "W", data = yoon); logLik(fit4)
+fit5 <- cdfquantregFT(pregptriage ~ Ambulance + loglosh|Ambulance + loglosh, fd = "cauchit", sd = "cauchy", inner = FALSE, version = "V", data = yoon); logLik(fit5)
+fit6 <- cdfquantregFT(pregptriage ~ Ambulance + loglosh|Ambulance + loglosh, fd = "cauchit", sd = "cauchy", inner = FALSE, version = "W", data = yoon); logLik(fit6)
+fit7 <- cdfquantregFT(pregptriage ~ Ambulance + loglosh|Ambulance + loglosh, fd = "t2", sd = "t2", inner = FALSE, version = "V", data = yoon); logLik(fit7)
+fit8 <- cdfquantregFT(pregptriage ~ Ambulance + loglosh|Ambulance + loglosh, fd = "t2", sd = "t2", inner = FALSE, version = "W", data = yoon); logLik(fit8)
+# 
+# The Cauchit-ArcSinh outer-W model fits best.
+summary(fit4)
+#
+# Does a model without the effects in the dispersion submodel fit as well?
+# The answer is no:
+fit4b <- cdfquantregFT(pregptriage ~ Ambulance + loglosh|1, fd = "cauchit", sd = "arcsinh", inner = FALSE, version = "W", data = yoon); anova(fit4b, fit4)
+#
+# How about a 3-parameter model?
+fit4c <- cdfquantregFT(pregptriage ~ Ambulance + loglosh|Ambulance + loglosh, fd = "cauchit", sd = "arcsinh", mu.fo ~ Ambulance + loglosh, inner = FALSE, version = "W", data = yoon)
+c(AIC(fit4),AIC(fit4c))
+# The AIC values are nearly identical.  Moroever, there are no significant $\mu$ effects:
+summary(fit4c)
+#
+# Finally, what about a 2-parameter model with moderator effects?
+# No significant improvement in model fit:
+fit4d <- cdfquantregFT(pregptriage ~ Ambulance*loglosh|Ambulance*loglosh, fd = "cauchit", sd = "arcsinh", inner = FALSE, version = "W", data = yoon); anova(fit4, fit4d)
+# 
+```
+
+## Model Evaluation
+An examination of the parameter estimate correlation matrix reveals two correlations whose magnitudes are above 0.85, but the model appears stable and converges to the same solution from alternative starting-values. 
+
+The marginal fitted pdfs for the walk-ins and ambulance-arrivals correspond fairly closely to their repsective empirical distributions. The rank-order correlation between the fitted cdf and the dependent variable is 0.767, suggesting that the empirical quantiles are reasonably well modeled. 
+
+```{r, warning=FALSE}
+# Parameter-estimate correlations
+cov2cor(vcov(fit4))
+#
+# Fit the marginal distributions to the walk-ins:
+uniqdat <- sort(unique(yoon$pregptriage[yoon$Ambulance==0]))
+densfit <- c(rep(0,length(uniqdat)))
+for (i in 1:length(uniqdat)) {
+  densfit[i] <- pdfft(uniqdat[i], sigma = exp(coef(fit4)[4] + mean(loglosh)*coef(fit4)[6]), theta = coef(fit4)[1] + mean(loglosh)*coef(fit4)[3], fd = "cauchit", sd = "arcsinh", mu = NULL, inner = FALSE, version = "W")
+}
+truehist(yoon$pregptriage[yoon$Ambulance==0], nbins = 100, main = "Walk-ins", xlab = "proportion", ylab = "pdf")
+lines(uniqdat,densfit,lwd = 2)
+# Fit the marginal distributions to the ambulance-arrivals:
+uniqdat <- sort(unique(yoon$pregptriage[yoon$Ambulance==1]))
+densfit <- c(rep(0,length(uniqdat)))
+for (i in 1:length(uniqdat)) {
+  densfit[i] <- pdfft(uniqdat[i], sigma = exp(coef(fit4)[4] + coef(fit4)[5] + mean(loglosh)*coef(fit4)[6]), theta = coef(fit4)[1] + coef(fit4)[2] + mean(loglosh)*coef(fit4)[3], fd = "cauchit", sd = "arcsinh", mu = NULL, inner = FALSE, version = "W")
+}
+truehist(yoon$pregptriage[yoon$Ambulance==1], nbins = 100, main = "Ambulance-arrivals", xlab = "proportion", ylab = "pdf")
+lines(uniqdat,densfit,lwd = 2)
+#
+# The fitted cdf should be monotonically related to the dependent variable.
+# How well does our model do?
+fittedcdf <- c(rep(0,length(yoon$pregptriage)))
+for (i in 1: length(yoon$pregptriage)) {
+fittedcdf[i] <- cdfft(yoon$pregptriage[i], sigma = exp(coef(fit4)[4] + yoon$Ambulance[i]*coef(fit4)[5] + loglosh[i]*coef(fit4)[6]), theta = coef(fit4)[1] + yoon$Ambulance[i]*coef(fit4)[2] + loglosh[i]*coef(fit4)[3], fd = "cauchit", sd = "arcsinh", mu = NULL, inner = FALSE, version = "W")
+   }
+cor(fittedcdf, yoon$pregptriage, method = "spearman")
+#
+```
+
+
+# References
+
+* Yoon,  P.,  Steiner,  I.  &  Reinhardt,  G.  (2003).   Analysis of factors influencing length of stay in the emergency department.Canadian Journal of Emergency Medicine5, 155-161.
+
+* Smithson, M. & Broomell, S.B. (online 31/01/2022). Compositional data analysis tutorial. Psychological Methods. 

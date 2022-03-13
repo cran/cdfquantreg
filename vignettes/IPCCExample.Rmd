@@ -3,7 +3,7 @@ title: "cdfquantreg: IPCC data example"
 author: "Yiyun Shou, Michael Smithson"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{IPCC data example}
+  %\VignetteIndexEntry{cdfquantreg: IPCC data example}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---

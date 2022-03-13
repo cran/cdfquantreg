@@ -13,7 +13,7 @@ A data frame with 104 rows and 3 variables:
 }
 }
 \source{
-\url{https://www.tandfonline.com/doi/abs/10.1375/pplt.2004.11.1.154}
+\doi{10.1375/pplt.2004.11.1.154}
 }
 \usage{
 JurorData

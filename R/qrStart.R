@@ -6,7 +6,7 @@
 #' 
 #' @param fd A string that specifies the parent distribution.
 #' @param sd A string that specifies the sub-family distribution.
-#'
+#' @param skew If ture, the starting values will be generated for the finited tailed distribution case.
 #' @return A vector that consists initial values for mu and sigma.
 #' @export
 #' @details  The start values for the location parameter in a null model are 
@@ -21,7 +21,8 @@
 #' qrStart(x, fd='t2', sd='t2')
 #' #[1] -0.5938286  1.3996999
 
-qrStart <- function(ydata,fd=NULL,sd=NULL) {
+qrStart <- function(ydata,fd=NULL,sd=NULL, skew=FALSE) {
+  ydata <- scaleTR(ydata)
   mu_0 = 0.1
   sigma_0 = 0.1
 
@@ -121,25 +122,21 @@ if ( fd == "logit" & sd == "t2")
   sigma_0 <- (sqrt(2)*sqrt((-(-1 + qt))*qt*(-1 + 2*qt)^2) + 2*qt*mu_0 -2*qt^2*mu_0)/(2*qt- 2*qt^2)
 }
 
-  if (sd == "f11" & fd == "arcsinh")
-  {
-    mu_0 <- log(m/(1 - m))
-    qt <- quantile(ydata, (2 * atan(sqrt(exp(1))))/(pi)) 
-    sigma_0 <- (exp(1) * log(cot((m * pi)/2)^4 * tan((pi * qt)/2)^4))/(-1 + exp(2))
-  }
-
-  
-  if ((sd == "f22" & fd == "logit")|(sd == "logit" & fd == "f22")|(sd == "f22" & fd == "f11"))
-  {
-    mu_0 <- log((m/(1 - m)))
-    qt <- quantile(ydata, (2 * atan(sqrt(exp(1))))/(pi))
-    sigma_0 <- log((qt/(1 - qt))) - log(m/(1 - m))
-  }
 
   if (sd == "km" & fd == "km")
   {
     sigma_0 = 0.1
     mu_0= 0.1
   }
-  as.numeric(c(mu_0, sigma_0))
+  
+  start = as.numeric(c(mu_0, sigma_0))
+  
+  if(skew){
+    theta_0 <- (mean(ydata) - median(ydata))/sd(ydata)
+    sigma_0 <- log(sd(ydata))
+    start = as.numeric(c(mu_0, sigma_0))
+    
+  }
+  start
+  
 } 
