@@ -19,7 +19,7 @@ The package offers maximum likelihood (see \link{cdfquantreg}), Bayesian MCMC (s
 For each distribution, the package provides evaluations of the pdf (\link{dq}), cdf (\link{pq}), and quantile (\link{qq}), as well as random samples from any of them (\link{rq}). Evaluations of skew and kurtosis (\link{qrPwlm}) also are available using probability-weighted L-moments. 
 }
 \author{
-Yiyun Shou (\email{yiyun.shou@@anu.edu.au}) and Michael Smithson (\email{Michael.Smithson@@anu.edu.au})
+Yiyun Shou (\email{yiyun.shou@anu.edu.au}) and Michael Smithson (\email{Michael.Smithson@anu.edu.au})
 
 Maintainer: Yiyun Shou
 }

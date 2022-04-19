@@ -1,4 +1,4 @@
-810669957d471f8d800922817f6b6e7a *DESCRIPTION
+c84d6a5dbed905a193366d77a4b2d904 *DESCRIPTION
 f445995447b306eda1f5c2d647a5636c *NAMESPACE
 9811f9e83c4b5adcbb6087b36348a9ee *NEWS
 920978a29d5ef799efde9d5849ccaea7 *R/bugsLikelihood.R
@@ -25,7 +25,7 @@ d3655d806de01d466b4c57ded1ca4b31 *R/qrLogLik.R
 32a53d40c43d5ada7878036d55ef4867 *R/qrResiduals.R
 47a374b6c8a3ac81f8f28dfaa6ba63ca *R/qrStart.R
 901ce6a6e4b39dfa95c0d529bc9b69e4 *R/qrTransform.R
-6089e77576c5782de48514533cff430a *build/partial.rdb
+cf9d800c0e5483ab1087fe0e233c1c8d *build/partial.rdb
 d467d612be9494bf2211d51de7c3198d *build/vignette.rds
 2fc2906ebcad962a88b1ea6ec8041598 *data/cdfqrExampleData.rdata
 8bfa64b3431321e2a89ba2dcc22dd65f *inst/CITATION
@@ -33,7 +33,7 @@ a34b3a8c321e3f80f84da8697c9b3cb1 *inst/doc/CDFQuantregIntroduction.Rmd
 1137b88bafd2c40fb322255a1c893f81 *inst/doc/CDFQuantregIntroduction.html
 a0d16a99272383f9db0cc109d4de0159 *inst/doc/FiniteTailedCDFQdistributionslVignetteDraft.R
 3442be6a47714f814de1aab7620bbe04 *inst/doc/FiniteTailedCDFQdistributionslVignetteDraft.Rmd
-9b27e7d7e6b3fdadc967ab0bd329dab1 *inst/doc/FiniteTailedCDFQdistributionslVignetteDraft.html
+996115b1a5f526791e554118181f94f6 *inst/doc/FiniteTailedCDFQdistributionslVignetteDraft.html
 d77d3068a06803881bc4c9613637fed5 *inst/doc/HurdleModelVignetteDraft.R
 82807f84ae08304077f2211fb36f21dd *inst/doc/HurdleModelVignetteDraft.Rmd
 c2d811433ff73a085cf8a0aa8863755e *inst/doc/HurdleModelVignetteDraft.html
@@ -56,7 +56,7 @@ f2dbcc2fff629da2311ca8b52d84c44d *man/JurorData.Rd
 5d009aeb57eca8799ae96e09f2d035d5 *man/cdfft.Rd
 63def1b9144db033021851922e4a5a61 *man/cdfqr.control.Rd
 222c28e0db25a083076ed6117c5fb384 *man/cdfqrFamily.Rd
-42a27ab20a94c94ebca7b9792ded5e99 *man/cdfquantreg-package.Rd
+3ad9645bc5d0f5b7d7a59af88843a91c *man/cdfquantreg-package.Rd
 908af221b43afa43d6a3eb7f57a01f40 *man/cdfquantreg.Rd
 b94e2236c5225dadecd03eb3caaef17b *man/cdfquantregC.Rd
 32660c6dec378a8bff4d1e0ffd11c1a4 *man/cdfquantregFT.Rd
