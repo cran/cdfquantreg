@@ -13,7 +13,6 @@ Quantile Regression for Random Variables on the Unit Interval
 \tabular{ll}{
 Package: \tab cdfquantreg\cr
 Type: \tab Package\cr
-Version: \tab 1.3.2\cr
 Date: \tab 2022-05-19\cr
 License: \tab GPL-3\cr
 }
